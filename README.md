@@ -10,6 +10,7 @@
 Se usan las siguientes tecnologias:
 - React v18.3.3
 - Typescript v5.2.2
+- Material UI v5.16.6
 
 ## Scripts para ejecutar
 
