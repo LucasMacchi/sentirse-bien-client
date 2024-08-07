@@ -36,17 +36,17 @@ Compila y ejecuta una pagina estatica.
 # Proyecto Hecho por Lucas Macchi
 
 Linkedin: https://www.linkedin.com/in/lucas-macchi-a02956233/
-Email: Lucasmacchi25@gmail.com
+Email: lucasbenjaminmacchi@gmail.com
 Github: https://github.com/LucasMacchi
 
 # Proyecto Hecho por Paulina Daciuk
 
 Linkedin: https://www.linkedin.com/in/paulina-daciuk-846a51291/
-Email: n7mmcd5gqt@privaterelay.appleid.com
+Email: paudaciuk@gmail.com
 Github: https://github.com/paulinadaciuk03
 
 # Proyecto Hecho por Galo Tahiel Guini
 
 Linkedin: https://www.linkedin.com/in/galoguini/
-Email: guinigalo@gmail.com
+Email: galtahgui.ni@gmail.com
 Github: https://github.com/galoguini
