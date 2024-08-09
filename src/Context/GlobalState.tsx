@@ -3,11 +3,10 @@ import {createContext} from "react"
 import { IAction, IGlobalContext, IPropsChildren, IUser } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json"
 import actions from "./Actions";
-import * as dotenv from 'dotenv';
-dotenv.config();
+
 
 const GlobalContext = createContext<IGlobalContext | null>(null)
-const use_mock = process.env.USE_MOCK
+const use_mock = import.meta.env.VITE_USE_MOCK
 
 //Reducer
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
