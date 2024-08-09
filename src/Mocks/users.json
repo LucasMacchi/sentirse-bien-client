@@ -1,0 +1,13 @@
+{
+    "users":[
+        {
+            "nombre": "Lucas",
+            "apellido": "Macchi",
+            "dni": 43266083,
+            "adulto": true,
+            "mail": "lucasmacchi25@gmail.com",
+            "telefono": 3794010009,
+            "personal": false
+        }
+    ]
+}

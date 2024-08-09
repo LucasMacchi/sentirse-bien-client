@@ -1,0 +1,2 @@
+SERVER_URL = la url del servidor
+USE_MOCK = 1 para si o 2 para no
