@@ -1,12 +1,16 @@
 import './App.css'
+import { Body } from './Componentes/Body/Body';
+import ResponsiveAppBar from './Componentes/Header/ResponsiveAppBar';
+
 
 function App() {
-
   return (
-    <div>
-
-    </div>
-  )
+    <>
+      <ResponsiveAppBar></ResponsiveAppBar>
+      <Body></Body>
+    </>
+  );
 }
 
-export default App
+export default App;
+
