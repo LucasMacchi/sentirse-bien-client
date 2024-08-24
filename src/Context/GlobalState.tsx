@@ -5,7 +5,7 @@ import usersMock from "../Mocks/users.json"
 import actions from "./Actions";
 
 
-const GlobalContext = createContext<IGlobalContext | null>(null)
+export const GlobalContext = createContext<IGlobalContext | null>(null)
 const use_mock = import.meta.env.VITE_USE_MOCK
 
 //Reducer
@@ -14,6 +14,8 @@ const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext =
     switch(type){
         case actions.GET_USER_INFO:
             return {...state, user: payload};
+        case actions.CHANGE_MENU_LOGIN:
+            return {...state, Mlogin: payload}
         default:
             return state;
     };
@@ -27,11 +29,19 @@ export default function GlobalState(props: IPropsChildren){
     const getUserInfo = (): IUser => {
         if(use_mock === "1"){
             const userToMock = usersMock.users[0]
-            return {nombre: userToMock.nombre, apellido: userToMock.apellido, mail: userToMock.mail}
+            return {nombre: userToMock.nombre, apellido: userToMock.apellido, mail: userToMock.mail, rol: userToMock.rol}
         }
         else{
-            return {nombre: "", apellido: "", mail: ""}
+            return {nombre: "", apellido: "", mail: "", rol: 0}
         }
+    }
+
+    //Funcion abre o cierra login
+    const changeMenuLogin = (payload: boolean) => {
+        dispatch({
+            type: actions.CHANGE_MENU_LOGIN,
+            payload: payload
+        })
     }
 
 
@@ -40,7 +50,9 @@ export default function GlobalState(props: IPropsChildren){
 
     //Estado Inicial
     const initialState: IGlobalContext = {
-        user: {nombre: "", apellido: "", mail: ""},
+        user: {nombre: "", apellido: "", mail: "", rol: 0},
+        Mlogin: false,
+        changeMenuLogin,
         getUserInfo
     };
 

@@ -1,6 +1,7 @@
 export interface IUser {
     nombre: string,
     apellido: string,
+    rol: number, //0 --> visitante | 1 --> usuario | 2 --> staff 
     mail: string
 };
 
@@ -15,7 +16,8 @@ export interface IAction {
 
 export interface IGlobalContext {
     user: IUser,
+    Mlogin: boolean,
 
-
-    getUserInfo: () => IUser
+    changeMenuLogin: (payload: boolean) => void,
+    getUserInfo: () => IUser,
 };
