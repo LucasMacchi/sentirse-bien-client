@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import LoginIcon from '@mui/icons-material/Login';
-import { useContext, useState } from 'react';
+import { FormEvent, ReactEventHandler, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 
 export default function Login () {
@@ -21,12 +21,26 @@ export default function Login () {
         password: ""
     });
 
+    const [btn, setbtn] = useState(false)
+
     const closeBtn = () => {
         global?.changeMenuLogin(!global.Mlogin)
     }
 
-    const login = () => {
-        console.log(userLogin)
+    const login = async (event: FormEvent) => {
+        setbtn(true)
+        event.preventDefault()
+        const access = await global?.login(userLogin.email, userLogin.password)
+        if(access){
+            global?.alertStatus(true, "success", "Ingresaste correctamente")
+            setTimeout(() => {
+                window.location.reload()
+            }, 5000);
+        }
+        else {
+            global?.alertStatus(true, "error", "Error al ingresar")
+            setbtn(false)
+        }  
     }
 
     //Va añadiendo los datos al estado de userlogin
@@ -46,7 +60,7 @@ export default function Login () {
                         <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
                     </Box>
                     <Divider/>
-                    <Box width={280} component="form" onSubmit={() => login()} autoComplete='off'>
+                    <Box width={280} component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
                         <Typography variant='h6'>Ingresar</Typography>
                         <Box padding={1}>
                             <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required/>
@@ -55,7 +69,7 @@ export default function Login () {
                             <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userLogin.password} onChange={(e) => handleUser("password", e.target.value)} required/>
                         </Box>
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
-                            <Button size="small" color='secondary' variant="contained" type="submit" startIcon={<LoginIcon/>}>
+                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<LoginIcon/>}>
                                 <Typography sx={{marginLeft: "20px"}} variant='body2'>INGRESAR</Typography> 
                             </Button>
                         </Box>
