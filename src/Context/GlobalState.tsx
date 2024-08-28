@@ -24,7 +24,7 @@ const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext =
             return {...state, Mlogin: payload}
         default:
             return state;
-    };
+    }
 };
 
 //Estado Global
@@ -124,4 +124,4 @@ export default function GlobalState(props: IPropsChildren){
             {props.children}
         </GlobalContext.Provider>
     );
-};
+}
