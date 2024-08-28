@@ -78,24 +78,27 @@ p {
     text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none;
 }
 
 .agenda-btn:hover {
-    background-color: #7a9a5e;
+    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
     transform: scale(1.05);
+    color: black;
 }
 
 /* Styles for "Conocenos" section */
-.body-bg-conocenos {
+.section-bg {
     background-color: #263F28;
     height: auto;
     padding: 5rem 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.conocenos {
+.container-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -109,7 +112,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Poppins', sans-serif;
     color: #F8CCC3;
     text-align: center;
 }
@@ -117,6 +120,9 @@ p {
 .conocenos-left h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+
+    
 }
 
 .conocenos-left p {
@@ -151,6 +157,82 @@ p {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
+.nuestros-servicios{
+    background: rgb(245,208,124);
+    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
+}
+
+.nuestros-servicios h1{
+    font-size: 3rem;
+    color: #263F28;
+    font-family: 'Playfair Display', serif;
+}
+
+.servicios-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.servicio-img{
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.servicios-card{
+    transition: 0.4s ease-in-out;
+}
+
+.servicios-card:hover{
+    transform: scale(1.06);
+}
+
+.servicios-card h1{
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.servicios-card p{
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 250px;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.vermas-btn{
+    padding: 20px;
+    background-color: transparent;
+    border: 1px solid #263F28;
+    font-size: 20px;
+    color: #263F28;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.vermas-btn:hover{
+    background-color: #263F28;
+    color: white;
+    transform: scale(1.05);
+}
+
+.gallery{
+    background-color:#263F28;
+    flex-direction: row;
+    color: #F8CCC3;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Playfair Display', serif;
+}
+
 /* Responsive styles */
 @media (max-width: 1024px) {
     .container {
@@ -164,6 +246,11 @@ p {
     .img-2{
         margin-left: 0;
         margin-bottom: 30px;
+    }
+
+    .servicios-grid{
+        max-width: 1000px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 }
 
@@ -184,7 +271,7 @@ p {
         font-size: 0.875rem;
     }
 
-    .conocenos {
+    .container-body {
         padding: 1rem;
         grid-template-columns: 1fr;
     }
@@ -209,6 +296,12 @@ p {
         margin-left: 0;
         margin-bottom: 30px;
     }
+
+    .servicios-grid{
+        max-width: 500px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
 }
 
 @media (max-width: 459px) {
@@ -239,5 +332,10 @@ p {
     .img-2{
         margin-left: 0;
         margin-bottom: 30px;
+    }
+
+    .servicios-grid{
+        max-width: 400px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 }
