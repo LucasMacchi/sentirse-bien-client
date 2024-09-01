@@ -166,7 +166,7 @@ export default function GlobalState(props: IPropsChildren){
         user: {nombre: "", apellido: "", email: "", rol: 2},
         alert: {status: false, type: "info", msg: ""},
         Mlogin: false,
-        MRegister: true,
+        MRegister: false,
         isLog: false,
         changeMenuLogin,
         changeMenuRegister,
