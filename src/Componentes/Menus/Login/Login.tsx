@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import LoginIcon from '@mui/icons-material/Login';
-import { FormEvent, ReactEventHandler, useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 
 export default function Login () {

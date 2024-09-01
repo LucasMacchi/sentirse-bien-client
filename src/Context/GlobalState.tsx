@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import {createContext} from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import actions from "./Actions";
@@ -14,6 +14,8 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const {payload, type} = action
     switch(type){
+        case actions.CHANGE_MENU_REGISTER:
+            return {...state, MRegister: payload}
         case actions.ALERTSTATUS_CHANGE:
             return {...state, alert: payload}
         case actions.LOGSTATUS_CHANGE:
@@ -32,10 +34,13 @@ export default function GlobalState(props: IPropsChildren){
 
     //Funciones
     //Funcion que trae toda la informacion el usuario para mostrar
-    const getUserInfo = async () => {
+    const getUserInfo = async (session?: boolean) => {
         if(use_mock === "1"){
             const userToMock = usersMock.users[0]
-            return {nombre: userToMock.nombre, apellido: userToMock.apellido, mail: userToMock.mail, rol: userToMock.rol}
+            dispatch({
+                payload: userToMock,
+                type: actions.GET_USER_INFO
+            })
         }
         else{
             const user: IUser = await (await axios.get(server_url+'/user/'+localStorage.getItem('jwToken'))).data
@@ -44,6 +49,12 @@ export default function GlobalState(props: IPropsChildren){
                     payload: user,
                     type: actions.GET_USER_INFO
                 })
+                if(session){
+                    dispatch({
+                        type: actions.LOGSTATUS_CHANGE,
+                        payload: true
+                    })
+                }
             }
         }
     }
@@ -100,19 +111,70 @@ export default function GlobalState(props: IPropsChildren){
         })
     }
 
-    //
+    //Abre o cierra el registro
+    const changeMenuRegister = (payload: boolean) => {
+        dispatch({
+            type: actions.CHANGE_MENU_REGISTER,
+            payload: payload
+        })
+    }
+    //Registra el usuario
+    const register = async (user: IUserToResgister): Promise<boolean> => {
+        if(use_mock === "1"){
+            const userlog: IUser = {
+                nombre: user.name,
+                apellido: user.surname,
+                rol: 1,
+                email: user.email
+            }
+            dispatch({
+                type: actions.LOGSTATUS_CHANGE,
+                payload: true,
+            })
+            dispatch({
+                type: actions.GET_USER_INFO,
+                payload: userlog
+            })
+            return true
+        }
+        else{
+            user.adult = true
+            const access: boolean = await (await axios.post(server_url+'/user/register', user)).data
+            if(access) return true
+            else return false
 
+        }
+    }
 
+    //Session
+    const session = async () => {
+        try {
+            const tkn = localStorage.getItem('jwToken')
+            if(tkn){
+                await getUserInfo()
+            }
+            else{
+                console.log("No session found")
+            }
+        } catch (error) {
+            console.log("ERROR: ",error)
+            localStorage.removeItem('jwToken')
+        }
+    }
     //Estado Inicial
     const initialState: IGlobalContext = {
-        user: {nombre: "", apellido: "", mail: "", rol: 2},
+        user: {nombre: "", apellido: "", email: "", rol: 2},
         alert: {status: false, type: "info", msg: ""},
         Mlogin: false,
+        MRegister: true,
         isLog: false,
         changeMenuLogin,
+        changeMenuRegister,
         getUserInfo,
         login,
         logout,
+        register,
+        session,
         alertStatus
     };
 
