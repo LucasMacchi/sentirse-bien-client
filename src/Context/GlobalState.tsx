@@ -9,6 +9,7 @@ import axios from "axios";
 export const GlobalContext = createContext<IGlobalContext | null>(null)
 const use_mock = import.meta.env.VITE_USE_MOCK
 const server_url = import.meta.env.VITE_SERVER_URL
+const cod_reg = import.meta.env.VITE_REGISTRO
 
 //Reducer
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
@@ -69,7 +70,7 @@ export default function GlobalState(props: IPropsChildren){
     //Funcion para hacer login
     const login = async (email: string, password: string): Promise<boolean> => {
         if(use_mock === "1"){
-            if(email === "lucasmacchi25@gmail.com" && password === "123456"){
+            if(email === "lu@g.c" && password === "1"){
                 localStorage.setItem('jwToken', token.token);
                 dispatch({
                     payload: true,
@@ -139,10 +140,12 @@ export default function GlobalState(props: IPropsChildren){
         }
         else{
             user.adult = true
-            const access: boolean = await (await axios.post(server_url+'/user/register', user)).data
-            if(access) return true
+            if(user.codigo === cod_reg) {
+                const access: boolean = await (await axios.post(server_url+'/user/register', user)).data
+                if(access) return true
+                else return false
+            }
             else return false
-
         }
     }
 
@@ -151,7 +154,7 @@ export default function GlobalState(props: IPropsChildren){
         try {
             const tkn = localStorage.getItem('jwToken')
             if(tkn){
-                await getUserInfo()
+                await getUserInfo(true)
             }
             else{
                 console.log("No session found")

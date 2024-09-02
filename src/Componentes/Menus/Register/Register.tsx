@@ -24,6 +24,7 @@ export default function Register () {
         surname: "",
         password: "",
         password_con: "",
+        cuil: "",
         phone: "",
         codigo: ""
     });
@@ -103,13 +104,16 @@ export default function Register () {
                             <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.phone} onChange={(e) => handleUser("phone", e.target.value)} required/>
                         </Box>
                         <Box padding={1}>
+                            <TextField fullWidth type="number" id='cuil' size="small" label="Cuil" value={userToRegister.cuil} onChange={(e) => handleUser("cuil", e.target.value)} required/>
+                        </Box>
+                        <Box padding={1}>
                             <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userToRegister.password} onChange={(e) => handleUser("password", e.target.value)} required/>
                         </Box>
                         <Box padding={1}>
                             <TextField fullWidth type='password' id='password_con' size="small" label="Confirmar Contraseña" error={password_err_con.status} helperText={password_err_con.error} value={userToRegister.password_con} onChange={(e) => handleUser("password_con", e.target.value)} required/>
                         </Box>
                         <Box padding={1}>
-                            <TextField fullWidth type="text" id='cod' size="small" label="Codigo de Registracion" value={userToRegister.codigo} onChange={(e) => handleUser("codigo", e.target.value)} required/>
+                            <TextField fullWidth type="text" id='cod' size="small" label="Codigo de Registro" value={userToRegister.codigo} onChange={(e) => handleUser("codigo", e.target.value)} required/>
                         </Box>
                         <Box padding={1}>
                             <FormControlLabel control={<Checkbox/>} required label={"¿Eres mayor de edad?"}/>

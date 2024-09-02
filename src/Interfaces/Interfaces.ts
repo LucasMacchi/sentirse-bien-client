@@ -11,6 +11,7 @@ export interface IUserToResgister {
     email: string,
     password: string,
     phone: string,
+    cuil: string,
     adult?: boolean,
     codigo: string
 }
