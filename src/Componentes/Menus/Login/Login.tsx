@@ -9,7 +9,6 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import LoginIcon from '@mui/icons-material/Login';
-import Link from '@mui/material/Link';
 import { FormEvent, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 
@@ -65,7 +64,7 @@ export default function Login () {
                         <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
                     </Box>
                     <Divider/>
-                    <Box width={280} component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
+                    <Box component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
                         <Typography variant='h6'>Ingresar</Typography>
                         <Box padding={1}>
                             <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required/>

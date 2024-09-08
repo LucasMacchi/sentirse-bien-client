@@ -83,13 +83,13 @@ export default function Register () {
     return(
         <Backdrop open={global ? global.MRegister : false } sx={{zIndex: 10}}>
             <Paper>
-                <Box width={320} padding={1}>
+                <Box width={520} padding={1}>
                     <Box display={"flex"} justifyContent={"space-between"}>
                         <img src={logo} width="40px"/>
                         <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
                     </Box>
                     <Divider/>
-                    <Box width={280} component="form" onSubmit={(e: FormEvent) => register(e)} autoComplete='off'>
+                    <Box component="form" onSubmit={(e: FormEvent) => register(e)} autoComplete='off'>
                         <Typography variant='h6'>Unete a nuestra familia!</Typography>
                         <Box padding={1}>
                             <TextField fullWidth type="email" id='email' size="small" label="Email" value={userToRegister.email} onChange={(e) => handleUser("email", e.target.value)} required/>

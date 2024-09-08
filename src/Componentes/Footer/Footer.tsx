@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 import facebook from "../../assets/facebook.svg";
 import whatsapp from "../../assets/whatsapp.svg";
+import { GlobalContext } from "../../Context/GlobalState";
+import { useContext } from "react";
 
 export function Footer() {
+
+  const global = useContext(GlobalContext)
+  
   return (
     <>
       <footer>
@@ -37,16 +42,16 @@ export function Footer() {
           <h1 className="footer-title">Ayuda</h1>
           <hr style={{ width: "100%" }} />
           <br />
-          <Link to="/" className="footer-link ">
+          <Link to="" className="footer-link ">
             Dejanos tu comentario
           </Link>
-          <Link to="/" className="footer-link ">
+          <Link to="" onClick={() => global?.changeMenuConsult(true)} className="footer-link ">
             Consultas
           </Link>
           <Link to="/" className="footer-link ">
             Empleo
           </Link>
-          <Link to="/" className="footer-link ">
+          <Link to="" onClick={() => global?.changeMenuRegister(true)} className="footer-link ">
             Registrate
           </Link>
         </div>

@@ -1,8 +1,9 @@
 import { useReducer } from "react";
 import {createContext} from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
+import consults from "../Mocks/consults.json"
 import actions from "./Actions";
 import axios from "axios";
 
@@ -15,6 +16,10 @@ const cod_reg = import.meta.env.VITE_REGISTRO
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const {payload, type} = action
     switch(type){
+        case actions.GET_CONSULTS:
+            return {...state, consults: payload}
+        case actions.CHANGE_MENU_CONSULT:
+            return {...state, MConsult: payload}
         case actions.CHANGE_MENU_REGISTER:
             return {...state, MRegister: payload}
         case actions.ALERTSTATUS_CHANGE:
@@ -164,6 +169,81 @@ export default function GlobalState(props: IPropsChildren){
             localStorage.removeItem('jwToken')
         }
     }
+    //Abre o cierra el consultas
+    const changeMenuConsult = (payload: boolean) => {
+        dispatch({
+            type: actions.CHANGE_MENU_CONSULT,
+            payload: payload
+        })
+    }
+    //Crea consultas
+    const makeConsult = async (consult: string): Promise<boolean> => {
+        try {
+            if(state.isLog){
+                if(use_mock === "1"){
+                    return true
+                }
+                else{
+                    const token = localStorage.getItem('jwToken')
+                    axios.post(server_url+"/user/consult",consult, {headers:{Authorization: token}})
+                    console.log("CONSULTA HECHA")
+                    return true
+                }
+            }
+            else return false
+        } catch (error) {
+            console.log("ERROR: ",error)
+            return false
+        }
+    }
+    //trae consultas
+    const getConsult = async () => {
+        try {
+            if(state.isLog){
+                if(use_mock === "1") {
+                    dispatch({
+                        type: actions.GET_CONSULTS,
+                        payload: consults.consults
+                    })
+                }
+                else{
+                    const token = localStorage.getItem('jwToken')
+                    const consultas: IConsulta[] = await (await axios.get(server_url+"/consult",{headers:{Authorization: token}})).data
+                    console.log(consultas)
+                    dispatch({
+                        type: actions.GET_CONSULTS,
+                        payload: consultas
+                    })
+                }
+            }
+        } catch (error) {
+            console.log("Error: ",error)
+        }
+    }
+    //Responde consultas
+    const respondConsult = async (response: string, consult_id: string) => {
+        try {
+            if(use_mock === "1"){
+                state.consults.forEach(c => {
+                    if(c.id === consult_id) c.respuesta = response
+                });
+            }
+            else{
+                const token = localStorage.getItem('jwToken')
+                const data = {
+                    response: response,
+                    id: consult_id
+                }
+                axios.patch(server_url+"/consult/respond", data ,{headers:{Authorization: token}})
+                state.consults.forEach(c => {
+                    if(c.id === consult_id) c.respuesta = response
+                });
+            }
+        } catch (error) {
+            console.log("Error: ",error)
+        }
+    }
+
     //Estado Inicial
     const initialState: IGlobalContext = {
         user: {nombre: "", apellido: "", email: "", rol: 2},
@@ -171,14 +251,20 @@ export default function GlobalState(props: IPropsChildren){
         Mlogin: false,
         MRegister: false,
         isLog: false,
+        MConsult: false,
+        consults: [],
         changeMenuLogin,
         changeMenuRegister,
+        changeMenuConsult,
         getUserInfo,
         login,
         logout,
         register,
         session,
-        alertStatus
+        alertStatus,
+        makeConsult,
+        getConsult,
+        respondConsult
     };
 
     //uso del Reducer
