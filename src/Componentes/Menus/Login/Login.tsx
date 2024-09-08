@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import LoginIcon from '@mui/icons-material/Login';
-import { FormEvent, ReactEventHandler, useContext, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 
 export default function Login () {
@@ -50,6 +50,10 @@ export default function Login () {
             [prop]: payload
         });
     };
+    const registerSwitch = () => {
+        global?.changeMenuRegister(true)
+        global?.changeMenuLogin(false)
+    }
 
     return(
         <Backdrop open={global ? global.Mlogin : false } sx={{zIndex: 10}}>
@@ -60,7 +64,7 @@ export default function Login () {
                         <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
                     </Box>
                     <Divider/>
-                    <Box width={280} component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
+                    <Box component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
                         <Typography variant='h6'>Ingresar</Typography>
                         <Box padding={1}>
                             <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required/>
@@ -68,6 +72,7 @@ export default function Login () {
                         <Box padding={1}>
                             <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userLogin.password} onChange={(e) => handleUser("password", e.target.value)} required/>
                         </Box>
+                        <Typography variant='body2'>No tienes una cuenta? <span style={{textDecoration:"underline", cursor: "pointer"}} onClick={() => registerSwitch()}>Registrate!</span></Typography>
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
                             <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<LoginIcon/>}>
                                 <Typography sx={{marginLeft: "20px"}} variant='body2'>INGRESAR</Typography> 
