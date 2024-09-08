@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+/* Background for main section */
+.body-bg {
+    background-image: url(../../assets/body-bienvenidos.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Logo text styling */
+.logo-text {
+    font-size: 1.5rem;
+    color: #8BB479;
+    font-weight: 200;
+}
+
+/* Title styling */
+.container-title {
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    color: #8BB479;
+}
+
+.welcome-text {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-text-span {
+    font-style: italic;
+}
+
+/* Button styling */
+.agenda-btn {
+    margin-top: 2rem;
+    font-size: 1rem;
+    padding: 20px 40px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid #738D68;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    text-decoration: none;
+}
+
+.agenda-btn:hover {
+    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
+    transform: scale(1.05);
+    color: black;
+}
+
+/* Styles for "Conocenos" section */
+.section-bg {
+    background-color: #263F28;
+    height: auto;
+    padding: 5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.conocenos-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    color: #F8CCC3;
+    text-align: center;
+}
+
+.conocenos-left h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+
+    
+}
+
+.conocenos-left p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-top: 1rem;
+}
+
+.conocenos-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.conocenos-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-2{
+    margin-left: 200px;
+}
+
+.conocenos-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.nuestros-servicios{
+    background: rgb(245,208,124);
+    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
+}
+
+.nuestros-servicios h1{
+    font-size: 3rem;
+    color: #263F28;
+    font-family: 'Playfair Display', serif;
+}
+
+.servicios-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.servicio-img{
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.servicios-card{
+    transition: 0.4s ease-in-out;
+}
+
+.servicios-card:hover{
+    transform: scale(1.06);
+}
+
+.servicios-card h1{
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.servicios-card p{
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 250px;
+    margin-top: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.vermas-btn{
+    padding: 20px;
+    background-color: transparent;
+    border: 1px solid #263F28;
+    font-size: 20px;
+    color: #263F28;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.vermas-btn:hover{
+    background-color: #263F28;
+    color: white;
+    transform: scale(1.05);
+}
+
+.gallery{
+    background-color:#263F28;
+    flex-direction: row;
+    color: #F8CCC3;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .welcome-text {
+        font-size: 3.5rem;
+    }
+
+    .img-2{
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .servicios-grid{
+        max-width: 1000px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .body-bg{
+        height: 500px;
+    }
+    .container {
+        padding: 1rem;
+    }
+
+    .welcome-text {
+        font-size: 2.5rem;
+    }
+
+    .agenda-btn {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+
+    .container-body {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .conocenos-left h1 {
+        font-size: 1.75rem;
+    }
+
+    .conocenos-left p {
+        font-size: 0.9rem;
+    }
+
+    .conocenos-right{
+        flex-direction: row;
+    }
+
+    .conocenos-img {
+        max-width: 300px;
+    }
+
+    .img-2{
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .servicios-grid{
+        max-width: 500px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+}
+
+@media (max-width: 459px) {
+    .body-bg{
+        height: 500px;
+    }
+    .container {
+        padding: 0.5rem;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+    }
+
+    .agenda-btn {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+
+    .conocenos-right{
+        flex-direction: row;
+    }
+
+    .conocenos-img {
+        max-width: 150px;
+    }
+
+    .img-2{
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
+
+    .servicios-grid{
+        max-width: 400px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}

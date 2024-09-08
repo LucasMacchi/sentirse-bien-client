@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+# ¿Que es este proyecto?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+--Descripcion--.
 
-Currently, two official plugins are available:
+## Caracteristicas del Proyecto
+- Caracteristicas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ¿Que Tecnologias usa?
 
-## Expanding the ESLint configuration
+Se usan las siguientes tecnologias:
+- React v18.3.3
+- Typescript v5.2.2
+- Material UI v5.16.6
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Scripts para ejecutar
 
-- Configure the top-level `parserOptions` property like this:
+En la carpeta del projecto, deberas ejecutar los siguientes scripts:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+    1. npm install
+    2. npm run build
+    3. npm run dev
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### `npm install`
+
+Instala todas las dependencias para el proyecto.
+
+### `npm run dev`
+
+Ejecuta el proyecto.
+
+### `npm run build`
+
+Compila y ejecuta una pagina estatica.
+
+
+# Proyecto Hecho por Lucas Macchi
+
+Linkedin: https://www.linkedin.com/in/lucas-macchi-a02956233/
+Email: lucasbenjaminmacchi@gmail.com
+Github: https://github.com/LucasMacchi
+
+# Proyecto Hecho por Paulina Daciuk
+
+Linkedin: https://www.linkedin.com/in/paulina-daciuk-846a51291/
+Email: paudaciuk@gmail.com
+Github: https://github.com/paulinadaciuk03
+
+# Proyecto Hecho por Galo Tahiel Guini
+
+Linkedin: https://www.linkedin.com/in/galoguini/
+Email: galtahgui.ni@gmail.com
+Github: https://github.com/galoguini

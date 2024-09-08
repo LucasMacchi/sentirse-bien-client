@@ -1,0 +1,3 @@
+VITE_SERVER_URL = la url del servidor
+VITE_USE_MOCK = 1 para si o 2 para no
+VITE_REGISTRO = codigo de registro

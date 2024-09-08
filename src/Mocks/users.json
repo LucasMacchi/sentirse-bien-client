@@ -1,0 +1,12 @@
+{
+    "users":[
+        {
+            "nombre": "Lucas",
+            "apellido": "Macchi",
+            "cuil": 43266083,
+            "rol": 2,
+            "email": "lucasmacchi25@gmail.com",
+            "telefono": 3794010009
+        }
+    ]
+}
