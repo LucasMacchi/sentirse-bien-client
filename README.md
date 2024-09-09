@@ -1,6 +1,7 @@
 # ¿Que es este proyecto?
 
 --Descripcion--.
+Galo
 
 ## Caracteristicas del Proyecto
 - Caracteristicas
