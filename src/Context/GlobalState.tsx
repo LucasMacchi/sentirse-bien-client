@@ -1,9 +1,10 @@
 import { useReducer } from "react";
-import {createContext} from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta } from "../Interfaces/Interfaces";
+import { createContext } from "react";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
+import reviews from "../Mocks/reviews.json";
 import actions from "./Actions";
 import axios from "axios";
 
@@ -14,48 +15,50 @@ const cod_reg = import.meta.env.VITE_REGISTRO
 
 //Reducer
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
-    const {payload, type} = action
-    switch(type){
+    const { payload, type } = action
+    switch (type) {
+        case actions.CHANGE_MENU_REVIEW:
+            return { ...state, MReview: payload }
         case actions.GET_CONSULTS:
-            return {...state, consults: payload}
+            return { ...state, consults: payload }
         case actions.CHANGE_MENU_CONSULT:
-            return {...state, MConsult: payload}
+            return { ...state, MConsult: payload }
         case actions.CHANGE_MENU_REGISTER:
-            return {...state, MRegister: payload}
+            return { ...state, MRegister: payload }
         case actions.ALERTSTATUS_CHANGE:
-            return {...state, alert: payload}
+            return { ...state, alert: payload }
         case actions.LOGSTATUS_CHANGE:
-            return {...state, isLog: payload}
+            return { ...state, isLog: payload }
         case actions.GET_USER_INFO:
-            return {...state, user: payload};
+            return { ...state, user: payload };
         case actions.CHANGE_MENU_LOGIN:
-            return {...state, Mlogin: payload}
+            return { ...state, Mlogin: payload }
         default:
             return state;
     }
 };
 
 //Estado Global
-export default function GlobalState(props: IPropsChildren){
+export default function GlobalState(props: IPropsChildren) {
 
     //Funciones
     //Funcion que trae toda la informacion el usuario para mostrar
     const getUserInfo = async (session?: boolean) => {
-        if(use_mock === "1"){
+        if (use_mock === "1") {
             const userToMock = usersMock.users[0]
             dispatch({
                 payload: userToMock,
                 type: actions.GET_USER_INFO
             })
         }
-        else{
-            const user: IUser = await (await axios.get(server_url+'/user/'+localStorage.getItem('jwToken'))).data
-            if(user){
+        else {
+            const user: IUser = await (await axios.get(server_url + '/user/' + localStorage.getItem('jwToken'))).data
+            if (user) {
                 dispatch({
                     payload: user,
                     type: actions.GET_USER_INFO
                 })
-                if(session){
+                if (session) {
                     dispatch({
                         type: actions.LOGSTATUS_CHANGE,
                         payload: true
@@ -74,8 +77,8 @@ export default function GlobalState(props: IPropsChildren){
     }
     //Funcion para hacer login
     const login = async (email: string, password: string): Promise<boolean> => {
-        if(use_mock === "1"){
-            if(email === "lu@g.c" && password === "1"){
+        if (use_mock === "1") {
+            if (email === "lu@g.c" && password === "1") {
                 localStorage.setItem('jwToken', token.token);
                 dispatch({
                     payload: true,
@@ -85,9 +88,9 @@ export default function GlobalState(props: IPropsChildren){
             }
             else return false
         }
-        else{
-            const access: IToken = await (await axios.post(server_url+'/user/login', {email, password})).data
-            if(access.token){
+        else {
+            const access: IToken = await (await axios.post(server_url + '/usuarios/login', { email, password })).data
+            if (access.token) {
                 localStorage.setItem('jwToken', access.token);
                 return true
             }
@@ -102,15 +105,22 @@ export default function GlobalState(props: IPropsChildren){
             type: actions.LOGSTATUS_CHANGE
         })
         dispatch({
-            payload: {nombre: "", apellido: "", mail: "", rol: 2},
+            payload: { nombre: "", apellido: "", mail: "", rol: 2 },
             type: actions.GET_USER_INFO
         })
-        localStorage.removeItem('jwToken')
+        try {
+            axios.get(server_url + "/usuarios/logout", { headers: { Authorization: localStorage.getItem('jwToken') } })
+            localStorage.removeItem('jwToken')
+        } catch (error) {
+            console.log(error)
+            localStorage.removeItem('jwToken')
+        }
+
     }
 
     //define las alertas
     const alertStatus = (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => {
-        const alerta: IAlert = {status, type, msg}
+        const alerta: IAlert = { status, type, msg }
         dispatch({
             type: actions.ALERTSTATUS_CHANGE,
             payload: alerta
@@ -126,7 +136,7 @@ export default function GlobalState(props: IPropsChildren){
     }
     //Registra el usuario
     const register = async (user: IUserToResgister): Promise<boolean> => {
-        if(use_mock === "1"){
+        if (use_mock === "1") {
             const userlog: IUser = {
                 nombre: user.name,
                 apellido: user.surname,
@@ -143,11 +153,11 @@ export default function GlobalState(props: IPropsChildren){
             })
             return true
         }
-        else{
+        else {
             user.adult = true
-            if(user.codigo === cod_reg) {
-                const access: boolean = await (await axios.post(server_url+'/user/register', user)).data
-                if(access) return true
+            if (user.codigo === cod_reg) {
+                const access: boolean = await (await axios.post(server_url + '/usuarios/registro', user)).data
+                if (access) return true
                 else return false
             }
             else return false
@@ -158,14 +168,14 @@ export default function GlobalState(props: IPropsChildren){
     const session = async () => {
         try {
             const tkn = localStorage.getItem('jwToken')
-            if(tkn){
+            if (tkn) {
                 await getUserInfo(true)
             }
-            else{
+            else {
                 console.log("No session found")
             }
         } catch (error) {
-            console.log("ERROR: ",error)
+            console.log("ERROR: ", error)
             localStorage.removeItem('jwToken')
         }
     }
@@ -179,36 +189,36 @@ export default function GlobalState(props: IPropsChildren){
     //Crea consultas
     const makeConsult = async (consult: string): Promise<boolean> => {
         try {
-            if(state.isLog){
-                if(use_mock === "1"){
+            if (state.isLog) {
+                if (use_mock === "1") {
                     return true
                 }
-                else{
+                else {
                     const token = localStorage.getItem('jwToken')
-                    axios.post(server_url+"/user/consult",consult, {headers:{Authorization: token}})
+                    axios.post(server_url + "/user/consult", consult, { headers: { Authorization: token } })
                     console.log("CONSULTA HECHA")
                     return true
                 }
             }
             else return false
         } catch (error) {
-            console.log("ERROR: ",error)
+            console.log("ERROR: ", error)
             return false
         }
     }
     //trae consultas
     const getConsult = async () => {
         try {
-            if(state.isLog){
-                if(use_mock === "1") {
+            if (state.isLog) {
+                if (use_mock === "1") {
                     dispatch({
                         type: actions.GET_CONSULTS,
                         payload: consults.consults
                     })
                 }
-                else{
+                else {
                     const token = localStorage.getItem('jwToken')
-                    const consultas: IConsulta[] = await (await axios.get(server_url+"/consult",{headers:{Authorization: token}})).data
+                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consult", { headers: { Authorization: token } })).data
                     console.log(consultas)
                     dispatch({
                         type: actions.GET_CONSULTS,
@@ -217,45 +227,96 @@ export default function GlobalState(props: IPropsChildren){
                 }
             }
         } catch (error) {
-            console.log("Error: ",error)
+            console.log("Error: ", error)
         }
     }
     //Responde consultas
     const respondConsult = async (response: string, consult_id: string) => {
         try {
-            if(use_mock === "1"){
+            if (use_mock === "1") {
                 state.consults.forEach(c => {
-                    if(c.id === consult_id) c.respuesta = response
+                    if (c.id === consult_id) c.respuesta = response
                 });
             }
-            else{
+            else {
                 const token = localStorage.getItem('jwToken')
                 const data = {
                     response: response,
                     id: consult_id
                 }
-                axios.patch(server_url+"/consult/respond", data ,{headers:{Authorization: token}})
+                axios.patch(server_url + "/consult/respond", data, { headers: { Authorization: token } })
                 state.consults.forEach(c => {
-                    if(c.id === consult_id) c.respuesta = response
+                    if (c.id === consult_id) c.respuesta = response
                 });
             }
         } catch (error) {
-            console.log("Error: ",error)
+            console.log("Error: ", error)
+        }
+    }
+
+    const changeMenuReview = (payload: boolean) => {
+        dispatch({
+            type: actions.CHANGE_MENU_REVIEW,
+            payload: payload
+        })
+    }
+
+    const makeReview = async (comment: string, rating: number): Promise<boolean> => {
+        try {
+            const review = {
+                comment,
+                rating
+            }
+            if (use_mock === "1") {
+                return true
+            }
+            else {
+                await axios.post(server_url + "/review", review)
+                return true
+            }
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+
+    const getReviews = async () => {
+        try {
+            if (use_mock === "1") {
+                const reviewsAll: IReview[] = reviews.reviews
+                dispatch({
+                    type: actions.GET_REVIEWS,
+                    payload: reviewsAll
+                })
+            }
+            else {
+                const reviews = await (await axios.get(server_url + "/reviews")).data
+                dispatch({
+                    type: actions.GET_REVIEWS,
+                    payload: reviews
+                })
+            }
+        } catch (error) {
+            console.log(error)
+            return []
         }
     }
 
     //Estado Inicial
     const initialState: IGlobalContext = {
-        user: {nombre: "", apellido: "", email: "", rol: 2},
-        alert: {status: false, type: "info", msg: ""},
+        user: { nombre: "", apellido: "", email: "", rol: 2 },
+        alert: { status: false, type: "info", msg: "" },
         Mlogin: false,
         MRegister: false,
         isLog: false,
         MConsult: false,
+        MReview: true,
+        reviews: [],
         consults: [],
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
+        changeMenuReview,
         getUserInfo,
         login,
         logout,
@@ -264,13 +325,15 @@ export default function GlobalState(props: IPropsChildren){
         alertStatus,
         makeConsult,
         getConsult,
-        respondConsult
+        respondConsult,
+        makeReview,
+        getReviews
     };
 
     //uso del Reducer
     const [state, dispatch] = useReducer(globalReducer, initialState);
 
-    return(
+    return (
         <GlobalContext.Provider value={state}>
             {props.children}
         </GlobalContext.Provider>

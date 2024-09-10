@@ -38,7 +38,7 @@ export default function Consult () {
             setbtn(false)
         }
     }
-    
+
     return(
         <Backdrop open={global ? global.MConsult : false } sx={{zIndex: 10}}>
             <Paper>
