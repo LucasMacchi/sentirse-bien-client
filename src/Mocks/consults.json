@@ -1,0 +1,34 @@
+{
+    "consults": [
+        {
+            "id": "d1453",
+            "descripcion": "Consutla 1",
+            "respuesta": "",
+            "cerrado": false
+        },
+        {
+            "id": "d435",
+            "descripcion": "Consutla 2",
+            "respuesta": "",
+            "cerrado": false
+        },
+        {
+            "id": "d222",
+            "descripcion": "Consutla 3",
+            "respuesta": "Respondida",
+            "cerrado": true
+        },
+        {
+            "id": "d134",
+            "descripcion": "Consutla 4",
+            "respuesta": "",
+            "cerrado": false
+        },
+        {
+            "id": "d32",
+            "descripcion": "Consutla 5",
+            "respuesta": "Respondida",
+            "cerrado": true
+        }
+    ]
+}

@@ -107,8 +107,8 @@ export function Body() {
         <div className="imagelist">
           <h1>Galería</h1>
           <ImageList sx={{ width: 600, height: 450 }} cols={3} rowHeight={200}>
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
+            {itemData.map((item, i) => (
+              <ImageListItem key={i}>
                 <img
                   srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   src={`${item.img}?w=164&h=164&fit=crop&auto=format`}

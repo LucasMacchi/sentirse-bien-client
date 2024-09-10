@@ -1,8 +1,14 @@
 import "./Header.css"
 import logo from "../../assets/logo.png"
 import { Link } from "react-router-dom"
+import {useContext } from 'react';
+import { GlobalContext } from "../../Context/GlobalState";
 
 export function Header(){
+    const global = useContext(GlobalContext)
+    const openLog = () => {
+        global?.changeMenuLogin(true)
+    }
     return(
         <>
             <header>
@@ -16,7 +22,7 @@ export function Header(){
                         <Link to='/contact' className="navbar-links">Contacto</Link>
                         <Link to='/services' className="navbar-links">Servicios</Link>
                         <Link to='/' className="navbar-links">Empleo</Link>
-                        <Link to='/' className="navbar-links">Log In</Link>
+                        <Link to='/' className="navbar-links" onClick={() => openLog()}>Log In</Link>
                     </div>
                 </nav>
             </header>
