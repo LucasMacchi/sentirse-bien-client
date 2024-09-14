@@ -50,6 +50,12 @@ export default function GlobalState(props: IPropsChildren) {
                 payload: userToMock,
                 type: actions.GET_USER_INFO
             })
+            if (session) {
+                dispatch({
+                    type: actions.LOGSTATUS_CHANGE,
+                    payload: true
+                })
+            }
         }
         else {
             const user: IUser = await (await axios.get(server_url + '/user/' + localStorage.getItem('jwToken'))).data
@@ -310,7 +316,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRegister: false,
         isLog: false,
         MConsult: false,
-        MReview: true,
+        MReview: false,
         reviews: [],
         consults: [],
         changeMenuLogin,
