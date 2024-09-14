@@ -117,9 +117,11 @@ export default function GlobalState(props: IPropsChildren) {
         try {
             axios.get(server_url + "/usuarios/logout", { headers: { Authorization: localStorage.getItem('jwToken') } })
             localStorage.removeItem('jwToken')
+            window.location.reload()
         } catch (error) {
             console.log(error)
             localStorage.removeItem('jwToken')
+            window.location.reload()
         }
 
     }
