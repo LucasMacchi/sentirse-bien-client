@@ -1,0 +1,51 @@
+{
+    "reviews": [
+        {
+            "id" : "1",
+            "rating": 2,
+            "comment": "REVIEW 1"
+        },
+
+        {
+            "id" : "2",
+            "rating": 3,
+            "comment": "REVIEW 2"
+        },
+
+        {
+            "id" : "3",
+            "rating": 5,
+            "comment": "REVIEW 3"
+        },
+
+        {
+            "id" : "4",
+            "rating": 1,
+            "comment": "REVIEW 4"
+        },
+
+        {
+            "id" : "5",
+            "rating": 4,
+            "comment": "REVIEW 5"
+        },
+
+        {
+            "id" : "6",
+            "rating": 2,
+            "comment": "REVIEW 6"
+        },
+
+        {
+            "id" : "7",
+            "rating": 1,
+            "comment": "REVIEW 7"
+        },
+
+        {
+            "id" : "8",
+            "rating": 4,
+            "comment": "REVIEW 8"
+        }
+    ]
+}

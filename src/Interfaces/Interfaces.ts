@@ -14,32 +14,38 @@ export interface IUserToResgister {
     cuil: string,
     adult?: boolean,
     codigo: string
-}
+};
 
 export interface ITurno {
     servicio: string,
     fecha: string,
     hora: string,
     estado: boolean
-}
+};
+
+export interface IReview {
+    id: string,
+    rating: number,
+    comment: string
+};
 
 export interface IConsulta {
     id: string,
     descripcion: string,
     respuesta: string,
     cerrado: boolean
-}
+};
 
 
 export interface IToken {
     token: string
-}
+};
 
 export interface IAlert {
     status: boolean,
     type: "success" | "info" | "warning" | "error",
     msg: string
-}
+};
 
 export interface IPropsChildren {
     children: React.ReactNode | JSX.Element | JSX.Element[]
@@ -57,10 +63,13 @@ export interface IGlobalContext {
     isLog: boolean,
     MRegister: boolean,
     MConsult: boolean,
+    MReview: boolean,
     consults: IConsulta[],
+    reviews: IReview[],
     changeMenuLogin: (payload: boolean) => void,
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
+    changeMenuReview: (payload: boolean) => void,
     getUserInfo: () => void
     login: (email: string, password: string) => Promise<boolean>,
     logout: () => void,
@@ -68,6 +77,8 @@ export interface IGlobalContext {
     session: () => void,
     makeConsult: (consult: string) => Promise<boolean>,
     getConsult: () => void,
+    makeReview: (comment: string, rating: number) => Promise<boolean>,
+    getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
 };
