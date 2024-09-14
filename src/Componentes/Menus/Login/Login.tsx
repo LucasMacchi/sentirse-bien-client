@@ -12,7 +12,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { FormEvent, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 
-export default function Login () {
+export default function Login() {
 
     const global = useContext(GlobalContext)
 
@@ -20,6 +20,9 @@ export default function Login () {
         email: "",
         password: ""
     });
+
+    console.log(global?.isLog)
+    console.log(global?.user)
 
     const [btn, setbtn] = useState(false)
 
@@ -31,7 +34,7 @@ export default function Login () {
         setbtn(true)
         event.preventDefault()
         const access = await global?.login(userLogin.email, userLogin.password)
-        if(access){
+        if (access) {
             global?.alertStatus(true, "success", "Ingresaste correctamente")
             setTimeout(() => {
                 window.location.reload()
@@ -40,7 +43,7 @@ export default function Login () {
         else {
             global?.alertStatus(true, "error", "Error al ingresar")
             setbtn(false)
-        }  
+        }
     }
 
     //Va añadiendo los datos al estado de userlogin
@@ -55,27 +58,27 @@ export default function Login () {
         global?.changeMenuLogin(false)
     }
 
-    return(
-        <Backdrop open={global ? global.Mlogin : false } sx={{zIndex: 10}}>
+    return (
+        <Backdrop open={global ? global.Mlogin : false} sx={{ zIndex: 10 }}>
             <Paper>
                 <Box width={320} padding={1}>
                     <Box display={"flex"} justifyContent={"space-between"}>
-                        <img src={logo} width="40px"/>
-                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
+                        <img src={logo} width="40px" />
+                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary' /></IconButton>
                     </Box>
-                    <Divider/>
+                    <Divider />
                     <Box component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
                         <Typography variant='h6'>Ingresar</Typography>
                         <Box padding={1}>
-                            <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required/>
+                            <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required />
                         </Box>
                         <Box padding={1}>
-                            <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userLogin.password} onChange={(e) => handleUser("password", e.target.value)} required/>
+                            <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userLogin.password} onChange={(e) => handleUser("password", e.target.value)} required />
                         </Box>
-                        <Typography variant='body2'>No tienes una cuenta? <span style={{textDecoration:"underline", cursor: "pointer"}} onClick={() => registerSwitch()}>Registrate!</span></Typography>
+                        <Typography variant='body2'>No tienes una cuenta? <span style={{ textDecoration: "underline", cursor: "pointer" }} onClick={() => registerSwitch()}>Registrate!</span></Typography>
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
-                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<LoginIcon/>}>
-                                <Typography sx={{marginLeft: "20px"}} variant='body2'>INGRESAR</Typography> 
+                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<LoginIcon />}>
+                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>INGRESAR</Typography>
                             </Button>
                         </Box>
                     </Box>
