@@ -45,7 +45,12 @@ export function Footer() {
                     <Link to="" onClick={() => { global?.changeMenuReview(true) }} className="footer-link ">
                         Dejanos tu comentario
                     </Link>
-                    <Link to="" onClick={() => global?.changeMenuConsult(true)} className="footer-link ">
+                    <Link to="" onClick={() => {
+                        if (global?.isLog) {
+                            global?.changeMenuConsult(true)
+                        }
+                        else global?.changeMenuLogin(true)
+                    }} className="footer-link ">
                         Consultas
                     </Link>
                     <Link to="/" className="footer-link ">
