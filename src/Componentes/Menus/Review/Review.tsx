@@ -16,6 +16,7 @@ export default function Review() {
     const global = useContext(GlobalContext)
 
     const [review, setReview] = useState({
+        name: "",
         rating: 0,
         comment: ""
     })
@@ -29,7 +30,8 @@ export default function Review() {
     const postReview = async (event: FormEvent) => {
         setbtn(true)
         event.preventDefault()
-        const result = await global?.makeReview(review.comment, review.rating)
+        if (global?.isLog) setReview({ ...review, name: global.user.nombre + global.user.apellido })
+        const result = await global?.makeReview(review.comment, review.rating, review.name)
         if (result) {
             global?.alertStatus(true, "success", "Gracias por dejar tu reseña!")
             setTimeout(() => {
@@ -44,11 +46,15 @@ export default function Review() {
     }
 
     const handleReviewComment = (comment: string) => {
-        setReview({ rating: review.rating, comment: comment })
+        setReview({ rating: review.rating, comment: comment, name: review.name })
     }
     const handleReviewRating = (rating: number | null) => {
-        if (rating) setReview({ rating: rating, comment: review.comment })
+        if (rating) setReview({ rating: rating, comment: review.comment, name: review.name })
     }
+    const handleReviewName = (name: string) => {
+        setReview({ rating: review.rating, comment: review.comment, name: name })
+    }
+
 
     return (
         <Backdrop open={global ? global.MReview : false} sx={{ zIndex: 10 }}>
@@ -61,9 +67,12 @@ export default function Review() {
                     <Box component="form" onSubmit={(e: FormEvent) => postReview(e)} autoComplete='off'>
                         <Typography variant='h6'>Deja tu Reseña!</Typography>
                         <Divider />
+                        <Box padding={1} display={global?.isLog ? "none" : "block"}>
+                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={review.name} onChange={(e) => handleReviewName(e.target.value)} required />
+                        </Box>
                         <Typography paddingTop={1} variant='body1'>Escribe tu comentario</Typography>
                         <Box padding={1}>
-                            <TextField multiline rows={6} fullWidth type="text" id='email' size="small" value={review.comment} onChange={(e) => handleReviewComment(e.target.value)} required />
+                            <TextField multiline rows={6} fullWidth type="text" id='comment' size="small" value={review.comment} onChange={(e) => handleReviewComment(e.target.value)} required />
                         </Box>
                         <Typography variant='body1'>Calificanos!</Typography>
                         <Box padding={1}>

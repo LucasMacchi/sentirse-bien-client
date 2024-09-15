@@ -26,8 +26,8 @@ export default function Register() {
         surname: "",
         password: "",
         password_con: "",
-        cuil: "",
-        phone: "",
+        username: "",
+        telefono: "",
     });
     const [registerCode, setCode] = useState("")
 
@@ -107,10 +107,7 @@ export default function Register() {
                             <TextField fullWidth type="text" id='surname' size="small" label="Apellido" value={userToRegister.surname} onChange={(e) => handleUser("surname", e.target.value)} required />
                         </Box>
                         <Box padding={0.3}>
-                            <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.phone} onChange={(e) => handleUser("phone", e.target.value)} required />
-                        </Box>
-                        <Box padding={0.5}>
-                            <TextField fullWidth type="number" id='cuil' size="small" label="Cuil" value={userToRegister.cuil} onChange={(e) => handleUser("cuil", e.target.value)} required />
+                            <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.telefono} onChange={(e) => handleUser("telefono", e.target.value)} required />
                         </Box>
                         <Box padding={0.3}>
                             <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userToRegister.password} onChange={(e) => handleUser("password", e.target.value)} required />

@@ -19,23 +19,22 @@ export default function Consult() {
     global?.changeMenuConsult(!global.MConsult);
   };
 
-  const make_consult = async (event: FormEvent) => {
-    event.preventDefault();
-    setbtn(true);
-    const result = await global?.makeConsult(consult);
-    if (result) {
-      global?.alertStatus(true, "success", "Consulta hecha correctamente");
-      setTimeout(() => {
-        //window.location.reload()
-        console.log(global?.consults);
-      }, 5000);
-    } else {
-      global?.alertStatus(
-        true,
-        "error",
-        "Hubo un problema para realizar la consulta"
-      );
-      setbtn(false);
+    const make_consult = async (event: FormEvent) => {
+        event.preventDefault()
+        setbtn(true)
+        const result = await global?.makeConsult(consult)
+        if (result) {
+            global?.alertStatus(true, "success", "Consulta hecha correctamente")
+            setTimeout(() => {
+                window.location.reload()
+                //console.log(global?.consults)
+            }, 1500);
+
+        }
+        else {
+            global?.alertStatus(true, "error", "Hubo un problema para realizar la consulta")
+            setbtn(false)
+        }
     }
   };
 
