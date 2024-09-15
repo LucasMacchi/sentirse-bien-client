@@ -17,6 +17,10 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.CHANGE_MENU_RESPONSE:
+            return { ...state, MResponse: payload }
+        case actions.GET_ID_CONSULT:
+            return { ...state, idConsult: payload }
         case actions.GET_TURNS:
             return { ...state, turnosOcupados: payload }
         case actions.CHANGE_MENU_REVIEW:
@@ -203,7 +207,7 @@ export default function GlobalState(props: IPropsChildren) {
             }
             else {
                 const token = localStorage.getItem('jwToken')
-                axios.post(server_url + "/consultas/", consult, { headers: { Authorization: "Token " + token } })
+                axios.post(server_url + "/consultas/nueva_consulta/", consult, { headers: { Authorization: "Token " + token } })
                 console.log("CONSULTA HECHA")
                 return true
             }
@@ -225,7 +229,7 @@ export default function GlobalState(props: IPropsChildren) {
                 }
                 else {
                     const token = localStorage.getItem('jwToken')
-                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consultas/", { headers: { Authorization: "Token " + token } })).data
+                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consultas/mostrar_consultas/", { headers: { Authorization: "Token " + token } })).data
                     console.log(consultas)
                     dispatch({
                         type: actions.GET_CONSULTS,
@@ -241,9 +245,7 @@ export default function GlobalState(props: IPropsChildren) {
     const respondConsult = async (response: string, consult_id: string) => {
         try {
             if (use_mock === "1") {
-                state.consults.forEach(c => {
-                    if (c.id === consult_id) c.respuesta = response
-                });
+                console.log("Consulta ID " + consult_id + " respondida")
             }
             else {
                 const token = localStorage.getItem('jwToken')
@@ -251,11 +253,19 @@ export default function GlobalState(props: IPropsChildren) {
                     response: response,
                     id: consult_id
                 }
-                axios.patch(server_url + "/consultas/responder", data, { headers: { Authorization: "Token " + token } })
+                await axios.patch(server_url + "/consultas/respuesta/", data, { headers: { Authorization: "Token " + token } })
+                console.log("Consulta ID " + consult_id + " respondida")
             }
         } catch (error) {
             console.log("Error: ", error)
         }
+    }
+
+    const getIdConsult = (id: string) => {
+        dispatch({
+            type: actions.GET_ID_CONSULT,
+            payload: id
+        })
     }
 
     const changeMenuReview = (payload: boolean) => {
@@ -276,7 +286,7 @@ export default function GlobalState(props: IPropsChildren) {
                 return true
             }
             else {
-                await axios.post(server_url + "/reseñas/agregar_reseña//", review)
+                await axios.post(server_url + "/reseñas/agregar_reseña/", review)
                 return true
             }
         } catch (error) {
@@ -350,7 +360,8 @@ export default function GlobalState(props: IPropsChildren) {
     }
 
     //Abre o cierra el respuesta
-    const changeMenuResponse = (payload: boolean) => {
+    const changeMenuResponse = (payload: boolean, consult_id: string) => {
+        getIdConsult(consult_id)
         dispatch({
             type: actions.CHANGE_MENU_RESPONSE,
             payload: payload
@@ -363,9 +374,10 @@ export default function GlobalState(props: IPropsChildren) {
         Mlogin: false,
         MRegister: false,
         isLog: false,
+        idConsult: "",
         MConsult: false,
         MReview: false,
-        MResponse: false,
+        MResponse: true,
         reviews: [],
         consults: [],
         turnosOcupados: [],
@@ -386,7 +398,8 @@ export default function GlobalState(props: IPropsChildren) {
         makeReview,
         getReviews,
         getTurnos,
-        makeTurno
+        makeTurno,
+        getIdConsult
     };
 
     //uso del Reducer

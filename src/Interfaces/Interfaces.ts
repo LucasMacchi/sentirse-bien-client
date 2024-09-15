@@ -58,7 +58,8 @@ export interface IAction {
 
 export interface IGlobalContext {
     user: IUser,
-    alert: IAlert
+    alert: IAlert,
+    idConsult: string,
     Mlogin: boolean,
     isLog: boolean,
     MRegister: boolean,
@@ -72,7 +73,7 @@ export interface IGlobalContext {
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
     changeMenuReview: (payload: boolean) => void,
-    changeMenuResponse: (payload: boolean) => void
+    changeMenuResponse: (payload: boolean, consult_id: string) => void
     getUserInfo: () => void
     login: (email: string, password: string) => Promise<boolean>,
     logout: () => void,
@@ -86,4 +87,5 @@ export interface IGlobalContext {
     getTurnos: () => Promise<void>,
     makeTurno: (turno: ITurno) => Promise<boolean>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
+    getIdConsult: (id: string) => void,
 };

@@ -9,5 +9,6 @@ export default {
     ALERTSTATUS_CHANGE: "change_alertstatus",
     GET_CONSULTS: "get_consults",
     GET_REVIEWS: "get_reviews",
-    GET_TURNS: "get_turns"
+    GET_TURNS: "get_turns",
+    GET_ID_CONSULT: "get_id_consult"
 }
