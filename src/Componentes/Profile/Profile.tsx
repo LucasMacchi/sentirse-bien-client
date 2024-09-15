@@ -12,12 +12,17 @@ export function Profile() {
       <Header></Header>
       <section className="profile">
         <div className="container">
+
           <div className="profile-welcome">
-            <h1>
+          <h1>
               Bienvenido, {global?.user.nombre} {global?.user.apellido}!
             </h1>
+
           </div>
-          <h2>Mis Turnos</h2>
+          <hr style={{width: '50%', marginBottom: '1em'}}/>
+          <h2>Mis turnos</h2>
+          <div className="turnos-lista"></div>
+          <h2>Mis consultas</h2>
           <div className="turnos-lista"></div>
         </div>
       </section>

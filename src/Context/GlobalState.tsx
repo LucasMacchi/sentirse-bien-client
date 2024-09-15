@@ -123,7 +123,7 @@ export default function GlobalState(props: IPropsChildren) {
             localStorage.removeItem('jwToken')
             window.location.reload()
         }
-
+        
     }
 
     //define las alertas

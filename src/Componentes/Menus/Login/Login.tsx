@@ -38,7 +38,7 @@ export default function Login() {
             global?.alertStatus(true, "success", "Ingresaste correctamente")
             setTimeout(() => {
                 window.location.reload()
-            }, 5000);
+            }, 1500);
         }
         else {
             global?.alertStatus(true, "error", "Error al ingresar")

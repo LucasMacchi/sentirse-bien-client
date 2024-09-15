@@ -1,15 +1,24 @@
 import "./Header.css";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
 import avatar from "../../assets/avatar.svg";
 
 export function Header() {
   const global = useContext(GlobalContext);
+  const navigate = useNavigate();
+
+
   const openLog = () => {
     global?.changeMenuLogin(true);
   };
+
+  function LogoutNavigate(){
+    useEffect(()=>{
+      navigate('/');
+    })
+  }
 
   function changeMenuLogin() {
     if (!global?.isLog) {
@@ -26,7 +35,10 @@ export function Header() {
           <div className="navbar-right">
             <Link
               to="/"
-              onClick={() => global.logout()}
+              onClick={() => {
+                global.logout();
+                LogoutNavigate();
+              }}
               className="navbar-links"
             >
               Log Out
@@ -61,7 +73,7 @@ export function Header() {
             <Link to="/services" className="navbar-links">
               Servicios
             </Link>
-            <Link to="/" className="navbar-links">
+            <Link to="/empleo" className="navbar-links">
               Empleo
             </Link>
             {changeMenuLogin()}

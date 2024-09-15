@@ -14,6 +14,7 @@ import ScrollToTop from "./Componentes/Others/ScrollToTop.tsx";
 import theme from "./Theme/theme.ts";
 import { Profile } from "./Componentes/Profile/Profile.tsx";
 import Turnos from "./Componentes/Turnos/Turnos.tsx";
+import Empleo from "./Componentes/Empleo/Empleo.tsx";
 
 
 
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/services" element={<Servicios></Servicios>}></Route>
               <Route path="/profile" element={<Profile></Profile>}></Route>
               <Route path="/turnos" element={<Turnos></Turnos>}></Route>
+              <Route path="/empleo" element={<Empleo></Empleo>}></Route>
             </Routes>
           </GlobalState>
         </BrowserRouter>
