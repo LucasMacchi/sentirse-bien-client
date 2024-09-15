@@ -10,7 +10,6 @@ import Review from "./Componentes/Menus/Review/Review";
 
 function App() {
     const global = useContext(GlobalContext)
-
     useEffect(() => {
         global?.session()
         global?.getConsult()

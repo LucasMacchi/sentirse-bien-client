@@ -60,7 +60,8 @@ export default function GlobalState(props: IPropsChildren) {
             }
         }
         else {
-            const user: IUser = await (await axios.get(server_url + '/user/' + localStorage.getItem('jwToken'))).data
+            const tkn = localStorage.getItem('jwToken')
+            const user: IUser = await (await axios.get(server_url + '/usuarios/info_usuario/', { headers: { Authorization: "Token " + tkn } })).data
             if (user) {
                 dispatch({
                     payload: user,
@@ -97,7 +98,7 @@ export default function GlobalState(props: IPropsChildren) {
             else return false
         }
         else {
-            const access: IToken = await (await axios.post(server_url + '/usuarios/login', { email, password })).data
+            const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { email, password })).data
             if (access.token) {
                 localStorage.setItem('jwToken', access.token);
                 return true
@@ -117,7 +118,7 @@ export default function GlobalState(props: IPropsChildren) {
             type: actions.GET_USER_INFO
         })
         try {
-            axios.get(server_url + "/usuarios/logout", { headers: { Authorization: localStorage.getItem('jwToken') } })
+            axios.get(server_url + "/usuarios/logout/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })
             localStorage.removeItem('jwToken')
             window.location.reload()
         } catch (error) {
@@ -165,7 +166,8 @@ export default function GlobalState(props: IPropsChildren) {
         }
         else {
             user.adult = true
-            const access: boolean = await (await axios.post(server_url + '/usuarios/registro', user)).data
+            user.username = user.email
+            const access: boolean = await (await axios.post(server_url + '/usuarios/registro/', user)).data
             if (access) return true
             else return false
         }
@@ -202,7 +204,7 @@ export default function GlobalState(props: IPropsChildren) {
                 }
                 else {
                     const token = localStorage.getItem('jwToken')
-                    axios.post(server_url + "/user/consult", consult, { headers: { Authorization: token } })
+                    axios.post(server_url + "/consultas/", consult, { headers: { Authorization: "Token " + token } })
                     console.log("CONSULTA HECHA")
                     return true
                 }
@@ -215,6 +217,7 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //trae consultas
     const getConsult = async () => {
+        console.log("Consults requested...")
         try {
             if (state.isLog) {
                 if (use_mock === "1") {
@@ -225,7 +228,7 @@ export default function GlobalState(props: IPropsChildren) {
                 }
                 else {
                     const token = localStorage.getItem('jwToken')
-                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consult", { headers: { Authorization: token } })).data
+                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consultas/", { headers: { Authorization: "Token " + token } })).data
                     console.log(consultas)
                     dispatch({
                         type: actions.GET_CONSULTS,
@@ -251,10 +254,7 @@ export default function GlobalState(props: IPropsChildren) {
                     response: response,
                     id: consult_id
                 }
-                axios.patch(server_url + "/consult/respond", data, { headers: { Authorization: token } })
-                state.consults.forEach(c => {
-                    if (c.id === consult_id) c.respuesta = response
-                });
+                axios.patch(server_url + "/consultas/responder", data, { headers: { Authorization: "Token " + token } })
             }
         } catch (error) {
             console.log("Error: ", error)
@@ -268,17 +268,18 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
 
-    const makeReview = async (comment: string, rating: number): Promise<boolean> => {
+    const makeReview = async (comment: string, rating: number, name: string): Promise<boolean> => {
         try {
             const review = {
-                comment,
-                rating
+                nombre: name,
+                descripcion: comment,
+                puntaje: rating
             }
             if (use_mock === "1") {
                 return true
             }
             else {
-                await axios.post(server_url + "/review", review)
+                await axios.post(server_url + "/reseñas/agregar_reseña//", review)
                 return true
             }
         } catch (error) {
@@ -288,6 +289,7 @@ export default function GlobalState(props: IPropsChildren) {
     }
 
     const getReviews = async () => {
+        console.log("Reviews requested...")
         try {
             if (use_mock === "1") {
                 const reviewsAll: IReview[] = reviews.reviews
@@ -297,7 +299,7 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else {
-                const reviews = await (await axios.get(server_url + "/reviews")).data
+                const reviews = await (await axios.get(server_url + "/reseñas/mostrar_reseñas/")).data
                 dispatch({
                     type: actions.GET_REVIEWS,
                     payload: reviews
@@ -310,18 +312,25 @@ export default function GlobalState(props: IPropsChildren) {
     }
 
     const getTurnos = async (): Promise<void> => {
+        console.log("Turns requested...")
         try {
             if (use_mock === "1") {
+                const array = turnosJSON.fecha.map(f => {
+                    return f.fecha + ":" + f.hora.split(':')[0]
+                })
                 dispatch({
                     type: actions.GET_TURNS,
-                    payload: turnosJSON.fecha
+                    payload: array
                 })
             }
             else {
-                const turns = await (await axios.get(server_url + "/turnos")).data
+                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/")).data
+                const array = turns.map(f => {
+                    return f.fecha + ":" + f.hora.split(':')[0]
+                })
                 dispatch({
                     type: actions.GET_TURNS,
-                    payload: turns
+                    payload: array
                 })
             }
 
@@ -334,7 +343,7 @@ export default function GlobalState(props: IPropsChildren) {
             if (use_mock === "1") return true
             else {
                 const token = localStorage.getItem('jwToken')
-                await axios.post(server_url + "/turno", turno, { headers: { Authorization: token } })
+                await axios.post(server_url + "/turnos/elegir_turno/", turno, { headers: { Authorization: "Token " + token } })
                 return true
             }
         } catch (error) {
@@ -343,6 +352,13 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
+    //Abre o cierra el respuesta
+    const changeMenuResponse = (payload: boolean) => {
+        dispatch({
+            type: actions.CHANGE_MENU_RESPONSE,
+            payload: payload
+        })
+    }
     //Estado Inicial
     const initialState: IGlobalContext = {
         user: { nombre: "", apellido: "", email: "", rol: 2 },
@@ -352,6 +368,7 @@ export default function GlobalState(props: IPropsChildren) {
         isLog: false,
         MConsult: false,
         MReview: false,
+        MResponse: false,
         reviews: [],
         consults: [],
         turnosOcupados: [],
@@ -359,6 +376,7 @@ export default function GlobalState(props: IPropsChildren) {
         changeMenuRegister,
         changeMenuConsult,
         changeMenuReview,
+        changeMenuResponse,
         getUserInfo,
         login,
         logout,

@@ -41,10 +41,11 @@ const SERVICES = [
 
 
 const Turnos: React.FC = () => {
+    const [btn, setbtn] = useState(false)
     const [name, setName] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
-    const timeSlots = ["9", "11", "13", "15", "19", "21"]
+    const timeSlots = ["09", "11", "13", "15", "19", "21"]
     const [occupiedTimes, setOccupiedTimes] = useState<Set<string>>(
         new Set(["10:00 AM"]) // Ejemplo de hora ocupada
     );
@@ -66,6 +67,7 @@ const Turnos: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
+        setbtn(true)
         const turno: ITurno = {
             servicio: selectedServices[0] + ", " + selectedServices[1],
             fecha: date,
@@ -75,10 +77,12 @@ const Turnos: React.FC = () => {
         if (result) {
             global?.alertStatus(true, "success", "Gracias por pedir tu turno!")
             setTimeout(() => {
+                setbtn(false)
                 navigate("/");
             }, 1500)
         }
         else {
+            setbtn(false)
             global?.alertStatus(true, "error", "Error al pedir un turno, intente devuelta")
         }
     };
@@ -206,6 +210,7 @@ const Turnos: React.FC = () => {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, bgcolor: "#14544E" }}
+                            disabled={btn}
                         >
                             Reservar
                         </Button>
