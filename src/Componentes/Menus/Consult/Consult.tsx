@@ -27,9 +27,9 @@ export default function Consult() {
         if (result) {
             global?.alertStatus(true, "success", "Consulta hecha correctamente")
             setTimeout(() => {
-                //window.location.reload()
-                console.log(global?.consults)
-            }, 5000);
+                window.location.reload()
+                //console.log(global?.consults)
+            }, 1500);
 
         }
         else {
