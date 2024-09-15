@@ -16,6 +16,7 @@ import descontracturante from "../../assets/descontracturante.jpg"
 import piedras from "../../assets/piedras.webp"
 import circu from "../../assets/circu.jpg"
 import { Footer } from "../Footer/Footer";
+import { Link } from "react-router-dom";
 
 export function Servicios() {
   return (
@@ -156,7 +157,9 @@ export function Servicios() {
         <br />
         <p>Ya te decidiste?</p>
         <br />
-        <button className="vermas-btn">Agenda tu turno</button>
+        <Link to="/turnos">
+          <button className="vermas-btn">Agenda tu turno</button>
+        </Link>
       </div>
       <Footer></Footer>
     </>

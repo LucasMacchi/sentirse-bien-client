@@ -10,7 +10,7 @@ import logo from "../../../assets/logo.png"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-export default function Consult () {
+export default function Consult() {
 
     const global = useContext(GlobalContext)
     const [consult, setConsult] = useState<string>("")
@@ -24,38 +24,37 @@ export default function Consult () {
         event.preventDefault()
         setbtn(true)
         const result = await global?.makeConsult(consult)
-        if(result){
+        if (result) {
             global?.alertStatus(true, "success", "Consulta hecha correctamente")
-            global?.alertStatus(true, "success", "Registrado correctamente")
             setTimeout(() => {
                 //window.location.reload()
                 console.log(global?.consults)
             }, 5000);
-            
+
         }
-        else{
+        else {
             global?.alertStatus(true, "error", "Hubo un problema para realizar la consulta")
             setbtn(false)
         }
     }
-    
-    return(
-        <Backdrop open={global ? global.MConsult : false } sx={{zIndex: 10}}>
+
+    return (
+        <Backdrop open={global ? global.MConsult : false} sx={{ zIndex: 10 }}>
             <Paper>
-                <Box width={{sm: 700, xs: 420}} padding={1}>
+                <Box width={{ sm: 700, xs: 420 }} padding={1}>
                     <Box display={"flex"} justifyContent={"space-between"}>
-                        <img src={logo} width="40px"/>
-                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
+                        <img src={logo} width="40px" />
+                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary' /></IconButton>
                     </Box>
-                    <Divider/>
+                    <Divider />
                     <Box component="form" onSubmit={(e: FormEvent) => make_consult(e)} autoComplete='off'>
-                    <Typography variant='h6'>Escribe tu consulta!</Typography>
+                        <Typography variant='h6'>Escribe tu consulta!</Typography>
                         <Box padding={1}>
-                            <TextField multiline rows={6} fullWidth type="text" id='email' size="small" value={consult} onChange={(e) => setConsult(e.target.value)} required/>
+                            <TextField multiline rows={6} fullWidth type="text" id='email' size="small" value={consult} onChange={(e) => setConsult(e.target.value)} required />
                         </Box>
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
                             <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit">
-                                <Typography sx={{marginLeft: "20px"}} variant='body2'>Hacer consulta</Typography> 
+                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>Hacer consulta</Typography>
                             </Button>
                         </Box>
                     </Box>
