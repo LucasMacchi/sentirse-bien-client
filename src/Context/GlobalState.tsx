@@ -249,11 +249,7 @@ export default function GlobalState(props: IPropsChildren) {
             }
             else {
                 const token = localStorage.getItem('jwToken')
-                const data = {
-                    response: response,
-                    id: consult_id
-                }
-                await axios.patch(server_url + "/consultas/respuesta/", data, { headers: { Authorization: "Token " + token } })
+                await axios.patch(server_url + "/consultas/" + consult_id + "/respuesta/", response, { headers: { Authorization: "Token " + token } })
                 console.log("Consulta ID " + consult_id + " respondida")
             }
         } catch (error) {
