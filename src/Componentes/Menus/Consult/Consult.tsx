@@ -17,7 +17,7 @@ export default function Consult() {
 
   const closeBtn = () => {
     global?.changeMenuConsult(!global.MConsult);
-  };
+  }
 
     const make_consult = async (event: FormEvent) => {
         event.preventDefault()
@@ -36,7 +36,6 @@ export default function Consult() {
             setbtn(false)
         }
     }
-  };
 
   return (
     <Backdrop open={global ? global.MConsult : false} sx={{ zIndex: 10 }}>
@@ -91,3 +90,4 @@ export default function Consult() {
     </Backdrop>
   );
 }
+
