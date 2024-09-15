@@ -39,7 +39,9 @@ export function Body() {
             <h1 className="welcome-text">
               Relajate y <span className="welcome-text-span">renová</span>
             </h1>
-            <button className="agenda-btn">AGENDÁ UN TURNO</button>
+            <Link to= '/turnos'>
+              <button className="agenda-btn">Agendá tu turno!</button>
+            </Link>
           </div>
         </div>
       </div>

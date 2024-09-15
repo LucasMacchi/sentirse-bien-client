@@ -14,7 +14,9 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-export default function Register () {
+const cod_reg = import.meta.env.VITE_REGISTRO
+
+export default function Register() {
 
     const global = useContext(GlobalContext)
 
@@ -26,18 +28,22 @@ export default function Register () {
         password_con: "",
         cuil: "",
         phone: "",
-        codigo: ""
     });
+    const [registerCode, setCode] = useState("")
 
     const errorCheck = () => {
-        if(userToRegister.password !== userToRegister.password_con){
-            setPasswordError({status: true, error: "Contraseñas no coinciden"})
+        if (userToRegister.password !== userToRegister.password_con) {
+            setPasswordError({ status: true, error: "Contraseñas no coinciden" })
             setbtn(true)
         }
         else {
-            setPasswordError({status: false, error: ""})
+            setPasswordError({ status: false, error: "" })
             setbtn(false)
         }
+        if (registerCode == cod_reg) {
+            setbtn(false)
+        }
+        else setbtn(true)
     }
 
     const [password_err_con, setPasswordError] = useState({
@@ -57,14 +63,13 @@ export default function Register () {
             ...userToRegister,
             [prop]: payload
         });
-
     };
 
     const register = async (event: FormEvent) => {
         setbtn(true)
         event.preventDefault()
         const access = await global?.register(userToRegister)
-        if(access){
+        if (access) {
             global?.alertStatus(true, "success", "Registrado correctamente")
             setTimeout(() => {
                 window.location.reload()
@@ -73,54 +78,55 @@ export default function Register () {
         else {
             global?.alertStatus(true, "error", "Error al registrarse")
             setbtn(false)
-        }  
+        }
     }
 
-    useEffect(errorCheck,[userToRegister.password])
-    useEffect(errorCheck,[userToRegister.password_con])
+    useEffect(errorCheck, [userToRegister.password])
+    useEffect(errorCheck, [registerCode])
+    useEffect(errorCheck, [userToRegister.password_con])
 
 
-    return(
-        <Backdrop open={global ? global.MRegister : false } sx={{zIndex: 10}}>
+    return (
+        <Backdrop open={global ? global.MRegister : false} sx={{ zIndex: 10 }}>
             <Paper>
-                <Box width={520} padding={1}>
+                <Box width={520} padding={0.3}>
                     <Box display={"flex"} justifyContent={"space-between"}>
-                        <img src={logo} width="40px"/>
-                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary'/></IconButton>
+                        <img src={logo} width="40px" />
+                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary' /></IconButton>
                     </Box>
-                    <Divider/>
+                    <Divider />
                     <Box component="form" onSubmit={(e: FormEvent) => register(e)} autoComplete='off'>
                         <Typography variant='h6'>Unete a nuestra familia!</Typography>
-                        <Box padding={1}>
-                            <TextField fullWidth type="email" id='email' size="small" label="Email" value={userToRegister.email} onChange={(e) => handleUser("email", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type="email" id='email' size="small" label="Email" value={userToRegister.email} onChange={(e) => handleUser("email", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={userToRegister.name} onChange={(e) => handleUser("name", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={userToRegister.name} onChange={(e) => handleUser("name", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type="text" id='surname' size="small" label="Apellido" value={userToRegister.surname} onChange={(e) => handleUser("surname", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type="text" id='surname' size="small" label="Apellido" value={userToRegister.surname} onChange={(e) => handleUser("surname", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.phone} onChange={(e) => handleUser("phone", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.phone} onChange={(e) => handleUser("phone", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type="number" id='cuil' size="small" label="Cuil" value={userToRegister.cuil} onChange={(e) => handleUser("cuil", e.target.value)} required/>
+                        <Box padding={0.5}>
+                            <TextField fullWidth type="number" id='cuil' size="small" label="Cuil" value={userToRegister.cuil} onChange={(e) => handleUser("cuil", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userToRegister.password} onChange={(e) => handleUser("password", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userToRegister.password} onChange={(e) => handleUser("password", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type='password' id='password_con' size="small" label="Confirmar Contraseña" error={password_err_con.status} helperText={password_err_con.error} value={userToRegister.password_con} onChange={(e) => handleUser("password_con", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type='password' id='password_con' size="small" label="Confirmar Contraseña" error={password_err_con.status} helperText={password_err_con.error} value={userToRegister.password_con} onChange={(e) => handleUser("password_con", e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <TextField fullWidth type="text" id='cod' size="small" label="Codigo de Registro" value={userToRegister.codigo} onChange={(e) => handleUser("codigo", e.target.value)} required/>
+                        <Box padding={0.3}>
+                            <TextField fullWidth type="password" id='cod' size="small" label="Codigo de Registro" value={registerCode} onChange={(e) => setCode(e.target.value)} required />
                         </Box>
-                        <Box padding={1}>
-                            <FormControlLabel control={<Checkbox/>} required label={"¿Eres mayor de edad?"}/>
+                        <Box padding={0.3}>
+                            <FormControlLabel control={<Checkbox />} required label={"¿Eres mayor de edad?"} />
                         </Box>
-                        <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
-                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<HowToRegIcon/>}>
-                                <Typography sx={{marginLeft: "20px"}} variant='body2'>Registrarse</Typography> 
+                        <Box display={"flex"} justifyContent={"flex-end"} marginTop={"8px"}>
+                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit" startIcon={<HowToRegIcon />}>
+                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>Registrarse</Typography>
                             </Button>
                         </Box>
                     </Box>
