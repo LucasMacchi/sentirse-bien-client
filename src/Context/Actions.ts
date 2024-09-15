@@ -7,5 +7,6 @@ export default {
     LOGSTATUS_CHANGE: "change_logstatus",
     ALERTSTATUS_CHANGE: "change_alertstatus",
     GET_CONSULTS: "get_consults",
-    GET_REVIEWS: "get_reviews"
+    GET_REVIEWS: "get_reviews",
+    GET_TURNS: "get_turns"
 }

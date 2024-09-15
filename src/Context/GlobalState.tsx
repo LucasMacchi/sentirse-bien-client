@@ -1,22 +1,24 @@
 import { useReducer } from "react";
 import { createContext } from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
 import reviews from "../Mocks/reviews.json";
+import turnosJSON from "../Mocks/turnos.json";
 import actions from "./Actions";
 import axios from "axios";
 
 export const GlobalContext = createContext<IGlobalContext | null>(null)
 const use_mock = import.meta.env.VITE_USE_MOCK
 const server_url = import.meta.env.VITE_SERVER_URL
-const cod_reg = import.meta.env.VITE_REGISTRO
 
 //Reducer
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.GET_TURNS:
+            return { ...state, turnosOcupados: payload }
         case actions.CHANGE_MENU_REVIEW:
             return { ...state, MReview: payload }
         case actions.GET_CONSULTS:
@@ -123,7 +125,7 @@ export default function GlobalState(props: IPropsChildren) {
             localStorage.removeItem('jwToken')
             window.location.reload()
         }
-        
+
     }
 
     //define las alertas
@@ -163,11 +165,8 @@ export default function GlobalState(props: IPropsChildren) {
         }
         else {
             user.adult = true
-            if (user.codigo === cod_reg) {
-                const access: boolean = await (await axios.post(server_url + '/usuarios/registro', user)).data
-                if (access) return true
-                else return false
-            }
+            const access: boolean = await (await axios.post(server_url + '/usuarios/registro', user)).data
+            if (access) return true
             else return false
         }
     }
@@ -310,6 +309,40 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
+    const getTurnos = async (): Promise<void> => {
+        try {
+            if (use_mock === "1") {
+                dispatch({
+                    type: actions.GET_TURNS,
+                    payload: turnosJSON.fecha
+                })
+            }
+            else {
+                const turns = await (await axios.get(server_url + "/turnos")).data
+                dispatch({
+                    type: actions.GET_TURNS,
+                    payload: turns
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const makeTurno = async (turno: ITurno): Promise<boolean> => {
+        try {
+            if (use_mock === "1") return true
+            else {
+                const token = localStorage.getItem('jwToken')
+                await axios.post(server_url + "/turno", turno, { headers: { Authorization: token } })
+                return true
+            }
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+
     //Estado Inicial
     const initialState: IGlobalContext = {
         user: { nombre: "", apellido: "", email: "", rol: 2 },
@@ -321,6 +354,7 @@ export default function GlobalState(props: IPropsChildren) {
         MReview: false,
         reviews: [],
         consults: [],
+        turnosOcupados: [],
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
@@ -335,7 +369,9 @@ export default function GlobalState(props: IPropsChildren) {
         getConsult,
         respondConsult,
         makeReview,
-        getReviews
+        getReviews,
+        getTurnos,
+        makeTurno
     };
 
     //uso del Reducer

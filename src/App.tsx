@@ -14,6 +14,7 @@ function App() {
     useEffect(() => {
         global?.session()
         global?.getConsult()
+        global?.getTurnos()
     }, [])
 
 

@@ -21,8 +21,6 @@ export default function Login() {
         password: ""
     });
 
-    console.log(global?.isLog)
-    console.log(global?.user)
 
     const [btn, setbtn] = useState(false)
 

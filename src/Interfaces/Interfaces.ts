@@ -13,14 +13,12 @@ export interface IUserToResgister {
     phone: string,
     cuil: string,
     adult?: boolean,
-    codigo: string
 };
 
 export interface ITurno {
     servicio: string,
     fecha: string,
     hora: string,
-    estado: boolean
 };
 
 export interface IReview {
@@ -66,6 +64,7 @@ export interface IGlobalContext {
     MReview: boolean,
     consults: IConsulta[],
     reviews: IReview[],
+    turnosOcupados: string[],
     changeMenuLogin: (payload: boolean) => void,
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
@@ -80,5 +79,7 @@ export interface IGlobalContext {
     makeReview: (comment: string, rating: number) => Promise<boolean>,
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
+    getTurnos: () => Promise<void>,
+    makeTurno: (turno: ITurno) => Promise<boolean>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
 };
