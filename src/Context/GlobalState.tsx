@@ -220,22 +220,20 @@ export default function GlobalState(props: IPropsChildren) {
     const getConsult = async () => {
         console.log("Consults requested...")
         try {
-            if (state.isLog) {
-                if (use_mock === "1") {
-                    dispatch({
-                        type: actions.GET_CONSULTS,
-                        payload: consults.consults
-                    })
-                }
-                else {
-                    const token = localStorage.getItem('jwToken')
-                    const consultas: IConsulta[] = await (await axios.get(server_url + "/consultas/mostrar_consultas/", { headers: { Authorization: "Token " + token } })).data
-                    console.log(consultas)
-                    dispatch({
-                        type: actions.GET_CONSULTS,
-                        payload: consultas
-                    })
-                }
+            if (use_mock === "1") {
+                dispatch({
+                    type: actions.GET_CONSULTS,
+                    payload: consults.consults
+                })
+            }
+            else {
+                const token = localStorage.getItem('jwToken')
+                const consultas: IConsulta[] = await (await axios.get(server_url + "/consultas/mostrar_consultas/", { headers: { Authorization: "Token " + token } })).data
+                console.log(consultas)
+                dispatch({
+                    type: actions.GET_CONSULTS,
+                    payload: consultas
+                })
             }
         } catch (error) {
             console.log("Error: ", error)
@@ -373,7 +371,7 @@ export default function GlobalState(props: IPropsChildren) {
         idConsult: "",
         MConsult: false,
         MReview: false,
-        MResponse: true,
+        MResponse: false,
         reviews: [],
         consults: [],
         turnosOcupados: [],

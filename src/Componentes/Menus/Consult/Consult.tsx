@@ -19,7 +19,7 @@ export default function Consult() {
     const closeBtn = () => {
         global?.changeMenuConsult(!global.MConsult)
     }
-
+    console.log(global?.consults)
     const make_consult = async (event: FormEvent) => {
         event.preventDefault()
         setbtn(true)
