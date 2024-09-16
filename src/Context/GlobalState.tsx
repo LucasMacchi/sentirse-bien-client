@@ -213,14 +213,14 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
     //Crea consultas
-    const makeConsult = async (consult: string): Promise<boolean> => {
+    const makeConsult = async (consulta: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
                 return true
             }
             else {
                 const token = localStorage.getItem('jwToken')
-                axios.post(server_url + "/consultas/nueva_consulta/", consult, { headers: { Authorization: "Token " + token } })
+                axios.post(server_url + "/consultas/nueva_consulta/", consulta, { headers: { Authorization: "Token " + token } })
                 console.log("CONSULTA HECHA")
                 return true
             }
