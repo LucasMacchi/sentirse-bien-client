@@ -45,10 +45,15 @@ export function Footer() {
                     <Link to="" onClick={() => { global?.changeMenuReview(true) }} className="footer-link ">
                         Dejanos tu comentario
                     </Link>
-                    <Link to="" onClick={() => global?.changeMenuConsult(true)} className="footer-link ">
+                    <Link to="" onClick={() => {
+                        if (global?.isLog) {
+                            global?.changeMenuConsult(true)
+                        }
+                        else global?.changeMenuLogin(true)
+                    }} className="footer-link ">
                         Consultas
                     </Link>
-                    <Link to="/" className="footer-link ">
+                    <Link to="/empleo" className="footer-link ">
                         Empleo
                     </Link>
                     <Link to="" onClick={() => global?.changeMenuRegister(true)} className="footer-link ">
@@ -62,8 +67,14 @@ export function Footer() {
                     <br />
                     <img src={facebook} alt="" className="footer-contact--logos" />
                     <img src={whatsapp} alt="" className="footer-contact--logos" />
+                    <br />
+                    <br />
+                    <p>Copyright © 2024</p>
+                    <p>Guini Galo, Daciuk Paulina, Lucas Macchi.</p>
+                    <p>All rights reserved.</p>
                 </div>
             </footer>
+            
         </>
     );
 }

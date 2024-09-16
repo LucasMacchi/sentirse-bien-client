@@ -24,7 +24,8 @@ export function Header() {
     if (!global?.isLog) {
       return (
         <>
-          <Link to="/" className="navbar-links" onClick={() => openLog()}>
+          <Link to="/" className="navbar-links" onClick={() => {
+            openLog(); LogoutNavigate}}>
             Log In
           </Link>
         </>

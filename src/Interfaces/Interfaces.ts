@@ -10,8 +10,8 @@ export interface IUserToResgister {
     surname: string,
     email: string,
     password: string,
-    phone: string,
-    cuil: string,
+    telefono: string,
+    username: string,
     adult?: boolean,
 };
 
@@ -19,12 +19,14 @@ export interface ITurno {
     servicio: string,
     fecha: string,
     hora: string,
+    usuario?: string
 };
 
 export interface IReview {
     id: string,
     rating: number,
-    comment: string
+    comment: string,
+    nombre?: string
 };
 
 export interface IConsulta {
@@ -56,12 +58,14 @@ export interface IAction {
 
 export interface IGlobalContext {
     user: IUser,
-    alert: IAlert
+    alert: IAlert,
+    idConsult: string,
     Mlogin: boolean,
     isLog: boolean,
     MRegister: boolean,
     MConsult: boolean,
     MReview: boolean,
+    MResponse: boolean,
     consults: IConsulta[],
     reviews: IReview[],
     turnosOcupados: string[],
@@ -69,6 +73,7 @@ export interface IGlobalContext {
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
     changeMenuReview: (payload: boolean) => void,
+    changeMenuResponse: (payload: boolean, consult_id: string) => void
     getUserInfo: () => void
     login: (email: string, password: string) => Promise<boolean>,
     logout: () => void,
@@ -76,10 +81,11 @@ export interface IGlobalContext {
     session: () => void,
     makeConsult: (consult: string) => Promise<boolean>,
     getConsult: () => void,
-    makeReview: (comment: string, rating: number) => Promise<boolean>,
+    makeReview: (comment: string, rating: number, name: string) => Promise<boolean>,
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
     makeTurno: (turno: ITurno) => Promise<boolean>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
+    getIdConsult: (id: string) => void,
 };
