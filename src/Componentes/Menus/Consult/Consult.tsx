@@ -1,24 +1,25 @@
-import { FormEvent, useContext, useState } from 'react';
-import { GlobalContext } from '../../../Context/GlobalState';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper';
-import CloseIcon from '@mui/icons-material/Close';
-import logo from "../../../assets/logo.png"
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+import { FormEvent, useContext, useState } from "react";
+import { GlobalContext } from "../../../Context/GlobalState";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Paper from "@mui/material/Paper";
+import CloseIcon from "@mui/icons-material/Close";
+import logo from "../../../assets/logo.png";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 export default function Consult() {
+        const global = useContext(GlobalContext);
+        const [consult, setConsult] = useState<string>("");
+        const [btn, setbtn] = useState(false);
 
-    const global = useContext(GlobalContext)
-    const [consult, setConsult] = useState<string>("")
-    const [btn, setbtn] = useState(false)
 
     const closeBtn = () => {
         global?.changeMenuConsult(!global.MConsult)
     }
+    console.log(global?.consults)
 
     const make_consult = async (event: FormEvent) => {
         event.preventDefault()
@@ -27,9 +28,9 @@ export default function Consult() {
         if (result) {
             global?.alertStatus(true, "success", "Consulta hecha correctamente")
             setTimeout(() => {
-                //window.location.reload()
-                console.log(global?.consults)
-            }, 5000);
+                window.location.reload()
+                //console.log(global?.consults)
+            }, 1500);
 
         }
         else {
@@ -37,6 +38,8 @@ export default function Consult() {
             setbtn(false)
         }
     }
+
+
 
     return (
         <Backdrop open={global ? global.MConsult : false} sx={{ zIndex: 10 }}>
@@ -63,3 +66,4 @@ export default function Consult() {
         </Backdrop>
     )
 }
+
