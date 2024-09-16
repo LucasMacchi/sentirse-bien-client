@@ -103,7 +103,7 @@ export default function GlobalState(props: IPropsChildren) {
                 else return false
             }
             else {
-                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { email, password })).data
+                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { username: email, password })).data
                 if (access.token) {
                     localStorage.setItem('jwToken', access.token);
                     return true
