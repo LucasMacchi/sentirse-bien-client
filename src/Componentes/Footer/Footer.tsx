@@ -53,7 +53,7 @@ export function Footer() {
                     }} className="footer-link ">
                         Consultas
                     </Link>
-                    <Link to="/" className="footer-link ">
+                    <Link to="/empleo" className="footer-link ">
                         Empleo
                     </Link>
                     <Link to="" onClick={() => global?.changeMenuRegister(true)} className="footer-link ">

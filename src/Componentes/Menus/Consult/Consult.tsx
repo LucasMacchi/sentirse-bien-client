@@ -11,13 +11,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 export default function Consult() {
-  const global = useContext(GlobalContext);
-  const [consult, setConsult] = useState<string>("");
-  const [btn, setbtn] = useState(false);
+        const global = useContext(GlobalContext);
+        const [consult, setConsult] = useState<string>("");
+        const [btn, setbtn] = useState(false);
 
-  const closeBtn = () => {
-    global?.changeMenuConsult(!global.MConsult);
-  }
+
+    const closeBtn = () => {
+        global?.changeMenuConsult(!global.MConsult)
+    }
+    console.log(global?.consults)
 
     const make_consult = async (event: FormEvent) => {
         event.preventDefault()
@@ -37,57 +39,31 @@ export default function Consult() {
         }
     }
 
-  return (
-    <Backdrop open={global ? global.MConsult : false} sx={{ zIndex: 10 }}>
-      <Paper>
-        <Box width={{ sm: 700, xs: 420 }} padding={1}>
-          <Box display={"flex"} justifyContent={"space-between"}>
-            <img src={logo} width="40px" />
-            <IconButton onClick={() => closeBtn()} aria-label="close">
-              <CloseIcon color="primary" />
-            </IconButton>
-          </Box>
-          <Divider />
-          <Box
-            component="form"
-            onSubmit={(e: FormEvent) => make_consult(e)}
-            autoComplete="off"
-          >
-            <Typography variant="h6">Escribe tu consulta!</Typography>
-            <Box padding={1}>
-              <TextField
-                multiline
-                rows={6}
-                fullWidth
-                type="text"
-                id="consulta"
-                size="small"
-                value={consult}
-                onChange={(e) => setConsult(e.target.value)}
-                required
-              />
-            </Box>
-            <Box
-              display={"flex"}
-              justifyContent={"flex-end"}
-              marginTop={"20px"}
-            >
-              <Button
-                disabled={btn}
-                size="small"
-                color="secondary"
-                variant="contained"
-                type="submit"
-              >
-                <Typography sx={{ marginLeft: "20px" }} variant="body2">
-                  Hacer consulta
-                </Typography>
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </Paper>
-    </Backdrop>
-  );
+
+
+    return (
+        <Backdrop open={global ? global.MConsult : false} sx={{ zIndex: 10 }}>
+            <Paper>
+                <Box width={{ sm: 700, xs: 420 }} padding={1}>
+                    <Box display={"flex"} justifyContent={"space-between"}>
+                        <img src={logo} width="40px" />
+                        <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary' /></IconButton>
+                    </Box>
+                    <Divider />
+                    <Box component="form" onSubmit={(e: FormEvent) => make_consult(e)} autoComplete='off'>
+                        <Typography variant='h6'>Escribe tu consulta!</Typography>
+                        <Box padding={1}>
+                            <TextField multiline rows={6} fullWidth type="text" id='email' size="small" value={consult} onChange={(e) => setConsult(e.target.value)} required />
+                        </Box>
+                        <Box display={"flex"} justifyContent={"flex-end"} marginTop={"20px"}>
+                            <Button disabled={btn} size="small" color='secondary' variant="contained" type="submit">
+                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>Hacer consulta</Typography>
+                            </Button>
+                        </Box>
+                    </Box>
+                </Box>
+            </Paper>
+        </Backdrop>
+    )
 }
 
