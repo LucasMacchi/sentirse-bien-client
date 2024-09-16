@@ -89,10 +89,10 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
     //Funcion para hacer login
-    const login = async (email: string, password: string): Promise<boolean> => {
+    const login = async (username: string, password: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
-                if (email === "lu@g.c" && password === "1") {
+                if (username === "lu@g.c" && password === "1") {
                     localStorage.setItem('jwToken', token.token);
                     dispatch({
                         payload: true,
@@ -103,7 +103,7 @@ export default function GlobalState(props: IPropsChildren) {
                 else return false
             }
             else {
-                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { email, password })).data
+                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { username, password })).data
                 if (access.token) {
                     localStorage.setItem('jwToken', access.token);
                     return true
