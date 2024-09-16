@@ -1,10 +1,8 @@
 {
-    "headers": [
+    "rewrites": [
         {
             "source": "/(.*)",
-            "headers": [
-                { "key": "Access-Control-Allow-Origin", "value": "https://sentirse-bien-api.up.railway.app" }
-            ]
+            "destination": "/index.html"
         }
     ]
 }
