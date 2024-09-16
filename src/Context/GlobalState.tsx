@@ -90,25 +90,31 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Funcion para hacer login
     const login = async (email: string, password: string): Promise<boolean> => {
-        if (use_mock === "1") {
-            if (email === "lu@g.c" && password === "1") {
-                localStorage.setItem('jwToken', token.token);
-                dispatch({
-                    payload: true,
-                    type: actions.LOGSTATUS_CHANGE
-                })
-                return true
+        try {
+            if (use_mock === "1") {
+                if (email === "lu@g.c" && password === "1") {
+                    localStorage.setItem('jwToken', token.token);
+                    dispatch({
+                        payload: true,
+                        type: actions.LOGSTATUS_CHANGE
+                    })
+                    return true
+                }
+                else return false
             }
-            else return false
-        }
-        else {
-            const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { email, password })).data
-            if (access.token) {
-                localStorage.setItem('jwToken', access.token);
-                return true
+            else {
+                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { email, password })).data
+                if (access.token) {
+                    localStorage.setItem('jwToken', access.token);
+                    return true
+                }
+                else return false
             }
-            else return false
+        } catch (error) {
+            console.log(error)
+            return false
         }
+
     }
 
     //Logout
@@ -151,34 +157,41 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Registra el usuario
     const register = async (user: IUserToResgister): Promise<boolean> => {
-        if (use_mock === "1") {
-            const userlog: IUser = {
-                nombre: user.name,
-                apellido: user.surname,
-                rol: 1,
-                email: user.email
+        try {
+            if (use_mock === "1") {
+                const userlog: IUser = {
+                    nombre: user.name,
+                    apellido: user.surname,
+                    rol: 1,
+                    email: user.email
+                }
+                dispatch({
+                    type: actions.LOGSTATUS_CHANGE,
+                    payload: true,
+                })
+                dispatch({
+                    type: actions.GET_USER_INFO,
+                    payload: userlog
+                })
+                return true
             }
-            dispatch({
-                type: actions.LOGSTATUS_CHANGE,
-                payload: true,
-            })
-            dispatch({
-                type: actions.GET_USER_INFO,
-                payload: userlog
-            })
-            return true
+            else {
+                user.adult = true
+                user.username = user.email
+                const access: boolean = await (await axios.post(server_url + '/usuarios/registro/', user)).data
+                if (access) return true
+                else return false
+            }
+        } catch (error) {
+            console.log(error)
+            return false
         }
-        else {
-            user.adult = true
-            user.username = user.email
-            const access: boolean = await (await axios.post(server_url + '/usuarios/registro/', user)).data
-            if (access) return true
-            else return false
-        }
+
     }
 
     //Session
     const session = async () => {
+        console.log("is mock active? " + use_mock)
         try {
             const tkn = localStorage.getItem('jwToken')
             if (tkn) {
