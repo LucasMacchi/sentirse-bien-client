@@ -67,8 +67,14 @@ export function Footer() {
                     <br />
                     <img src={facebook} alt="" className="footer-contact--logos" />
                     <img src={whatsapp} alt="" className="footer-contact--logos" />
+                    <br />
+                    <br />
+                    <p>Copyright © 2024</p>
+                    <p>Guini Galo, Daciuk Paulina, Lucas Macchi.</p>
+                    <p>All rights reserved.</p>
                 </div>
             </footer>
+            
         </>
     );
 }
