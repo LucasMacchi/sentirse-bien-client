@@ -338,7 +338,7 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else {
-                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/")).data
+                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data
                 const array = turns.map(f => {
                     return f.fecha + ":" + f.hora.split(':')[0]
                 })
