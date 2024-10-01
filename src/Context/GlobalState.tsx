@@ -89,10 +89,10 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
     //Funcion para hacer login
-    const login = async (username: string, password: string): Promise<boolean> => {
+    const login = async (email: string, password: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
-                if (username === "lu@g.c" && password === "1") {
+                if (email === "lu@g.c" && password === "1") {
                     localStorage.setItem('jwToken', token.token);
                     dispatch({
                         payload: true,
@@ -103,7 +103,7 @@ export default function GlobalState(props: IPropsChildren) {
                 else return false
             }
             else {
-                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { username, password })).data
+                const access: IToken = await (await axios.post(server_url + '/usuarios/login/', { username: email, password })).data
                 if (access.token) {
                     localStorage.setItem('jwToken', access.token);
                     return true
@@ -213,14 +213,14 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
     //Crea consultas
-    const makeConsult = async (consult: string): Promise<boolean> => {
+    const makeConsult = async (consulta: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
                 return true
             }
             else {
                 const token = localStorage.getItem('jwToken')
-                axios.post(server_url + "/consultas/nueva_consulta/", consult, { headers: { Authorization: "Token " + token } })
+                axios.post(server_url + "/consultas/nueva_consulta/", consulta, { headers: { Authorization: "Token " + token } })
                 console.log("CONSULTA HECHA")
                 return true
             }
@@ -338,7 +338,7 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else {
-                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/")).data
+                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data
                 const array = turns.map(f => {
                     return f.fecha + ":" + f.hora.split(':')[0]
                 })
