@@ -92,7 +92,7 @@ export default function GlobalState(props: IPropsChildren) {
     const login = async (email: string, password: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
-                if (username === "lu@g.c" && password === "1") {
+                if (email === "lu@g.c" && password === "1") {
                     localStorage.setItem('jwToken', token.token);
                     dispatch({
                         payload: true,
