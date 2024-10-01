@@ -89,7 +89,7 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
     //Funcion para hacer login
-    const login = async (username: string, password: string): Promise<boolean> => {
+    const login = async (email: string, password: string): Promise<boolean> => {
         try {
             if (use_mock === "1") {
                 if (username === "lu@g.c" && password === "1") {
