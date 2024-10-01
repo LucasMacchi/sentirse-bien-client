@@ -17,7 +17,7 @@ export default function Login() {
     const global = useContext(GlobalContext)
 
     const [userLogin, setUserLogin] = useState({
-        email: "",
+        username: "",
         password: ""
     });
 
@@ -31,7 +31,7 @@ export default function Login() {
     const login = async (event: FormEvent) => {
         setbtn(true)
         event.preventDefault()
-        const access = await global?.login(userLogin.email, userLogin.password)
+        const access = await global?.login(userLogin.username, userLogin.password)
         if (access) {
             global?.alertStatus(true, "success", "Ingresaste correctamente")
             setTimeout(() => {
@@ -68,7 +68,7 @@ export default function Login() {
                     <Box component="form" onSubmit={(e: FormEvent) => login(e)} autoComplete='off'>
                         <Typography variant='h6'>Ingresar</Typography>
                         <Box padding={1}>
-                            <TextField fullWidth type="email" id='email' size="small" label="Email" value={userLogin.email} onChange={(e) => handleUser("email", e.target.value)} required />
+                            <TextField fullWidth type="username" id='username' size="small" label="username" value={userLogin.username} onChange={(e) => handleUser("username", e.target.value)} required />
                         </Box>
                         <Box padding={1}>
                             <TextField fullWidth type='password' id='password' size="small" label="Contraseña" value={userLogin.password} onChange={(e) => handleUser("password", e.target.value)} required />
