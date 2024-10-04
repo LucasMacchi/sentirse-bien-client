@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { GlobalContext } from "../../Context/GlobalState";
@@ -7,12 +8,19 @@ import MenuLateral from "../MenuLateral/MenuLateral";
 
 export function Profile() {
   const global = useContext(GlobalContext);
-  
+  const navigate = useNavigate();
   console.log(global); // Agregar este console.log para depurar
 
   const handleResponderConsultas = (id: string) => {
     global?.changeMenuResponse(true, id);
   };
+
+  //Si es usuario no esta logeado e intenta entrar a perfil, lo redirecciona al home
+  useEffect(() => {
+    if(global?.isLog === false){
+      navigate("/")
+    }
+  }, [])
 
   if (global?.user.rol === 3) {
     return (
@@ -22,7 +30,7 @@ export function Profile() {
         <section className="admin-profile">
           <div className="container">
             <div className="welcome-message">
-              <h1>Bienvenido, Administrador {global?.user?.nombre}!</h1>
+              <h1>Bienvenido, Administrador {global?.user?.first_name}!</h1>
               <p>Aquí puedes gestionar todas las operaciones.</p>
             </div>
             <div className="admin-dashboard">
@@ -53,7 +61,7 @@ export function Profile() {
         <section className="profile">
           <div className="container">
             <div className="profile-welcome">
-              <h1>Bienvenido, {global?.user.nombre} {global?.user.apellido}!</h1>
+              <h1>Bienvenido, {global?.user.first_name} {global?.user.last_name}!</h1>
             </div>
             <hr className="divider" />
             <h2>Mis Consultas</h2>

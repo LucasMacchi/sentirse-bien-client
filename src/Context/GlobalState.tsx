@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { createContext } from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno, IPago } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
@@ -17,6 +17,16 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.GET_PAGOS:
+            return {...state, pagosInforme: payload}
+        case actions.GET_CLIENTES:
+            return {...state, clientes: payload}
+        case actions.SET_ID_TURN:
+            return {...state, idTurno: payload}
+        case actions.SET_PRICE_CONSULT:
+            return {...state, priceTurn: payload}
+        case actions.CHANGE_MENU_PAYMENT:
+            return {...state, MPayment: payload}
         case actions.CHANGE_MENU_RESPONSE:
             return { ...state, MResponse: payload }
         case actions.GET_ID_CONSULT:
@@ -51,7 +61,12 @@ export default function GlobalState(props: IPropsChildren) {
     //Funcion que trae toda la informacion el usuario para mostrar
     const getUserInfo = async (session?: boolean) => {
         if (use_mock === "1") {
-            const userToMock = usersMock.users[0]
+            const tkn = localStorage.getItem('jwToken')
+            let userToMock = usersMock.users[0]
+            if(tkn === token.token[0]) userToMock = usersMock.users[0]
+            else if(tkn === token.token[1]) userToMock = usersMock.users[1]
+            else userToMock = usersMock.users[2]
+            
             dispatch({
                 payload: userToMock,
                 type: actions.GET_USER_INFO
@@ -93,7 +108,23 @@ export default function GlobalState(props: IPropsChildren) {
         try {
             if (use_mock === "1") {
                 if (email === "lu@g.c" && password === "1") {
-                    localStorage.setItem('jwToken', token.token);
+                    localStorage.setItem('jwToken', token.token[0]);
+                    dispatch({
+                        payload: true,
+                        type: actions.LOGSTATUS_CHANGE
+                    })
+                    return true
+                }
+                else if(email === "r@g.c" && password === "1"){
+                    localStorage.setItem('jwToken', token.token[1]);
+                    dispatch({
+                        payload: true,
+                        type: actions.LOGSTATUS_CHANGE
+                    })
+                    return true
+                }
+                else if(email === "g@g.c" && password === "1"){
+                    localStorage.setItem('jwToken', token.token[2]);
                     dispatch({
                         payload: true,
                         type: actions.LOGSTATUS_CHANGE
@@ -160,10 +191,12 @@ export default function GlobalState(props: IPropsChildren) {
         try {
             if (use_mock === "1") {
                 const userlog: IUser = {
-                    nombre: user.name,
-                    apellido: user.surname,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
                     rol: 1,
-                    email: user.email
+                    email: user.email,
+                    telefono: "0000000000",
+                    id:"xd"
                 }
                 dispatch({
                     type: actions.LOGSTATUS_CHANGE,
@@ -262,8 +295,11 @@ export default function GlobalState(props: IPropsChildren) {
                 console.log("Consulta ID " + consult_id + " respondida")
             }
             else {
+                const data = {
+                    respuesta: response
+                }
                 const token = localStorage.getItem('jwToken')
-                await axios.patch(server_url + "/consultas/" + consult_id + "/respuesta/", response, { headers: { Authorization: "Token " + token } })
+                await axios.patch(server_url + "/consultas/" + consult_id + "/respuesta/", data, { headers: { Authorization: "Token " + token } })
                 console.log("Consulta ID " + consult_id + " respondida")
             }
         } catch (error) {
@@ -275,6 +311,20 @@ export default function GlobalState(props: IPropsChildren) {
         dispatch({
             type: actions.GET_ID_CONSULT,
             payload: id
+        })
+    }
+
+    const getIdTurno = (id: string) => {
+        dispatch({
+            type: actions.SET_ID_TURN,
+            payload: id
+        })
+    }
+
+    const setPrice = (price: number) => {
+        dispatch({
+            type: actions.SET_PRICE_CONSULT,
+            payload: price
         })
     }
 
@@ -377,25 +427,63 @@ export default function GlobalState(props: IPropsChildren) {
             payload: payload
         })
     }
+    //Abre o cierrra pagar
+    const changeMenuPayment = (payload: boolean, price_consult: 0, turn_id: string ) => {
+        getIdTurno(turn_id)
+        setPrice(price_consult)
+        dispatch({
+            type: actions.CHANGE_MENU_PAYMENT,
+            payload: payload
+        })
+    }
+    //Hacer Pago
+    
+    const makePayment = async (pago: IPago): Promise<boolean> => {
+        if(use_mock === "1") return true
+        else {
+            try {
+                await axios.post(server_url + "/usuario/payment/", pago, { headers: { Authorization: "Token " + token } })
+                return true
+            } catch (error) {
+                console.log(error)
+                return false
+            }
+        }
+    }
+
+    const getClientes = () => {
+
+    }
+
+    const getPagos = (start?: Date, end?: Date) => {
+
+    }
+     
     //Estado Inicial
     const initialState: IGlobalContext = {
-        user: { nombre: "", apellido: "", email: "", rol: 3 },
+        user: { first_name: "", last_name: "", email: "", rol: 3, telefono: "", id: "" },
         alert: { status: false, type: "info", msg: "" },
         Mlogin: false,
         MRegister: false,
         isLog: false,
         idConsult: "",
+        idTurno: "",
+        priceTurn: 0,
         MConsult: false,
         MReview: false,
         MResponse: false,
+        MPayment: false,
         reviews: [],
         consults: [],
         turnosOcupados: [],
+        pagosInforme: [],
+        clientes: [],
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
         changeMenuReview,
         changeMenuResponse,
+        changeMenuPayment,
         getUserInfo,
         login,
         logout,
@@ -409,7 +497,11 @@ export default function GlobalState(props: IPropsChildren) {
         getReviews,
         getTurnos,
         makeTurno,
-        getIdConsult
+        getIdConsult,
+        makePayment,
+        getIdTurno,
+        getPagos,
+        getClientes
     };
 
     //uso del Reducer

@@ -1,46 +1,53 @@
 {
     "fecha": [
         {
-            "fecha": "2024-09-25",
+            "fecha": "2024-10-25",
             "hora": "09:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "11:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "13:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "9:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "15:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "19:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         },
         {
-            "fecha": "2024-09-28",
+            "fecha": "2024-10-28",
             "hora": "21:00:00",
             "servicio": "",
-            "usuario": null
+            "usuario": null,
+            "pagado": false
         }
     ]
 }

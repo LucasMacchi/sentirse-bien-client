@@ -1,0 +1,9 @@
+{
+    "payments":[
+        {
+            "usuario":"",
+            "turno":"",
+            "precio": 0
+        }
+    ]
+}

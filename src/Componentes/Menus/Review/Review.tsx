@@ -36,7 +36,7 @@ export default function Review() {
             global?.alertStatus(true, "success", "Gracias por dejar tu reseña!")
             setTimeout(() => {
                 window.location.reload()
-            }, 5000);
+            }, 1500);
         }
         else {
             global?.alertStatus(true, "error", "Error a dejar reseña")
@@ -68,7 +68,8 @@ export default function Review() {
                         <Typography variant='h6'>Deja tu Reseña!</Typography>
                         <Divider />
                         <Box padding={1} display={global?.isLog ? "none" : "block"}>
-                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={review.name} onChange={(e) => handleReviewName(e.target.value)} required />
+                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={review.name} 
+                            onChange={(e) => handleReviewName(e.target.value)} required={global?.isLog ? false : true} />
                         </Box>
                         <Typography paddingTop={1} variant='body1'>Escribe tu comentario</Typography>
                         <Box padding={1}>

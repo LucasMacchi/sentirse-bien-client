@@ -22,8 +22,8 @@ export default function Register() {
 
     const [userToRegister, setUserReg] = useState({
         email: "",
-        name: "",
-        surname: "",
+        first_name: "",
+        last_name: "",
         password: "",
         password_con: "",
         username: "",
@@ -73,7 +73,7 @@ export default function Register() {
             global?.alertStatus(true, "success", "Registrado correctamente")
             setTimeout(() => {
                 window.location.reload()
-            }, 5000);
+            }, 1500);
         }
         else {
             global?.alertStatus(true, "error", "Error al registrarse")
@@ -101,10 +101,10 @@ export default function Register() {
                             <TextField fullWidth type="email" id='email' size="small" label="Email" value={userToRegister.email} onChange={(e) => handleUser("email", e.target.value)} required />
                         </Box>
                         <Box padding={0.3}>
-                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={userToRegister.name} onChange={(e) => handleUser("name", e.target.value)} required />
+                            <TextField fullWidth type="text" id='name' size="small" label="Nombre" value={userToRegister.first_name} onChange={(e) => handleUser("first_name", e.target.value)} required />
                         </Box>
                         <Box padding={0.3}>
-                            <TextField fullWidth type="text" id='surname' size="small" label="Apellido" value={userToRegister.surname} onChange={(e) => handleUser("surname", e.target.value)} required />
+                            <TextField fullWidth type="text" id='surname' size="small" label="Apellido" value={userToRegister.last_name} onChange={(e) => handleUser("last_name", e.target.value)} required />
                         </Box>
                         <Box padding={0.3}>
                             <TextField fullWidth type="number" id='phone' size="small" label="Telefono" value={userToRegister.telefono} onChange={(e) => handleUser("telefono", e.target.value)} required />

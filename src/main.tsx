@@ -21,6 +21,7 @@ import Consult from "./Componentes/Menus/Consult/Consult.tsx";
 import Response from "./Componentes/Menus/Consult/Respond.tsx";
 import Alerta from "./Componentes/Others/Alert.tsx";
 import Review from "./Componentes/Menus/Review/Review.tsx";
+import Payment from "./Componentes/Menus/Payment/Payment.tsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -34,6 +35,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Consult />
                         <Login />
                         <Register />
+                        <Payment/>
                         <ScrollToTop></ScrollToTop>
                         <Routes>
                             <Route path="/" element={<App />}></Route>

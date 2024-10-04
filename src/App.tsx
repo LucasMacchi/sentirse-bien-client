@@ -10,8 +10,6 @@ function App() {
         global?.getTurnos()
     }, [])
 
-
-
     return (
         <>
             <Body></Body>
