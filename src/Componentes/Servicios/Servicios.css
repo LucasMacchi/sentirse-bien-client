@@ -29,7 +29,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 60px; /* Espaciado entre tarjetas */
-    justify-items: center; /* Centrar ítems en el grid */
+    justify-items: center; 
+    margin-bottom: 3em;
 }
 
 .servicio-card {
@@ -73,13 +74,19 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 20px; /* Espaciado arriba del botón */
+    margin-bottom: 4em; /* Espaciado arriba del botón */
 }
 
 .vermas-btn:hover {
     background-color: #388E3C; /* Color del botón al pasar el ratón */
 }
 
+.divider{
+    margin: 3em 0;
+    width: 100%;
+    border: 1px solid #4CAF50;
+    text-align: center;
+}
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .titulo {

@@ -33,7 +33,9 @@ export const Servicios: React.FC = () => {
           { img: dermohealth, title: "DermoHealth", desc: "Moviliza los distintos tejidos de la piel y estimula la microcirculación, generando un drenaje linfático.", price: "$10000" },
           { img: crio, title: "Criofrecuencia", desc: "Produce un efecto de lifting instantáneo.", price: "$10000" },
           { img: cavitacion, title: "Ultracavitación", desc: "Técnica reductora.", price: "$10000" }
+          
         ]} />
+        
 
         <ServiceSection title="Tratamientos Faciales" services={[
           { img: puntadiamante, title: "Punta de diamante", desc: "Microexfoliación.", price: "$10000" },
