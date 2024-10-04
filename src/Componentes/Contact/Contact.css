@@ -1,129 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 .contacto {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns layout */
-    gap: 0; /* Remove any gap between columns */
+    grid-template-columns: 1fr 1fr;
+    gap: 20px; /* Espacio entre columnas */
     font-family: 'Poppins', sans-serif;
-    color: #14544E;
-    position: relative; /* Make sure footer is positioned relatively */
+    color: #4CAF50; /* Color principal */
+    padding: 100px 20px; /* Padding vertical y horizontal */
 }
 
 .footer-left {
-    margin: 5em 10em 0 10em; /* Adjusted for better spacing */
     display: flex;
     flex-direction: column;
+    margin: 0 50px; /* Espaciado horizontal */
 }
 
 .contactanos-text {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-top: 2em;
+    font-size: 2.5rem; /* Tamaño de fuente grande */
+    margin-bottom: 1.5em; /* Espaciado inferior */
+    color: #FF6F61;
+    align-self: center; /* Color de texto */
+}
+
+.contact-info {
     margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+     /* Espaciado inferior */
+}
+
+.contact-info h2 {
+    font-size: 1.5rem; /* Tamaño de encabezado */
+    color: #4CAF50; /* Color de encabezados */
 }
 
 .contact-info p {
-    font-size: 1.3rem;
-}
-
-.contact-info h1{
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Tamaño de párrafos */
+    margin: 0.5em 0; /* Espaciado vertical */
 }
 
 .icon {
-    width: 3em;
+    width: 60px; /* Tamaño de íconos */
+    margin: 0; /* Espaciado horizontal */
+    cursor: pointer; /* Indicar que son clicables */
 }
 
 .foto-footer {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover; 
-    grid-column: 2;
-    grid-row: 1; 
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-    footer {
-        grid-template-columns: 1fr; /* Stack the columns on smaller screens */
-        height: auto; /* Allow height to adjust based on content */
-    }
-
-    .footer-left {
-        margin: 2em auto; /* Adjust margin for smaller screens */
-    }
-
-    .logo-text {
-        font-size: 1.5rem;
-    }
-    
-    .contactanos-text {
-        font-size: 1; /* Adjust font size */
-    }
-
-    .contact-info p {
-        font-size: 1rem; /* Adjust font size */
-    }
-    
-    .icon {
-        width: 2.5em;
-    }
-}
-
-
+/* Estilos responsivos */
 @media (max-width: 768px) {
-    footer {
-        grid-template-columns: 1fr; /* Stack the columns on smaller screens */
-        height: auto; /* Allow height to adjust based on content */
+    .contacto {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+        padding: 50px 10px; /* Reducir padding */
     }
 
-    .footer-left {
-        margin: 2em auto; /* Adjust margin for smaller screens */
+    .footer-left, .footer-right {
+        margin: 0 auto; /* Centrar contenido */
+        text-align: center; /* Centrar texto */
     }
 
-    .logo-text {
-        font-size: 1.5rem;
-    }
-    
     .contactanos-text {
-        font-size: 1; /* Adjust font size */
+        font-size: 2rem; /* Reducir tamaño de fuente */
     }
 
-    .contact-info p {
-        font-size: 1rem; /* Adjust font size */
+    .contact-info h2, .contact-info p {
+        font-size: 1rem; /* Reducir tamaño de fuente */
     }
-    
+
     .icon {
-        width: 2.5em;
+        width: 30px; /* Reducir tamaño de íconos */
     }
 }
 
 @media (max-width: 425px) {
-    footer {
-        grid-template-columns: 1fr; /* Stack the columns on smaller screens */
-        height: auto; /* Allow height to adjust based on content */
-    }
-    .footer-left {
-        margin: 3em; /* Further reduced margin for very small screens */
+    .contactanos-text {
+        font-size: 1.5rem; /* Más pequeño para pantallas muy pequeñas */
     }
 
-    .logo-text {
-        font-size: 1.3rem; /* Further reduced font size */
-    }
-    
-    .contactanos-text {
-        font-size: 1.5rem; /* Further reduced font size */
+    .contact-info h2 {
+        font-size: 1.2rem; /* Tamaño de encabezado más pequeño */
     }
 
     .contact-info p {
-        font-size: 1rem;
-    }
-
-    .icon {
-        width: 2em; /* Further reduced icon size */
+        font-size: 0.9rem; /* Tamaño de párrafos más pequeño */
     }
 }
-
-
-

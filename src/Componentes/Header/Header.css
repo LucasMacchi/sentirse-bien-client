@@ -1,72 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
-header{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto Mono", monospace;
-    position: fixed;
-    background-color: white;
-    width: 100%;
-    z-index: 1000;
+header {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+  background-color: #f8f9fa; /* Color claro para el fondo */
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 0.5em;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 3em; /* Espaciado */
+  flex-wrap: wrap; /* Permite que el contenido se ajuste en pantallas pequeñas */
 }
 
-.navbar-left{
-    margin-left: 2em;
-    display: flex;
-    align-items: center;
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 
-.navbar-right{
-    display: flex;
-    align-items: center;
+.logo {
+  width: 50px; /* Ajusta el tamaño del logo */
+  margin-right: 10px; /* Espaciado entre el logo y el texto */
 }
 
-.navbar-links{
-    margin: 0 1em;
-    padding: 0;
-    color: rgb(143, 143, 143);
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
-    text-decoration: none;
+.header-logo-text {
+  font-size: 1.8rem; /* Tamaño de fuente más grande */
+  color: #4caf50; /* Color verde */
+  font-weight: 700; /* Negrita */
+  text-decoration: none;
 }
 
-.login{
-    color: rgb(255, 255, 255);
-    background-color: rgb(143, 143, 143);
-    padding: 4px;
-    border-radius: 7px;
+.navbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten */
 }
 
-.navbar-links:hover{
-    transform: scale(1.05);
+.navbar-links {
+  margin: 0 1em;
+  padding: 0.5em 1em; /* Espaciado interno */
+  color: #4caf50; /* Color verde */
+  transition: 0.2s ease-in-out;
+  text-decoration: none;
+  border-radius: 5px; /* Bordes redondeados */
 }
 
-.header-logo-text{
-    font-size: 1.5rem;
-    margin-left: 10px;
-    color: rgb(143, 143, 143);
-    font-weight: 400;
-    text-decoration: none;
+.navbar-links:hover {
+  background-color: #c8e6c9; /* Color verde suave al pasar el mouse */
+  transform: scale(1.05);
 }
 
-
-.avatar-img{
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    margin-top: 4px;
+.avatar-img {
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  margin-left: 10px; /* Espaciado entre avatar y otros enlaces */
 }
 
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    padding: 1em; /* Ajusta el espaciado */
+  }
 
-
-
-
+  .navbar-right {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    align-items: flex-start; /* Alinea a la izquierda */
+  }
+}

@@ -1,0 +1,74 @@
+.menu-lateral {
+    padding-top: 2em;
+    margin-top: 6em;
+    width: 300px;
+    height: 56%; 
+    background-color: #e8f5e9; /* Verde suave */
+    border-right: 1px solid #c8e6c9; /* Verde claro */
+    padding: 30px; 
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
+    position: absolute; /* Mantenerlo fijo al lado de la ventana */
+    top: 0; 
+    left: 0; 
+    z-index: 1000; 
+}
+
+.oculto {
+    transform: translateX(-100%);
+}
+
+.toggle-boton {
+    padding: 15px; /* Mayor tamaño del botón */
+    background-color: #ff80ab; /* Rosa fuerte */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Espacio superior */
+    transition: background-color 0.2s;
+    width: 100%;
+    font-size: 1.1em; /* Tamaño de fuente mayor */
+}
+
+.toggle-boton:hover {
+    background-color: #ff4081; /* Rosa más intenso al pasar el mouse */
+}
+
+.menu-lista {
+    padding-top: 0; /* Quitar espacio extra en la parte superior */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    padding: 15px; /* Mayor padding para los elementos del menú */
+    font-size: 1.2em; /* Tamaño de fuente mayor */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #c8e6c9; /* Verde claro al pasar el mouse */
+    color: #4caf50; /* Texto verde */
+}
+
+.abrir-boton {
+    padding: 10px 15px;
+    margin-left: 3em;
+    background-color: #4caf50; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 1.1em; 
+    position: absolute;
+    margin-top: 1em;
+}
+
+.abrir-boton:hover {
+    background-color: #45a049; /* Verde más oscuro al pasar el mouse */
+}

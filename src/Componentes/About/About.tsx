@@ -8,7 +8,7 @@ import { Footer } from "../Footer/Footer";
 export function About() {
   return (
     <>
-      <Header></Header>
+      <Header />
       <div className="about-container">
         <div className="about-grid">
           <div className="about-left">
@@ -26,15 +26,15 @@ export function About() {
             </p>
           </div>
           <div className="about-right">
-            <img src={foto1} alt="" className="img" />
-            <img src={foto2} alt="" className="img" />
+            <img src={foto1} alt="Spa" className="img" />
+            <img src={foto2} alt="Relaxación" className="img" />
           </div>
         </div>
       </div>
       <div className="about-container vision">
         <div className="about-grid">
           <div className="about-right">
-            <img src={foto3} alt="" className="img" />
+            <img src={foto3} alt="Masajes" className="img" />
           </div>
           <div className="about-left">
             <h1>Visión</h1>
@@ -67,12 +67,11 @@ export function About() {
             </p>
           </div>
           <div className="about-left">
-            <img src={foto3} alt="" className="img" />
+            <img src={foto3} alt="Equipo" className="img" />
           </div>
         </div>
       </div>
-      <Footer></Footer>    
-      
-      </>
+      <Footer />
+    </>
   );
 }

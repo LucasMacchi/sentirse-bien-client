@@ -43,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                             <Route path="/profile" element={<Profile></Profile>}></Route>
                             <Route path="/turnos" element={<Turnos></Turnos>}></Route>
                             <Route path="/empleo" element={<Empleo></Empleo>}></Route>
+
                         </Routes>
                         <Alerta />
                     </GlobalState>

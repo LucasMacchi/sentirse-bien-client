@@ -379,7 +379,7 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Estado Inicial
     const initialState: IGlobalContext = {
-        user: { nombre: "", apellido: "", email: "", rol: 1 },
+        user: { nombre: "", apellido: "", email: "", rol: 3 },
         alert: { status: false, type: "info", msg: "" },
         Mlogin: false,
         MRegister: false,

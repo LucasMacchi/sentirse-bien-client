@@ -1,7 +1,7 @@
 import "./Header.css";
 import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
 import avatar from "../../assets/avatar.svg";
 
@@ -9,23 +9,25 @@ export function Header() {
   const global = useContext(GlobalContext);
   const navigate = useNavigate();
 
-
   const openLog = () => {
     global?.changeMenuLogin(true);
   };
 
-  function LogoutNavigate(){
-    useEffect(()=>{
-      navigate('/');
-    })
+  function LogoutNavigate() {
+    navigate("/");
   }
 
   function changeMenuLogin() {
     if (!global?.isLog) {
       return (
         <>
-          <Link to="/" className="navbar-links" onClick={() => {
-            openLog(); LogoutNavigate}}>
+          <Link
+            to="/"
+            className="navbar-links"
+            onClick={() => {
+              openLog();
+            }}
+          >
             Log In
           </Link>
         </>
@@ -54,11 +56,26 @@ export function Header() {
       );
     }
   }
+function ShowMenu(){
+  const location = useLocation();
+  if(global?.user.rol == 3){
+    if(location.pathname == "/profile"){
+      return null;
+    } else {
+      return(
+        <>
+      </>
+      )
+    }
+  }
+}
+
   return (
     <>
       <header>
         <nav className="navbar">
           <div className="navbar-left">
+            {ShowMenu()}
             <img src={logo} alt="" />
             <Link to="/" className="header-logo-text">
               Sentirse Bien
