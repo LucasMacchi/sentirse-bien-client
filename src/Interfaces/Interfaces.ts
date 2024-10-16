@@ -23,12 +23,12 @@ export interface ITurno {
     fecha: string,
     hora: string,
     usuario?: string,
-    pagado: boolean
+    pagado: boolean,
+    price?: number
 };
 
 export interface IPago {
     usuario?: string,
-    turno: string,
     precio: number
 };
 
@@ -70,8 +70,7 @@ export interface IGlobalContext {
     user: IUser,
     alert: IAlert,
     idConsult: string,
-    idTurno: string,
-    priceTurn: number,
+    turnToPay: ITurno,
     Mlogin: boolean,
     isLog: boolean,
     MRegister: boolean,
@@ -82,6 +81,7 @@ export interface IGlobalContext {
     consults: IConsulta[],
     reviews: IReview[],
     turnosOcupados: string[],
+    turnos: ITurno[],
     pagosInforme: IPago[],
     clientes: IUser[],
     changeMenuLogin: (payload: boolean) => void,
@@ -89,7 +89,7 @@ export interface IGlobalContext {
     changeMenuConsult: (payload: boolean) => void,
     changeMenuReview: (payload: boolean) => void,
     changeMenuResponse: (payload: boolean, consult_id: string) => void,
-    changeMenuPayment: (payload: boolean, price_consult: 0, turn_id: string) => void,
+    changeMenuPayment: (payload: boolean, turn: ITurno) => void,
     getUserInfo: () => void
     login: (email: string, password: string) => Promise<boolean>,
     logout: () => void,
@@ -101,11 +101,12 @@ export interface IGlobalContext {
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
+    getTurnosComplete: () => Promise<void>,
     makeTurno: (turno: ITurno) => Promise<boolean>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,
-    getIdTurno: (id: string) => void,
+    setTurn: (turn: ITurno) => void,
     getClientes: () => void,
     getPagos: (start?: Date, end?: Date) => void,
 };

@@ -59,7 +59,6 @@ const Turnos: React.FC = () => {
         //setTimeSlots(generateTimeSlots(START_HOUR, END_HOUR, INTERVAL));
 
         if (global?.isLog === false) {
-            global?.changeMenuLogin(true);
             navigate("/");
         }
     }, [navigate]);
@@ -67,24 +66,14 @@ const Turnos: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        setbtn(true)
         const turno: ITurno = {
             servicio: selectedServices[0] + ", " + selectedServices[1],
             fecha: date,
-            hora: time
+            hora: time,
+            pagado: false,
+            price: selectedServices.length === 1 ? 10000 : 20000
         }
-        const result = global?.makeTurno(turno)
-        if (result) {
-            global?.alertStatus(true, "success", "Gracias por pedir tu turno!")
-            setTimeout(() => {
-                setbtn(false)
-                navigate("/");
-            }, 1500)
-        }
-        else {
-            setbtn(false)
-            global?.alertStatus(true, "error", "Error al pedir un turno, intente devuelta")
-        }
+        global?.changeMenuPayment(true, turno)
     };
 
     const handleDateChange = (
