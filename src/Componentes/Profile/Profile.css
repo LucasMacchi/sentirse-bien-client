@@ -4,14 +4,9 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.profile {
+.profile, .admin-profile {
   padding: 2em;
   background-color: #f0f8ff; /* Fondo suave */
-}
-
-.admin-profile {
-  padding: 2em;
-  background-color: #f4f4f4; /* Color de fondo suave */
 }
 
 .container {
@@ -100,7 +95,8 @@ h2 {
 
 .consults-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; 
 }
 
 .consulta-card {
@@ -108,7 +104,7 @@ h2 {
   border-radius: 10px; /* Esquinas redondeadas */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
   padding: 20px;
-  transition: transform 0.2s; /* Animación de hover */
+  transition: transform 0.2s; 
 }
 
 .consulta-card:hover {
@@ -133,4 +129,24 @@ h2 {
 
 .respond-button:hover {
   background-color: #388E3C; /* Color al pasar el ratón */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .stats {
+    flex-direction: column; /* Apilar las tarjetas en pantallas pequeñas */
+    align-items: center; /* Centrar las tarjetas */
+  }
+
+  .stat-card {
+    width: 80%; /* Ampliar el ancho de las tarjetas en pantallas pequeñas */
+  }
+
+  .divider {
+    width: 90%; /* Hacer el divisor más ancho en pantallas pequeñas */
+  }
+
+  .consults-grid{
+    grid-template-columns: repeat(1, 1fr); 
+  }
 }

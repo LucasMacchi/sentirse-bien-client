@@ -28,7 +28,7 @@
 .servicio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 60px; /* Espaciado entre tarjetas */
+    gap: 70px; /* Espaciado entre tarjetas */
     justify-items: center; 
     margin-bottom: 3em;
 }

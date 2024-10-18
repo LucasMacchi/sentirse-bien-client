@@ -34,9 +34,9 @@ export default function Login() {
         const access = await global?.login(userLogin.username, userLogin.password)
         if (access) {
             global?.alertStatus(true, "success", "Ingresaste correctamente")
-            setTimeout(() => {
-                window.location.reload()
-            }, 1500);
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500);
         }
         else {
             global?.alertStatus(true, "error", "Error al ingresar")

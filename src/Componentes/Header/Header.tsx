@@ -64,13 +64,14 @@ function ShowMenu(){
     } else {
       return(
         <>
-      </>
+        </>
       )
     }
   }
 }
-
-  return (
+if(global?.isLog){
+  if(global?.user.rol != 3){
+    return (
     <>
       <header>
         <nav className="navbar">
@@ -98,6 +99,59 @@ function ShowMenu(){
           </div>
         </nav>
       </header>
+      </>
+    )
+
+  } else {
+    return(
+      <>
+      <header>
+        <nav className="navbar">
+          <div className="navbar-left">
+            {ShowMenu()}
+            <img src={logo} alt="" />
+            <Link to="/profile" className="header-logo-text">
+              Sentirse Bien
+            </Link>
+          </div>
+            {changeMenuLogin()}
+        </nav>
+      </header>
+      </>
+    )
+  }
+} else {
+  return (
+    <>
+     <header>
+        <nav className="navbar">
+          <div className="navbar-left">
+            {ShowMenu()}
+            <img src={logo} alt="" />
+            <Link to="/" className="header-logo-text">
+              Sentirse Bien
+            </Link>
+          </div>
+          <div className="navbar-right">
+            <Link to="/about" className="navbar-links">
+              Quienes Somos
+            </Link>
+            <Link to="/contact" className="navbar-links">
+              Contacto
+            </Link>
+            <Link to="/services" className="navbar-links">
+              Servicios
+            </Link>
+            <Link to="/empleo" className="navbar-links">
+              Empleo
+            </Link>
+            {changeMenuLogin()}
+          </div>
+        </nav>
+      </header>
     </>
-  );
+  )
+
+}
+
 }

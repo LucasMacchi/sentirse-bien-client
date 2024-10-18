@@ -9,18 +9,16 @@ import MenuLateral from "../MenuLateral/MenuLateral";
 export function Profile() {
   const global = useContext(GlobalContext);
   const navigate = useNavigate();
-  console.log(global); // Agregar este console.log para depurar
 
   const handleResponderConsultas = (id: string) => {
     global?.changeMenuResponse(true, id);
   };
 
-  //Si es usuario no esta logeado e intenta entrar a perfil, lo redirecciona al home
   useEffect(() => {
-    if(global?.isLog === false){
-      navigate("/")
+    if (global?.isLog === false) {
+      navigate("/");
     }
-  }, [])
+  }, [navigate, global]);
 
   if (global?.user.rol === 3) {
     return (
@@ -51,7 +49,6 @@ export function Profile() {
             </div>
           </div>
         </section>
-        <Footer />
       </>
     );
   } else {
@@ -77,7 +74,7 @@ export function Profile() {
                       <p><strong>Respuesta:</strong> {consulta.respuesta || "No respondida"}</p>
                       <p><strong>Cerrado:</strong> {consulta.cerrado ? "Sí" : "No"}</p>
                     </div>
-                    {global?.user.rol === 1 && !consulta.cerrado && (
+                    {global?.user.rol != 0 && !consulta.cerrado && (
                       <button
                         className="respond-button"
                         onClick={() => handleResponderConsultas(consulta.id)}

@@ -307,3 +307,81 @@ p {
         font-size: 0.75rem;
     }
 }
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .welcome-text {
+        font-size: 3.5rem;
+    }
+
+    .servicios-grid {
+        max-width: 1000px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .gallery img {
+        width: 100%; /* Asegúrate de que las imágenes se adapten */
+        height: auto; /* Mantén la relación de aspecto */
+    }
+}
+
+@media (max-width: 768px) {
+    .body-bg {
+        height: 500px;
+    }
+    .container {
+        padding: 1rem;
+    }
+
+    .welcome-text {
+        font-size: 2.5rem;
+    }
+
+    .agenda-btn {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+
+    .container-body {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .conocenos-left h1 {
+        font-size: 1.75rem;
+    }
+
+    .conocenos-left p {
+        font-size: 0.9rem;
+    }
+
+    .conocenos-right {
+        flex-direction: row;
+    }
+
+    .conocenos-img {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 459px) {
+    .body-bg {
+        height: 400px;
+    }
+    .container {
+        padding: 0.5rem;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+    }
+
+    .agenda-btn {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+}

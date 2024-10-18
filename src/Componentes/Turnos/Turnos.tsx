@@ -71,7 +71,8 @@ const Turnos: React.FC = () => {
         const turno: ITurno = {
             servicio: selectedServices[0] + ", " + selectedServices[1],
             fecha: date,
-            hora: time
+            hora: time,
+            pagado: true
         }
         const result = global?.makeTurno(turno)
         if (result) {
