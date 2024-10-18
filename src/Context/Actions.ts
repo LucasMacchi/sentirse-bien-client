@@ -12,8 +12,8 @@ export default {
     GET_REVIEWS: "get_reviews",
     GET_TURNS: "get_turns",
     GET_ID_CONSULT: "get_id_consult",
-    SET_PRICE_CONSULT: "set_price_consult",
-    SET_ID_TURN: "set_id_turn",
+    SET_TURN_TOPAY: "set_turn_topay",
     GET_CLIENTES: "get_clientes",
-    GET_PAGOS: "get_pagos"
+    GET_PAGOS: "get_pagos",
+    GET_TURNS_FULL: "get_turns_full"
 }

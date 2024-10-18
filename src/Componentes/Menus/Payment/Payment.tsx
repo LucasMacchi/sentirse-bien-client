@@ -40,7 +40,7 @@ export default function Payment() {
     const [disabledBtn, setDisable] = useState(false)
 
     const closeBtn = () => {
-        global?.changeMenuPayment(!global.MPayment, 0, "")
+        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0})
     }
 
     const errorCheck = () => {
@@ -93,13 +93,14 @@ export default function Payment() {
     const payTurn = async (event: FormEvent) => {
         event.preventDefault()
         setDisable(true)
-        const pago: IPago = {
-            turno: global?.idTurno ? global?.idTurno : "",
-            precio: global?.priceTurn ? global?.priceTurn : 0
+        const price: IPago = {
+            precio: global?.turnToPay.price ? global?.turnToPay.price : 0,
+            usuario: global?.user.id
         }
-        const result = await global?.makePayment(pago)
+        global?.makeTurno(global.turnToPay)
+        const result = await global?.makePayment(price)
         if(result){
-            global?.alertStatus(true, "success", "Pagado Correctamente")
+            global?.alertStatus(true, "success", "Gracias por sacar su turno!")
             setTimeout(() => {
                 setDisable(false)
                 window.location.reload()
@@ -157,7 +158,7 @@ export default function Payment() {
                             onChange={(e) => handlePayment("card_expiration_year", e.target.value)} required 
                             error={cardExError.status} />
                         </Box>
-                        <Typography>Precio de consulta: ${global?.priceTurn}</Typography>
+                        <Typography>Precio de consulta: ${global?.turnToPay.price}</Typography>
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"8px"}>
                             <Button disabled={disabledBtn} size="small" color='secondary' variant="contained" type="submit" startIcon={<PaidIcon />}>
                                 <Typography sx={{ marginLeft: "20px" }} variant='body2'>PAGAR CONSULTA</Typography>

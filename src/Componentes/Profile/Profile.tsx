@@ -18,7 +18,9 @@ export function Profile() {
     if (global?.isLog === false) {
       navigate("/");
     }
-  }, [navigate, global]);
+    else global?.getTurnosComplete()
+    if(global?.isLog && global.user.rol > 0) global.getClientes()
+  }, [global, navigate]);
 
   if (global?.user.rol === 3) {
     return (
@@ -86,6 +88,21 @@ export function Profile() {
                 ))}
               </div>
             )}
+            <h2>Mis Turnos</h2>
+              {global?.turnos.length === 0 ? (
+                <p>No tienes Turnos.</p>
+              ) : (
+                <div className="consults-grid">
+                  {global?.turnos.map((t) => (
+                    <div className="consulta-card" key={t.fecha+t.hora}>
+                      <div className="card-content">
+                        <p><strong>Fecha:</strong> {t.fecha}</p>
+                        <p><strong>Hora:</strong> {t.hora || "No respondida"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
           </div>
         </section>
         <Footer />
