@@ -1,9 +1,44 @@
 {
     "payments":[
         {
-            "usuario":"",
-            "turno":"",
-            "precio": 0
+            "usuario":"1",
+            "turno":"Turno 1",
+            "precio": 10000
+        },
+        {
+            "usuario":"1",
+            "turno":"Turno 2",
+            "precio": 10000
+        },
+        {
+            "usuario":"1",
+            "turno":"Turno 3",
+            "precio": 10000
+        },
+        {
+            "usuario":"1",
+            "turno":"Turno 4",
+            "precio": 10000
+        },
+        {
+            "usuario":"2",
+            "turno":"Turno 5",
+            "precio": 10000
+        },
+        {
+            "usuario":"2",
+            "turno":"Turno 6",
+            "precio": 10000
+        },
+        {
+            "usuario":"2",
+            "turno":"Turno 7",
+            "precio": 10000
+        },
+        {
+            "usuario":"2",
+            "turno":"Turno 8",
+            "precio": 10000
         }
     ]
 }
