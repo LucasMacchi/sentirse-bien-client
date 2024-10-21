@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
-import usersData from "../../Mocks/users.json";
 import "./Ingresos.css";
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -9,16 +8,9 @@ import logoSpa from '../../assets/logo.png';
 import { UserOptions } from 'jspdf-autotable';
 import { GlobalContext } from "../../Context/GlobalState";
 
-interface Usuario {
-  id: number;
-  first_name: string;
-  last_name: string;
-  rol: number;
-  email: string;
-}
 
 interface IngresosPorUsuario {
-  id: number;
+  id: string;
   nombre: string;
   rol: string;
   email: string;
@@ -34,37 +26,46 @@ const Ingresos: React.FC = () => {
   const [promedioIngresoPorTurno, setPromedioIngresoPorTurno] = useState(0);
   const [usuarioMasIngresos, setUsuarioMasIngresos] = useState<IngresosPorUsuario | null>(null);
 
-  useEffect(() => {
-    const calcularIngresos = () => {
-      const usuarios = usersData.users as Usuario[];
-      const pagos = global?.pagosInforme ? global?.pagosInforme : [];
 
-      const ingresosPorUsuario = usuarios.map(usuario => {
-        const pagosPorUsuario = pagos.filter(pago => pago.usuario === usuario.id.toString());
-        const ingresos = pagosPorUsuario.reduce((total, pago) => total + pago.monto, 0);
-        return {
-          id: usuario.id,
-          nombre: `${usuario.first_name} ${usuario.last_name}`,
-          rol: usuario.rol === 3 ? "Administrador" : "Usuario",
-          email: usuario.email,
-          ingresos: ingresos,
-          cantidadTurnos: pagosPorUsuario.length
-        };
-      }).filter(usuario => usuario.ingresos > 0);
+  const calcularIngresos = () => {
+    //const usuarios = global?.clientes ? global?.clientes : [];
+    //const pagos = global?.pagosInforme ? global?.pagosInforme : [];
+    console.log("CLIENTES ",global?.clientes)
+    
+    const ingresosPorUsuario = global?.clientes.map(usuario => {
+      const pagosPorUsuario = global?.pagosInforme.filter(pago => pago.usuario === usuario.id);
+      const ingresos = pagosPorUsuario.reduce((total, pago) => total + pago.monto, 0);
+      console.log("PAGOS ",pagosPorUsuario)
+      return {
+        id: usuario.id,
+        nombre: `${usuario.first_name} ${usuario.last_name}`,
+        rol: usuario.rol === 3 ? "Administrador" : "Usuario",
+        email: usuario.email,
+        ingresos: ingresos,
+        cantidadTurnos: pagosPorUsuario.length
+      };
+    }).filter(usuario => usuario.ingresos > 0);
 
+    if(ingresosPorUsuario){
       const totalIngresos = ingresosPorUsuario.reduce((total, usuario) => total + usuario.ingresos, 0);
       const totalTurnos = ingresosPorUsuario.reduce((total, usuario) => total + usuario.cantidadTurnos, 0);
       const promedioIngresoPorTurno = totalTurnos > 0 ? totalIngresos / totalTurnos : 0;
       const usuarioMasIngresos = ingresosPorUsuario.reduce((max, usuario) => max.ingresos > usuario.ingresos ? max : usuario);
-
       setIngresosPorUsuario(ingresosPorUsuario);
       setTotalIngresos(totalIngresos);
       setTotalTurnos(totalTurnos);
       setPromedioIngresoPorTurno(promedioIngresoPorTurno);
       setUsuarioMasIngresos(usuarioMasIngresos);
-    };
+    }
+  };
 
-    calcularIngresos();
+
+  useEffect(() => {
+    global?.getPagos()
+    global?.getClientes();
+    if(global?.pagosInforme && global.clientes){
+      calcularIngresos();
+    }
   }, []);
 
   const generarInformePDF = () => {

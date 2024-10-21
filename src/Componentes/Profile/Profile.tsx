@@ -19,7 +19,10 @@ export function Profile() {
       navigate("/");
     } else {
       global?.getTurnosComplete();
-      if (global?.isLog && global.user.rol > 0) global.getClientes();
+      if (global?.isLog && global.user.rol > 0) {
+        global?.getPagos()
+        global.getClientes();
+      }
       
     }
   }, []);
