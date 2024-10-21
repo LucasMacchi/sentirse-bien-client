@@ -73,7 +73,7 @@ export default function Pagos() {
       `Fecha: ${pago.fecha}`,
       `Usuario: ${pago.usuario}`,
       `Turno: ${pago.turno}`,
-      `Monto: $${pago.monto.toFixed(2)}`
+      `Monto: $${pago.monto}`
     ];
     detalles.forEach((detalle, index) => {
       doc.text(detalle, 20, 80 + (index * 10));
@@ -130,11 +130,11 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Monto Total</h3>
-              <p>${calcularTotal().toFixed(2)}</p>
+              <p>${calcularTotal()}</p>
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${pagosFiltrados ? (calcularTotal() / pagosFiltrados.length || 0).toFixed(2) : 0}</p>
+              <p>${pagosFiltrados ? (calcularTotal() / pagosFiltrados.length || 0) : 0}</p>
             </div>
           </div>
           <div className="tabla-container">
