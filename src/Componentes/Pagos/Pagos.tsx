@@ -22,12 +22,11 @@ export default function Pagos() {
   const filtrarPagos = () => {
     return global?.pagosInforme.filter((pago) => {
       const usuario = pago.usuario ? pago.usuario : "NaN";
-      const turno = pago.turno ? pago.turno : "NaN";
       const fechaPago = pago.fecha ? new Date(pago.fecha) : new Date;
       const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
       const fin = fechaFin ? new Date(fechaFin) : new Date();
       const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
-      const cumpleFiltroTexto = usuario.toLowerCase().includes(filtro.toLowerCase()) || turno.toLowerCase().includes(filtro.toLowerCase())
+      const cumpleFiltroTexto = usuario.toLowerCase().includes(filtro.toLowerCase())
       return cumpleFiltroFecha && cumpleFiltroTexto;
     });
   };

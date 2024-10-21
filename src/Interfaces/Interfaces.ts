@@ -25,12 +25,12 @@ export interface ITurno {
     usuario?: string,
     pagado: boolean,
     price?: number,
-    id?: string
+    id?: number
 };
 
 export interface IPago {
     usuario?: string,
-    turno?:string,
+    turno?:number,
     monto: number,
     fecha?: string
 };
