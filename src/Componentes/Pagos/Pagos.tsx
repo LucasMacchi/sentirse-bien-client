@@ -33,7 +33,13 @@ export default function Pagos() {
 
   const calcularTotal = () => {
     const pagos = filtrarPagos()
-    if(pagos) return pagos.reduce((total, pago) => total + pago.monto, 0);
+    if(pagos) {
+      let total = 0
+      pagos.forEach(p => {
+        total = p.monto + total
+      });
+      return total
+    }
     else return 0
   };
 
