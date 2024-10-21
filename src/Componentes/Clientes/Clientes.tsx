@@ -8,7 +8,7 @@ import "../Clientes/Clientes.css";
 import logoImg from '../../assets/logo.png'; // Asegúrate de que esta ruta sea correcta
 
 interface User {
-    id: string; // Cambiado a string
+    id: number; // Cambiado a string
     first_name: string;
     last_name: string;
     email: string;

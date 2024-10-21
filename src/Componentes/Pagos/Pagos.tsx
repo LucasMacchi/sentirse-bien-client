@@ -26,7 +26,7 @@ export default function Pagos() {
       const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
       const fin = fechaFin ? new Date(fechaFin) : new Date();
       const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
-      const cumpleFiltroTexto = usuario.toLowerCase().includes(filtro.toLowerCase())
+      const cumpleFiltroTexto = usuario
       return cumpleFiltroFecha && cumpleFiltroTexto;
     });
   };
