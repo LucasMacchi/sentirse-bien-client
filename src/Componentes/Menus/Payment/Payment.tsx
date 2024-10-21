@@ -44,7 +44,7 @@ export default function Payment() {
     const [disabledBtn, setDisable] = useState(false)
 
     const closeBtn = () => {
-        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0})
+        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0})
     }
 
     const errorCheck = () => {

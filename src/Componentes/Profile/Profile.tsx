@@ -18,7 +18,7 @@ export function Profile() {
     if (global?.isLog === false) {
       navigate("/");
     } else {
-      global?.getTurnosComplete();
+      global?.getTurnosComplete(global.user.id);
       if (global?.isLog && global.user.rol > 0) {
         global?.getPagos()
         global.getClientes();
