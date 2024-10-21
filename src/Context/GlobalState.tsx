@@ -426,6 +426,7 @@ export default function GlobalState(props: IPropsChildren) {
 
             }
             else {
+                console.log("Attemting turns")
                 const token = localStorage.getItem('jwToken')
                 const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 console.log("Turnos del usuario = ",turns)
