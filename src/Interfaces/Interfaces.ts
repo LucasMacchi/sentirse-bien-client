@@ -30,7 +30,8 @@ export interface ITurno {
 export interface IPago {
     usuario?: string,
     turno?:string,
-    monto: number
+    monto: number,
+    fecha?: string
 };
 
 export interface IReview {

@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
-import paymentsData from "../../Mocks/payments.json";
-import usersData from "../../Mocks/users.json";
 import "./Pagos.css";
 import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png'; // Asegúrate de tener el logo en esta ruta
+import { GlobalContext } from "../../Context/GlobalState";
 
 interface Pago {
   id: string;
@@ -16,33 +15,24 @@ interface Pago {
 }
 
 export default function Pagos() {
-  const [pagos, setPagos] = useState<Pago[]>([]);
+  const global = useContext(GlobalContext);
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [filtro, setFiltro] = useState("");
+  
 
   useEffect(() => {
-    const usuariosMap = new Map(usersData.users.map(user => [user.id.toString(), `${user.first_name} ${user.last_name}`]));
-    
-    const pagosConFechasYNombres = paymentsData.payments.map((pago, index) => ({
-      ...pago,
-      id: `PAY-${index + 1000}`,
-      fecha: new Date(2023, 0, index + 1).toISOString().split('T')[0],
-      usuario: usuariosMap.get(pago.usuario) || pago.usuario
-    }));
-    
-    setPagos(pagosConFechasYNombres);
+    global?.getPagos();
   }, []);
 
   const filtrarPagos = () => {
-    return pagos.filter((pago) => {
+    return global?.pagosInforme.filter((pago) => {
       const fechaPago = new Date(pago.fecha);
       const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
       const fin = fechaFin ? new Date(fechaFin) : new Date();
       const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
       const cumpleFiltroTexto = pago.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
                                 pago.turno.toLowerCase().includes(filtro.toLowerCase()) ||
-                                pago.id.toLowerCase().includes(filtro.toLowerCase());
       return cumpleFiltroFecha && cumpleFiltroTexto;
     });
   };
