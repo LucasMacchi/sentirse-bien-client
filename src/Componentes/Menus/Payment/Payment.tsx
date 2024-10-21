@@ -11,7 +11,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import PaidIcon from '@mui/icons-material/Paid';
-import { IPago } from '../../../Interfaces/Interfaces';
+import { IFactura, IPago } from '../../../Interfaces/Interfaces';
+import makeFactura from '../../../Utils/makeFactura';
+import { pdf } from '@react-pdf/renderer';
+import PlantillaPDF from '../../Factura/Factura';
 
 export default function Payment() {
     const currentYear = new Date().getFullYear()
@@ -23,7 +26,8 @@ export default function Payment() {
         card_security_number: "",
         fullname: "",
         card_expiration_month: "",
-        card_expiration_year: ""
+        card_expiration_year: "",
+        address: ""
     })
     const [cardNumberError, setNumberErr] = useState({
         status: false,
@@ -90,17 +94,34 @@ export default function Payment() {
         });
     };
 
+    //descargar PDF
+    const downloadPDF = async (factura: IFactura) => {
+
+        const blob = await pdf(<PlantillaPDF data={factura} />).toBlob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'documento.pdf';
+        link.click();
+    }
+
     const payTurn = async (event: FormEvent) => {
         event.preventDefault()
         setDisable(true)
+
+        const factura = makeFactura(global?.turnToPay.servicio ? global?.turnToPay.servicio : "Servicio no especificado", global?.turnToPay.price ? global?.turnToPay.price : 0, 
+            global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
+            global?.user.last_name ? global?.user.last_name : "", paymentData.address)
+
+        const turn_id = await global?.makeTurno(global.turnToPay)
         const price: IPago = {
-            precio: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            usuario: global?.user.id
+            monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
+            usuario: global?.user.id,
+            turno: turn_id
         }
-        global?.makeTurno(global.turnToPay)
         const result = await global?.makePayment(price)
         if(result){
             global?.alertStatus(true, "success", "Gracias por sacar su turno!")
+            downloadPDF(factura)
             setTimeout(() => {
                 setDisable(false)
                 window.location.reload()
@@ -140,9 +161,14 @@ export default function Payment() {
                             error={cardSecError.status} 
                             />
                         <TextField 
-                        type="text" id='card_sec' size="small" 
+                        type="text" id='name' size="small" 
                         label="Nombre del Titular" value={paymentData.fullname} 
                         onChange={(e) => handlePayment("fullname", e.target.value)} required 
+                        />
+                        <TextField 
+                        type="text" id='adress' size="small" 
+                        label="Direccion de Facturacion" value={paymentData.address} fullWidth
+                        onChange={(e) => handlePayment("address", e.target.value)} required 
                         />
 
                         </Box>

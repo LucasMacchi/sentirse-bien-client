@@ -1,0 +1,33 @@
+{
+    "moneda": "Pesos Argentinos",
+    "fechaVencimiento": "10-10-2024",
+    "cliente": {
+        "nombre_apellido": "Lucas Benjamin Macchi",
+        "numero_identificacion": "43266083",
+        "condicion_iva": "consumidor final"
+    },
+    "empresa":{
+        "nro_ingresos_brutos": "20111111115",
+        "fecha_inicio_actividad": "01-07-2024",
+        "categoria_fiscal": "",
+        "cuit": "20111111115",
+        "localidad": "Resistencia",
+        "direccion": "French 414",
+        "provincia": "Chaco",
+        "pais": "Argentina",
+        "nombre_empresa": "Sentirse bien Spa"
+    },
+    "numero": "0000",
+    "fecha": "01-01-2024",
+    "observaciones": [],
+    "total": 0,
+    "items": [
+        {
+            "nombre": "Turno",
+            "descripcion": "Sevicios de spa",
+            "cantidad": 1,
+            "precio": 10000,
+            "importe": 10000
+        }
+    ]
+}

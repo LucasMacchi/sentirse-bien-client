@@ -29,7 +29,8 @@ export interface ITurno {
 
 export interface IPago {
     usuario?: string,
-    precio: number
+    turno?:string,
+    monto: number
 };
 
 export interface IReview {
@@ -65,6 +66,46 @@ export interface IAction {
     type: string,
     payload: any
 };
+export interface IFactura {
+    cliente: {
+        nombre_apellido: string,
+        domicilio?: string,
+        localidad?: string,
+        provincia?: string,
+        pais?: string,
+        tipo_identificacion?: string,
+        otro_identificacion?: string,
+        numero_identificacion: string,
+        condicion_iva: string
+    },
+    moneda: string,
+    fechaVencimiento: string,
+    empresa: {
+        nro_ingresos_brutos: string,
+        fecha_inicio_actividad: string,
+        categoria_fiscal: string,
+        cuit: string,
+        localidad: string,
+        direccion: string,
+        provincia: string,
+        pais: string,
+        nombre_empresa: string
+    }
+    numero: string,
+    fecha: string,
+    observaciones: string[],
+    total: number,
+    items: IItem[]
+
+};
+
+interface IItem {
+    nombre: string,
+    descripcion: string,
+    cantidad: number,
+    precio: number,
+    importe: number
+}
 
 export interface IGlobalContext {
     user: IUser,
@@ -102,7 +143,7 @@ export interface IGlobalContext {
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
     getTurnosComplete: () => Promise<void>,
-    makeTurno: (turno: ITurno) => Promise<boolean>,
+    makeTurno: (turno: ITurno) => Promise<string>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,

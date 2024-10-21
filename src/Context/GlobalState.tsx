@@ -445,9 +445,9 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno): Promise<boolean> => {
+    const makeTurno = async (turno: ITurno): Promise<string> => {
         try {
-            if (use_mock === "1") return true
+            if (use_mock === "1") return "TURNO 12648526"
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
@@ -456,16 +456,16 @@ export default function GlobalState(props: IPropsChildren) {
                     pagado: true
                 }
                 const token = localStorage.getItem('jwToken')
-                await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })
+                const turno_id: Promise<string> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
                 dispatch({
                     type: actions.SET_TURN_TOPAY,
                     payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
                 })
-                return true
+                return turno_id
             }
         } catch (error) {
             console.log(error)
-            return false
+            return ""
         }
     }
 
@@ -491,7 +491,7 @@ export default function GlobalState(props: IPropsChildren) {
         if(use_mock === "1") return true
         else {
             try {
-                await axios.post(server_url + "/usuarios/payment/", pago, { headers: { Authorization: "Token " + token } })
+                await axios.post(server_url + "/pagos/procesar/", pago, { headers: { Authorization: "Token " + token } })
                 return true
             } catch (error) {
                 console.log(error)
@@ -536,11 +536,7 @@ export default function GlobalState(props: IPropsChildren) {
                 console.log(payments.payments)
             }
             else{
-                const dates = {
-                    start,
-                    end
-                }
-                const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/usuarios/payment/")).data
+                const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/pagos/listar_pagos?fecha_inicio="+start+"&fecha_fin="+end)).data
                 dispatch({
                     type: actions.GET_PAGOS,
                     payload: pagos
