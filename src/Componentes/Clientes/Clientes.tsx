@@ -23,7 +23,7 @@ export default function Clientes() {
 
     useEffect(() => {
         global?.getClientes();
-    }, [global]);
+    }, []);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
