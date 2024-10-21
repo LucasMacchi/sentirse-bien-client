@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
-import paymentsData from "../../Mocks/payments.json";
 import usersData from "../../Mocks/users.json";
 import "./Ingresos.css";
 import jsPDF from 'jspdf';
@@ -9,13 +8,6 @@ import 'jspdf-autotable';
 import logoSpa from '../../assets/logo.png';
 import { UserOptions } from 'jspdf-autotable';
 import { GlobalContext } from "../../Context/GlobalState";
-import { IPago } from '../../Interfaces/Interfaces';
-
-interface Pago {
-  usuario: string;
-  turno: string;
-  precio: number;
-}
 
 interface Usuario {
   id: number;
