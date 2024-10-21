@@ -1,23 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: 0;
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
-.profile{
-    color: #14544E;
-    font-size: 1.5rem;
+.profile, .admin-profile {
+  padding: 2em;
+  background-color: #f0f8ff; /* Fondo suave */
 }
 
-
-.profile-welcome{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    margin-top: 6em;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+.welcome-message {
+  text-align: center;
+  margin-bottom: 2em;
+}
 
+.welcome-message h1 {
+  font-size: 2.5em;
+  color: #2c3e50; /* Color de texto */
+}
+
+.welcome-message p {
+  font-size: 1.2em;
+  color: #34495e; /* Texto secundario */
+}
+
+.admin-dashboard {
+  text-align: center;
+}
+
+.admin-dashboard h2 {
+  margin-bottom: 1em;
+  font-size: 2em;
+  color: #ff80ab; /* Color del encabezado */
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2em;
+  flex-wrap: wrap; /* Permitir que las tarjetas se muevan a la siguiente línea en pantallas pequeñas */
+}
+
+.stat-card {
+  background: #ffffff; /* Fondo blanco */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px;
+  width: 30%; /* Ancho de las tarjetas */
+  transition: transform 0.3s;
+  margin-bottom: 20px; /* Espaciado en la parte inferior */
+}
+
+.stat-card:hover {
+  transform: translateY(-5px); /* Efecto al pasar el mouse */
+}
+
+.stat-card h3 {
+  margin-bottom: 0.5em;
+  color: #ff80ab; /* Color para títulos de tarjetas */
+}
+
+.stat-card p {
+  font-size: 1.5em;
+  color: #333; /* Color de texto */
+}
+
+.profile-welcome {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-welcome h1 {
+  color: #4caf50; /* Color verde */
+  font-size: 2.5rem; /* Tamaño de fuente */
+}
+
+.divider {
+  width: 50%;
+  margin: 1em auto;
+  border: 1px solid #FF6F61; /* Color de separación */
+}
+
+h2 {
+  text-align: center;
+  color: #4caf50; /* Color de encabezado */
+  margin: 20px 0;
+  font-size: 2rem; /* Tamaño de fuente */
+}
+
+.consults-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px; 
+}
+
+.consulta-card {
+  background-color: white; /* Fondo blanco para tarjetas */
+  border-radius: 10px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px;
+  transition: transform 0.2s; 
+  width: 200px;
+  height: 200px;
+}
+
+.consulta-card:hover {
+  transform: translateY(-5px); /* Elevación al pasar el ratón */
+}
+
+.card-content p {
+  margin: 10px 0; /* Espaciado entre líneas de contenido */
+}
+
+.respond-button {
+  background-color: #4caf50; /* Color de fondo del botón */
+  color: white; /* Color de texto */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave */
+  margin-top: 10px;
+  width: 100%; /* Ancho completo */
+}
+
+.respond-button:hover {
+  background-color: #388E3C; /* Color al pasar el ratón */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .stats {
+    flex-direction: column; /* Apilar las tarjetas en pantallas pequeñas */
+    align-items: center; /* Centrar las tarjetas */
+  }
+
+  .stat-card {
+    width: 80%; /* Ampliar el ancho de las tarjetas en pantallas pequeñas */
+  }
+
+  .divider {
+    width: 90%; /* Hacer el divisor más ancho en pantallas pequeñas */
+  }
+
+  .consults-grid{
+    grid-template-columns: repeat(1, 1fr); 
+  }
+}
+
+.cancel-button {
+  background-color: #f44336; /* Color de fondo rojo para el botón de cancelar */
+  color: white; /* Color de texto */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave */
+  margin-top: 10px;
+  width: 100%; /* Ancho completo */
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f; /* Color más oscuro al pasar el ratón */
+}

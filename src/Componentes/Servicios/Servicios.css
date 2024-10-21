@@ -1,66 +1,152 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'aos/dist/aos.css';
 
-
-.servicios-container{
-    padding: 7em 20em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #14544E;
+.servicios-container {
+    padding: 0 60px;
     font-family: 'Poppins', sans-serif;
+    color: #4CAF50; /* Color principal */
+    text-align: center; /* Centrar todo el texto */
 }
 
-.titulo{
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Playfair Display', serif;
+.logo {
+    width: 150px;
+    margin: 0 auto;
+    display: block; /* Centrar logo */
 }
 
-.servicio-title{
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: rgb(221, 148, 203);
+.titulo {
+    font-size: 2.5rem;
+    color: #FF6F61; /* Color de título */
+    margin: 1em 0;
 }
 
-.servicio-grid{
+.servicio-title {
+    font-size: 1.8rem;
+    margin: 1.5em 0 0.5em;
+    color: #4CAF50; /* Color de encabezados */
+}
+
+.servicio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1400px;
-    padding: 2em;
+    gap: 70px; /* Espaciado entre tarjetas */
+    justify-items: center; 
+    margin-bottom: 3em;
 }
 
-.servicio-card{
-    border: 1px solid black;
-    align-items: center;
-    transition: 0.2s ease-in-out;
-}
-
-.servicio-card h1{
-    font-size: 1.5em;
-}
-
-.servicio-card:hover{
-    transform: scale(1.05);
-}
-
-.servicios-img{
-    width: 100%;
-    object-fit: cover;
-    height: 200px;
-}
-
-.precio{
-    font-size: 1.7em;
-    padding-top: 10px;
-    font-weight: bold;
-    color: rgb(255, 93, 30);
-}
-
-.servicio-descripcion{
-    margin: 1em;
+.servicio-card {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%; /* Cambiado de 350px a 100% */
+    max-width: 350px; /* Añadido para mantener el ancho máximo */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.servicio-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+}
+
+.servicios-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.servicio-descripcion {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que la descripción ocupe todo el espacio disponible */
+}
+
+.servicio-descripcion h2 {
+    font-size: 1.2rem; /* Reducido el tamaño del título */
+    margin-bottom: 0.5em;
+}
+
+.servicio-descripcion p {
+    font-size: 0.9rem; /* Reducido el tamaño del texto descriptivo */
+    line-height: 1.4;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita el texto a 3 líneas */
+    line-clamp: 3; /* Propiedad estándar para compatibilidad */
+    -webkit-box-orient: vertical;
+}
+
+.precio {
+    font-size: 1.3rem; /* Reducido el tamaño del precio */
+    color: #FF6F61;
+    margin-top: auto; /* Empuja el precio hacia abajo */
+}
+
+.vermas-btn {
+    background-color: #4CAF50; /* Color del botón */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 4em; /* Espaciado arriba del botón */
+}
+
+.vermas-btn:hover {
+    background-color: #388E3C; /* Color del botón al pasar el ratón */
+}
+
+.divider{
+    margin: 3em 0;
+    width: 100%;
+    border: 1px solid #4CAF50;
+    text-align: center;
+}
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .titulo {
+        font-size: 2rem; /* Reducir tamaño de fuente en pantallas pequeñas */
+    }
+
+    .servicio-title {
+        font-size: 1.5rem; /* Reducir tamaño de fuente en pantallas pequeñas */
+    }
+
+    .precio {
+        font-size: 1.2rem; /* Reducir tamaño de precio en pantallas pequeñas */
+    }
+
+    .vermas-btn {
+        font-size: 1rem; /* Reducir tamaño de botón en pantallas pequeñas */
+    }
+
+    .servicio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajustado para pantallas más pequeñas */
+        gap: 20px; /* Reducido el espacio entre tarjetas */
+    }
+
+    .servicio-card {
+        max-width: 100%; /* Permite que las tarjetas ocupen todo el ancho en pantallas pequeñas */
+    }
+
+    .servicio-descripcion h2 {
+        font-size: 1rem;
+    }
+
+    .servicio-descripcion p {
+        font-size: 0.8rem;
+    }
+
+    .precio {
+        font-size: 1.1rem;
+    }
 }

@@ -41,7 +41,7 @@ const SERVICES = [
 
 
 const Turnos: React.FC = () => {
-    const [btn, setbtn] = useState(false)
+    const [btn] = useState(false)
     const [name, setName] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
@@ -56,35 +56,24 @@ const Turnos: React.FC = () => {
 
 
     useEffect(() => {
-        //setTimeSlots(generateTimeSlots(START_HOUR, END_HOUR, INTERVAL));
 
         if (global?.isLog === false) {
-            global?.changeMenuLogin(true);
             navigate("/");
+            global.changeMenuLogin(true);
         }
-    }, [navigate]);
+    }, [navigate, global]);
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        setbtn(true)
         const turno: ITurno = {
             servicio: selectedServices[0] + ", " + selectedServices[1],
             fecha: date,
-            hora: time
+            hora: time,
+            pagado: false,
+            price: selectedServices.length === 1 ? 10000 : 20000
         }
-        const result = global?.makeTurno(turno)
-        if (result) {
-            global?.alertStatus(true, "success", "Gracias por pedir tu turno!")
-            setTimeout(() => {
-                setbtn(false)
-                navigate("/");
-            }, 1500)
-        }
-        else {
-            setbtn(false)
-            global?.alertStatus(true, "error", "Error al pedir un turno, intente devuelta")
-        }
+        global?.changeMenuPayment(true, turno)
     };
 
     const handleDateChange = (
@@ -109,14 +98,12 @@ const Turnos: React.FC = () => {
 
     const handleServiceChange = (event: SelectChangeEvent<string[]>) => {
         const { value } = event.target;
-        // Asegurarse de que `value` es un array de servicios
         const newValue = value as string[];
         if (newValue.length <= 2) {
             setSelectedServices(newValue);
         }
     };
 
-    // Obtener la fecha de hoy en formato YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0];
 
     return (
