@@ -38,6 +38,7 @@ export default function Pagos() {
       pagos.forEach(p => {
         total = p.monto + total
       });
+      console.log("TOTAL "+total)
       return total
     }
     else return 0
