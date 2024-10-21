@@ -491,7 +491,8 @@ export default function GlobalState(props: IPropsChildren) {
         if(use_mock === "1") return true
         else {
             try {
-                await axios.post(server_url + "/pagos/procesar/", pago, { headers: { Authorization: "Token " + localStorage.getItem('jwToken') }  })
+                const token = localStorage.getItem('jwToken')
+                await axios.post(server_url + "/pagos/procesar/", pago, { headers: { Authorization: "Token " +  token}  })
                 return true
             } catch (error) {
                 console.log(error)
@@ -511,7 +512,8 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else{
-                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data.filter((u) => u.rol === 0)
+                const token = localStorage.getItem('jwToken')
+                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/", { headers: { Authorization: "Token " + token } })).data.filter((u) => u.rol === 0)
                 console.log("Loading Clients")
                 dispatch({
                     type: actions.GET_CLIENTES,
@@ -536,6 +538,7 @@ export default function GlobalState(props: IPropsChildren) {
                 console.log(payments.payments)
             }
             else{
+                const token = localStorage.getItem('jwToken')
                 const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/pagos/listar_pagos/", { headers: { Authorization: "Token " + token } })).data
                 dispatch({
                     type: actions.GET_PAGOS,
