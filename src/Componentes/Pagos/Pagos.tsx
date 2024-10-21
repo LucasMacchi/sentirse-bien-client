@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import{ useState, useEffect } from "react";
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
+import paymentsData from "../../Mocks/payments.json";
+import usersData from "../../Mocks/users.json";
 import "./Pagos.css";
 import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png'; // Asegúrate de tener el logo en esta ruta
-import { GlobalContext } from "../../Context/GlobalState";
 
 interface Pago {
   id: string;
@@ -15,30 +16,43 @@ interface Pago {
 }
 
 export default function Pagos() {
-  const global = useContext(GlobalContext);
+  const [pagos, setPagos] = useState<Pago[]>([]);
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [filtro, setFiltro] = useState("");
-  
 
   useEffect(() => {
-    global?.getPagos();
+    const usuariosMap = new Map(usersData.users.map(user => [user.id.toString(), `${user.first_name} ${user.last_name}`]));
+    
+    const pagosConFechasYNombres = paymentsData.payments.map((pago, index) => ({
+      ...pago,
+      id: `PAY-${index + 1000}`,
+      fecha: new Date(2023, 0, index + 1).toISOString().split('T')[0],
+      usuario: usuariosMap.get(pago.usuario) || pago.usuario
+    }));
+    
+    setPagos(pagosConFechasYNombres);
   }, []);
 
   const filtrarPagos = () => {
-    return global?.pagosInforme.filter((pago) => {
+    return pagos.filter((pago) => {
       const fechaPago = new Date(pago.fecha);
       const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
       const fin = fechaFin ? new Date(fechaFin) : new Date();
       const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
       const cumpleFiltroTexto = pago.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
                                 pago.turno.toLowerCase().includes(filtro.toLowerCase()) ||
+                                pago.id.toLowerCase().includes(filtro.toLowerCase());
       return cumpleFiltroFecha && cumpleFiltroTexto;
     });
   };
 
   const calcularTotal = () => {
-    return filtrarPagos().reduce((total, pago) => total + pago.precio, 0);
+    return filtrarPagos().reduce((total, pago) => {
+      // Asegurarse de que pago.precio sea un número
+      const precio = Number(pago.precio);
+      return isNaN(precio) ? total : total + precio;
+    }, 0);
   };
 
   const pagosFiltrados = filtrarPagos();
@@ -139,7 +153,7 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${(calcularTotal() / pagosFiltrados.length || 0).toFixed(2)}</p>
+              <p>${(pagosFiltrados.length > 0 ? calcularTotal() / pagosFiltrados.length : 0).toFixed(2)}</p>
             </div>
           </div>
           <div className="tabla-container">
@@ -161,7 +175,7 @@ export default function Pagos() {
                     <td>{pago.fecha}</td>
                     <td>{pago.usuario}</td>
                     <td>{pago.turno}</td>
-                    <td>${pago.precio.toFixed(2)}</td>
+                    <td>${Number(pago.precio).toFixed(2)}</td>
                     <td>
                       <button onClick={() => generarReciboPDF(pago)} className="btn-imprimir">
                         Descargar PDF
