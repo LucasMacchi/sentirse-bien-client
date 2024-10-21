@@ -511,7 +511,7 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else{
-                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/info_usuarios/")).data.filter((u) => u.rol === 0)
+                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/")).data.filter((u) => u.rol === 0)
                 console.log("Loading Clients")
                 dispatch({
                     type: actions.GET_CLIENTES,
@@ -525,7 +525,7 @@ export default function GlobalState(props: IPropsChildren) {
     
     
 
-    const getPagos = async (start?: Date, end?: Date) => {
+    const getPagos = async () => {
         try {
             console.log("Loading Payments")
             if(use_mock === "1"){
@@ -536,7 +536,7 @@ export default function GlobalState(props: IPropsChildren) {
                 console.log(payments.payments)
             }
             else{
-                const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/pagos/listar_pagos?fecha_inicio="+start+"&fecha_fin="+end)).data
+                const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/pagos/listar_pagos/", { headers: { Authorization: "Token " + token } })).data
                 dispatch({
                     type: actions.GET_PAGOS,
                     payload: pagos

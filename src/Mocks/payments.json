@@ -3,42 +3,50 @@
         {
             "usuario":"1",
             "turno":"Turno 1",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "8-10-2024"
         },
         {
             "usuario":"1",
             "turno":"Turno 2",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "8-15-2024"
         },
         {
             "usuario":"1",
             "turno":"Turno 3",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "8-20-2024"
         },
         {
             "usuario":"1",
             "turno":"Turno 4",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "8-25-2024"
         },
         {
             "usuario":"2",
             "turno":"Turno 5",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "8-30-2024"
         },
         {
             "usuario":"2",
             "turno":"Turno 6",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "10-05-2024"
         },
         {
             "usuario":"2",
             "turno":"Turno 7",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "10-10-2024"
         },
         {
             "usuario":"2",
             "turno":"Turno 8",
-            "precio": 10000
+            "monto": 10000,
+            "fecha": "10-15-2024"
         }
     ]
 }

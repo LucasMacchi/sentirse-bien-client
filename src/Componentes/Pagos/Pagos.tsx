@@ -5,14 +5,8 @@ import "./Pagos.css";
 import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png'; // Asegúrate de tener el logo en esta ruta
 import { GlobalContext } from "../../Context/GlobalState";
+import { IPago } from "../../Interfaces/Interfaces";
 
-interface Pago {
-  id: string;
-  usuario: string;
-  turno: string;
-  precio: number;
-  fecha: string;
-}
 
 export default function Pagos() {
   const global = useContext(GlobalContext);
@@ -27,23 +21,26 @@ export default function Pagos() {
 
   const filtrarPagos = () => {
     return global?.pagosInforme.filter((pago) => {
-      const fechaPago = new Date(pago.fecha);
+      const usuario = pago.usuario ? pago.usuario : "NaN";
+      const turno = pago.turno ? pago.turno : "NaN";
+      const fechaPago = pago.fecha ? new Date(pago.fecha) : new Date;
       const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
       const fin = fechaFin ? new Date(fechaFin) : new Date();
       const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
-      const cumpleFiltroTexto = pago.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
-                                pago.turno.toLowerCase().includes(filtro.toLowerCase()) ||
+      const cumpleFiltroTexto = usuario.toLowerCase().includes(filtro.toLowerCase()) || turno.toLowerCase().includes(filtro.toLowerCase())
       return cumpleFiltroFecha && cumpleFiltroTexto;
     });
   };
 
   const calcularTotal = () => {
-    return filtrarPagos().reduce((total, pago) => total + pago.precio, 0);
+    const pagos = filtrarPagos()
+    if(pagos) return pagos.reduce((total, pago) => total + pago.monto, 0);
+    else return 0
   };
 
   const pagosFiltrados = filtrarPagos();
 
-  const generarReciboPDF = (pago: Pago) => {
+  const generarReciboPDF = (pago: IPago) => {
     const doc = new jsPDF();
     
     // Configuración de colores
@@ -74,11 +71,10 @@ export default function Pagos() {
     doc.setFontSize(12);
     doc.setTextColor(colorSecundario);
     const detalles = [
-      `ID de Pago: ${pago.id}`,
       `Fecha: ${pago.fecha}`,
       `Usuario: ${pago.usuario}`,
       `Turno: ${pago.turno}`,
-      `Monto: $${pago.precio.toFixed(2)}`
+      `Monto: $${pago.monto.toFixed(2)}`
     ];
     detalles.forEach((detalle, index) => {
       doc.text(detalle, 20, 80 + (index * 10));
@@ -95,7 +91,7 @@ export default function Pagos() {
     doc.text('SENTIRSE BIEN - Tu camino hacia el bienestar', 105, 280, { align: 'center' });
     
     // Guardar el PDF
-    doc.save(`recibo-${pago.id}.pdf`);
+    doc.save(`recibo.pdf`);
   };
 
   return (
@@ -131,7 +127,7 @@ export default function Pagos() {
           <div className="resumen-pagos">
             <div className="resumen-item">
               <h3>Total de Pagos</h3>
-              <p>{pagosFiltrados.length}</p>
+              <p>{pagosFiltrados?.length}</p>
             </div>
             <div className="resumen-item">
               <h3>Monto Total</h3>
@@ -139,14 +135,13 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${(calcularTotal() / pagosFiltrados.length || 0).toFixed(2)}</p>
+              <p>${pagosFiltrados ? (calcularTotal() / pagosFiltrados.length || 0).toFixed(2) : 0}</p>
             </div>
           </div>
           <div className="tabla-container">
             <table className="tabla-pagos">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Fecha</th>
                   <th>Usuario</th>
                   <th>Turno</th>
@@ -155,13 +150,12 @@ export default function Pagos() {
                 </tr>
               </thead>
               <tbody>
-                {pagosFiltrados.map((pago) => (
-                  <tr key={pago.id}>
-                    <td>{pago.id}</td>
+                {pagosFiltrados?.map((pago) => (
+                  <tr key={pago.fecha}>
                     <td>{pago.fecha}</td>
                     <td>{pago.usuario}</td>
                     <td>{pago.turno}</td>
-                    <td>${pago.precio.toFixed(2)}</td>
+                    <td>${pago.monto}</td>
                     <td>
                       <button onClick={() => generarReciboPDF(pago)} className="btn-imprimir">
                         Descargar PDF
