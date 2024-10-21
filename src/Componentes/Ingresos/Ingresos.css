@@ -1,0 +1,146 @@
+.ingresos-container {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 50px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .ingresos-container:hover {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  h1, h2 {
+    color: #ff80ab;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 2.5rem;
+  }
+  
+  .resumen, .usuario-destacado {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+  
+  .resumen:hover, .usuario-destacado:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .resumen p, .usuario-destacado p {
+    margin: 15px 0;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+  }
+  
+  .tabla-container {
+    overflow-x: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    max-width: 100%;
+  }
+  
+  .tabla-ingresos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+  
+  .tabla-ingresos th,
+  .tabla-ingresos td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+  }
+  
+  .tabla-ingresos th {
+    background-color: #ff80ab;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+  }
+  
+  .tabla-ingresos tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  @media (max-width: 1024px) {
+    .ingresos-container {
+      padding: 20px;
+    }
+  
+    .tabla-ingresos th,
+    .tabla-ingresos td {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .tabla-ingresos th,
+    .tabla-ingresos td {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ingresos-container {
+      padding: 20px;
+    }
+  
+    h1, h2 {
+      font-size: 1.8rem;
+    }
+  
+    .resumen p, .usuario-destacado p {
+      font-size: 16px;
+    }
+  
+    .tabla-ingresos th,
+    .tabla-ingresos td {
+      padding: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .btn-imprimir {
+    background-color: #ff80ab;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-imprimir:hover {
+    background-color: #ff4081;
+  }
+
+  @media (max-width: 480px) {
+    .btn-imprimir {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }

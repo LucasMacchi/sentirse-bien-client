@@ -20,6 +20,7 @@ export function Profile() {
     } else {
       global?.getTurnosComplete();
       if (global?.isLog && global.user.rol > 0) global.getClientes();
+      
     }
   }, []);
 

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'aos/dist/aos.css';
 
 .servicios-container {
     padding: 0 60px;
@@ -37,13 +38,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 350px;
+    width: 100%; /* Cambiado de 350px a 100% */
+    max-width: 350px; /* Añadido para mantener el ancho máximo */
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s;
-    text-align: center; /* Centrar texto dentro de cada tarjeta */
+    text-align: center;
 }
 
 .servicio-card:hover {
@@ -58,11 +60,33 @@
 
 .servicio-descripcion {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que la descripción ocupe todo el espacio disponible */
+}
+
+.servicio-descripcion h2 {
+    font-size: 1.2rem; /* Reducido el tamaño del título */
+    margin-bottom: 0.5em;
+}
+
+.servicio-descripcion p {
+    font-size: 0.9rem; /* Reducido el tamaño del texto descriptivo */
+    line-height: 1.4;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita el texto a 3 líneas */
+    line-clamp: 3; /* Propiedad estándar para compatibilidad */
+    -webkit-box-orient: vertical;
 }
 
 .precio {
-    font-size: 1.5rem;
-    color: #FF6F61; /* Color de precio */
+    font-size: 1.3rem; /* Reducido el tamaño del precio */
+    color: #FF6F61;
+    margin-top: auto; /* Empuja el precio hacia abajo */
 }
 
 .vermas-btn {
@@ -103,5 +127,26 @@
 
     .vermas-btn {
         font-size: 1rem; /* Reducir tamaño de botón en pantallas pequeñas */
+    }
+
+    .servicio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajustado para pantallas más pequeñas */
+        gap: 20px; /* Reducido el espacio entre tarjetas */
+    }
+
+    .servicio-card {
+        max-width: 100%; /* Permite que las tarjetas ocupen todo el ancho en pantallas pequeñas */
+    }
+
+    .servicio-descripcion h2 {
+        font-size: 1rem;
+    }
+
+    .servicio-descripcion p {
+        font-size: 0.8rem;
+    }
+
+    .precio {
+        font-size: 1.1rem;
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../Header/Header";
 import "./Servicios.css";
 import logo from "../../assets/logo.png";
@@ -18,15 +18,23 @@ import piedras from "../../assets/piedras.webp";
 import circu from "../../assets/circu.jpg";
 import { Footer } from "../Footer/Footer";
 import { Link } from "react-router-dom";
+import AOS from 'aos';
 
 export const Servicios: React.FC = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   return (
     <>
       <Header />
       <div className="servicios-container">
-        <img src={logo} alt="Logo" className="logo" />
-        <h1 className="titulo">Nuestros Servicios</h1>
-        <hr />
+        <img src={logo} alt="Logo" className="logo" data-aos="fade-down" />
+        <h1 className="titulo" data-aos="fade-up">Nuestros Servicios</h1>
+        <hr data-aos="fade-up" />
         
         <ServiceSection title="Tratamientos Corporales" services={[
           { img: velaslim, title: "VelaSlim", desc: "Reducción de la circunferencia corporal y la celulitis.", price: "$10000" },
@@ -35,7 +43,6 @@ export const Servicios: React.FC = () => {
           { img: cavitacion, title: "Ultracavitación", desc: "Técnica reductora.", price: "$10000" }
           
         ]} />
-        
 
         <ServiceSection title="Tratamientos Faciales" services={[
           { img: puntadiamante, title: "Punta de diamante", desc: "Microexfoliación.", price: "$10000" },
@@ -57,9 +64,9 @@ export const Servicios: React.FC = () => {
         ]} />
 
         <br />
-        <p>¿Ya te decidiste?</p>
+        <p data-aos="fade-up">¿Ya te decidiste?</p>
         <Link to="/turnos">
-          <button className="vermas-btn">Agenda tu turno</button>
+          <button className="vermas-btn" data-aos="zoom-in">Agenda tu turno</button>
         </Link>
       </div>
       <Footer />
@@ -70,10 +77,10 @@ export const Servicios: React.FC = () => {
 const ServiceSection: React.FC<{ title: string; services: { img: string; title: string; desc?: string; price: string; }[] }> = ({ title, services }) => {
   return (
     <>
-      <p className="servicio-title">{title}</p>
+      <p className="servicio-title" data-aos="fade-up">{title}</p>
       <div className="servicio-grid">
         {services.map((service, index) => (
-          <div className="servicio-card" key={index}>
+          <div className="servicio-card" key={index} data-aos="fade-up" data-aos-delay={index * 100}>
             <img src={service.img} alt={service.title} className="servicios-img" />
             <div className="servicio-descripcion">
               <h2>{service.title}</h2>
@@ -83,7 +90,7 @@ const ServiceSection: React.FC<{ title: string; services: { img: string; title: 
           </div>
         ))}
       </div>
-      <hr />
+      <hr data-aos="fade-up" />
     </>
   );
 };

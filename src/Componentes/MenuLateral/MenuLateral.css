@@ -1,21 +1,22 @@
 .menu-lateral {
     padding-top: 2em;
-    margin-top: 6em;
     width: 300px;
-    height: 100%; 
-    background-color: #e8f5e9; /* Verde suave */
-    border-right: 1px solid #c8e6c9; /* Verde claro */
-    padding: 30px; 
-    transition: transform 0.3s ease;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
-    position: absolute; /* Mantenerlo fijo al lado de la ventana */
-    top: 0; 
-    left: 0; 
-    z-index: 1000; 
+    height: calc(100vh - 80px); /* Ajusta esto según la altura de tu Header */
+    background-color: #e8f5e9;
+    border-right: 1px solid #c8e6c9;
+    padding: 30px;
+    transition: transform 0.3s ease, width 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 80px; /* Ajusta esto según la altura de tu Header */
+    left: 0;
+    z-index: 1000;
+    overflow-y: auto;
 }
 
 .oculto {
     transform: translateX(-100%);
+    width: 0;
 }
 
 .toggle-boton {
@@ -78,4 +79,18 @@
 .remove-underline{
     text-decoration: none;
     color: black;
+}
+
+@media (max-width: 768px) {
+    .menu-lateral {
+        width: 100%;
+        height: calc(100vh - 60px); /* Ajusta si el Header cambia de tamaño en móviles */
+        top: 60px; /* Ajusta si el Header cambia de tamaño en móviles */
+    }
+
+    .abrir-boton {
+        top: 70px; /* Ajusta para que esté justo debajo del Header en móviles */
+        left: 10px;
+        z-index: 1001;
+    }
 }

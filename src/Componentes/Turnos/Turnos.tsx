@@ -56,10 +56,10 @@ const Turnos: React.FC = () => {
 
 
     useEffect(() => {
-        //setTimeSlots(generateTimeSlots(START_HOUR, END_HOUR, INTERVAL));
 
         if (global?.isLog === false) {
             navigate("/");
+            global.changeMenuLogin(true);
         }
     }, [navigate, global]);
 
@@ -98,14 +98,12 @@ const Turnos: React.FC = () => {
 
     const handleServiceChange = (event: SelectChangeEvent<string[]>) => {
         const { value } = event.target;
-        // Asegurarse de que `value` es un array de servicios
         const newValue = value as string[];
         if (newValue.length <= 2) {
             setSelectedServices(newValue);
         }
     };
 
-    // Obtener la fecha de hoy en formato YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0];
 
     return (

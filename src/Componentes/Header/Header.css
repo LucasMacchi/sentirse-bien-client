@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
 header {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto Mono", monospace;
-  background-color: #f8f9fa; /* Color claro para el fondo */
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px; /* Altura fija para el header */
+  background-color: #f8f9fa;
+  z-index: 1001; /* Asegúrate de que esté por encima del menú lateral */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 3em; /* Espaciado */
-  flex-wrap: wrap; /* Permite que el contenido se ajuste en pantallas pequeñas */
+  padding: 0 3em;
 }
+
 
 .navbar-left {
   display: flex;
@@ -75,4 +75,13 @@ header {
     flex-direction: column; /* Cambia a columna en pantallas pequeñas */
     align-items: flex-start; /* Alinea a la izquierda */
   }
+
+  header {
+    height: 60px; /* Altura reducida para móviles si es necesario */
+}
+
+.navbar {
+    padding: 0 1em;
+}
+
 }

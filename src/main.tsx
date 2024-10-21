@@ -24,6 +24,7 @@ import Review from "./Componentes/Menus/Review/Review.tsx";
 import Payment from "./Componentes/Menus/Payment/Payment.tsx";
 import Clientes from "./Componentes/Clientes/Clientes.tsx";
 import Pagos from "./Componentes/Pagos/Pagos.tsx";
+import Ingresos from "./Componentes/Ingresos/Ingresos.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <CssBaseline>
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/empleo" element={<Empleo></Empleo>}></Route>
               <Route path="/clientes" element={<Clientes></Clientes>}></Route>
               <Route path="/pagos" element={<Pagos></Pagos>}></Route>
+              <Route path="/ingresos" element={<Ingresos></Ingresos>}></Route>
             </Routes>
             <Alerta />
           </GlobalState>

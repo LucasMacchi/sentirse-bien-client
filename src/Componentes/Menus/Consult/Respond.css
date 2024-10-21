@@ -1,0 +1,126 @@
+:root {
+    --color-rosa: #FFD1DC;
+    --color-verde-claro: #C1E1C1;
+    --color-blanco: #FFFFFF;
+    --color-texto: #4A4A4A;
+    --color-sombra: rgba(0, 0, 0, 0.1);
+}
+
+.respond-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 209, 220, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+}
+
+.respond-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.respond-modal {
+    background-color: var(--color-blanco);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px var(--color-sombra);
+    width: 90%;
+    max-width: 600px;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.respond-backdrop.active .respond-modal {
+    transform: translateY(0);
+}
+
+.respond-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.respond-logo {
+    width: 50px;
+    height: auto;
+}
+
+.respond-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-texto);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.respond-close-btn:hover {
+    color: var(--color-verde-claro);
+}
+
+.respond-form h2 {
+    text-align: center;
+    color: var(--color-texto);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.respond-input-group {
+    margin-bottom: 1rem;
+}
+
+.respond-input-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--color-rosa);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+.respond-input-group textarea:focus {
+    outline: none;
+    border-color: var(--color-verde-claro);
+}
+
+.respond-submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-verde-claro);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.respond-submit-btn:hover {
+    background-color: var(--color-rosa);
+    transform: translateY(-2px);
+}
+
+.respond-submit-btn:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .respond-modal {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
+

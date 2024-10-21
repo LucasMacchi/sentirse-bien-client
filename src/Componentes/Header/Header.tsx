@@ -151,7 +151,5 @@ if(global?.isLog){
       </header>
     </>
   )
-
 }
-
 }

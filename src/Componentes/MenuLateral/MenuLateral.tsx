@@ -16,8 +16,10 @@ const MenuLateral: React.FC = () => {
           <Link to="/clientes" className="remove-underline">
             <li className="menu-item">Clientes</li>
           </Link>
+          <Link to="/ingresos" className="remove-underline">
+            <li className="menu-item">Informe de Ingresos</li>
+          </Link>
 
-          <li className="menu-item">Informe de Ingresos</li>
           <li className="menu-item">Informe de Servicios</li>
           <Link to="/pagos" className="remove-underline">
             <li className="menu-item">Pagos</li>

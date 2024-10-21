@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import 'aos/dist/aos.css';
+
 /* Global Styles */
 body {
     margin: 0;
     padding: 0;
+    padding-top: 80px;
     height: 100%;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
@@ -366,6 +369,10 @@ p {
     .conocenos-img {
         max-width: 300px;
     }
+
+    body {
+        padding-top: 60px; /* Ajusta si el Header cambia de tamaño en móviles */
+    }
 }
 
 @media (max-width: 459px) {
@@ -384,4 +391,60 @@ p {
         padding: 8px 16px;
         font-size: 0.75rem;
     }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Aplicando animaciones a elementos específicos */
+.body-bg {
+  animation: fadeIn 1.5s ease-out;
+}
+
+.logo-text {
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.welcome-text {
+  animation: slideInFromRight 1s ease-out 0.5s;
+  animation-fill-mode: both;
+}
+
+.agenda-btn {
+  animation: scaleIn 0.5s ease-out 1s;
+  animation-fill-mode: both;
+}
+
+.conocenos-left {
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.conocenos-right {
+  animation: slideInFromRight 1s ease-out;
+}
+
+.servicios-card {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.gallery {
+  animation: fadeIn 1.5s ease-out;
 }
