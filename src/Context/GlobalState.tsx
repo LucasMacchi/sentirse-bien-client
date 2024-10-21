@@ -171,7 +171,8 @@ export default function GlobalState(props: IPropsChildren) {
             type: actions.GET_USER_INFO
         })
         try {
-            axios.get(server_url + "/usuarios/logout/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })
+            const token = localStorage.getItem('jwToken')
+            axios.get(server_url + "/usuarios/logout/", { headers: { Authorization: "Token " + token } })
             localStorage.removeItem('jwToken')
             window.location.reload()
         } catch (error) {
@@ -397,7 +398,8 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else {
-                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data
+                const token = localStorage.getItem('jwToken')
+                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 const array = turns.map(f => {
                     return f.fecha + ":" + f.hora.split(':')[0]
                 })
@@ -424,7 +426,8 @@ export default function GlobalState(props: IPropsChildren) {
 
             }
             else {
-                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data
+                const token = localStorage.getItem('jwToken')
+                const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 if(state.user.rol === 0){
                     const array = turns.filter(t => t.usuario === state.user.id)
                     dispatch({
@@ -445,9 +448,9 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno): Promise<string> => {
+    const makeTurno = async (turno: ITurno): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return "TURNO 12648526"
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
@@ -456,7 +459,7 @@ export default function GlobalState(props: IPropsChildren) {
                     pagado: true
                 }
                 const token = localStorage.getItem('jwToken')
-                const turno_id: Promise<string> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
+                const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
                 dispatch({
                     type: actions.SET_TURN_TOPAY,
                     payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
@@ -465,7 +468,7 @@ export default function GlobalState(props: IPropsChildren) {
             }
         } catch (error) {
             console.log(error)
-            return ""
+            return {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
         }
     }
 

@@ -115,8 +115,7 @@ export default function Payment() {
         const turn_id = await global?.makeTurno(global.turnToPay)
         const price: IPago = {
             monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            usuario: global?.user.id,
-            turno: turn_id
+            turno: turn_id?.id
         }
         const result = await global?.makePayment(price)
         if(result){

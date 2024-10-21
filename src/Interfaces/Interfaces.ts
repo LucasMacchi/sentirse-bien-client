@@ -24,7 +24,8 @@ export interface ITurno {
     hora: string,
     usuario?: string,
     pagado: boolean,
-    price?: number
+    price?: number,
+    id?: string
 };
 
 export interface IPago {
@@ -144,7 +145,7 @@ export interface IGlobalContext {
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
     getTurnosComplete: () => Promise<void>,
-    makeTurno: (turno: ITurno) => Promise<string>,
+    makeTurno: (turno: ITurno) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,
