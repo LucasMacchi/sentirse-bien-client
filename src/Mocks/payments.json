@@ -1,25 +1,25 @@
 {
     "payments":[
         {
-            "usuario":"1",
+            "usuario":"7",
             "turno":"Turno 1",
             "monto": 10000,
             "fecha": "8-10-2024"
         },
         {
-            "usuario":"1",
+            "usuario":"7",
             "turno":"Turno 2",
             "monto": 10000,
             "fecha": "8-15-2024"
         },
         {
-            "usuario":"1",
+            "usuario":"7",
             "turno":"Turno 3",
             "monto": 10000,
             "fecha": "8-20-2024"
         },
         {
-            "usuario":"1",
+            "usuario":"7",
             "turno":"Turno 4",
             "monto": 10000,
             "fecha": "8-25-2024"
