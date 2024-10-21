@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { Header } from "../Header/Header";
 import "./Servicios.css";
 import logo from "../../assets/logo.png";
@@ -7,161 +8,89 @@ import crio from "../../assets/crio.jpg";
 import cavitacion from "../../assets/cavitacion.jpg";
 import puntadiamante from "../../assets/puntadiamante.jpg";
 import limpieza from "../../assets/limpieza.png";
-import criofacial from '../../assets/criofacial.jpg'
-import lifting from "../../assets/lifting.png"
-import depilacion from "../../assets/depilacion.png"
-import manicura from "../../assets/manicura.jpg"
-import antistress from "../../assets/antistress.webp"
-import descontracturante from "../../assets/descontracturante.jpg"
-import piedras from "../../assets/piedras.webp"
-import circu from "../../assets/circu.jpg"
+import criofacial from '../../assets/criofacial.jpg';
+import lifting from "../../assets/lifting.png";
+import depilacion from "../../assets/depilacion.png";
+import manicura from "../../assets/manicura.jpg";
+import antistress from "../../assets/antistress.webp";
+import descontracturante from "../../assets/descontracturante.jpg";
+import piedras from "../../assets/piedras.webp";
+import circu from "../../assets/circu.jpg";
 import { Footer } from "../Footer/Footer";
 import { Link } from "react-router-dom";
+import AOS from 'aos';
 
-export function Servicios() {
+export const Servicios: React.FC = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
+
   return (
     <>
-      <Header></Header>
+      <Header />
       <div className="servicios-container">
-        <img src={logo} alt="" />
-        <h1 className="titulo">Nuestros Servicios</h1>
-        <hr style={{ width: "100%" }} />
+        <img src={logo} alt="Logo" className="logo" data-aos="fade-down" />
+        <h1 className="titulo" data-aos="fade-up">Nuestros Servicios</h1>
+        <hr data-aos="fade-up" />
+        
+        <ServiceSection title="Tratamientos Corporales" services={[
+          { img: velaslim, title: "VelaSlim", desc: "Reducción de la circunferencia corporal y la celulitis.", price: "$10000" },
+          { img: dermohealth, title: "DermoHealth", desc: "Moviliza los distintos tejidos de la piel y estimula la microcirculación, generando un drenaje linfático.", price: "$10000" },
+          { img: crio, title: "Criofrecuencia", desc: "Produce un efecto de lifting instantáneo.", price: "$10000" },
+          { img: cavitacion, title: "Ultracavitación", desc: "Técnica reductora.", price: "$10000" }
+          
+        ]} />
+
+        <ServiceSection title="Tratamientos Faciales" services={[
+          { img: puntadiamante, title: "Punta de diamante", desc: "Microexfoliación.", price: "$10000" },
+          { img: limpieza, title: "Limpieza profunda + Hidratación", price: "$10000" },
+          { img: criofacial, title: "Criofrecuencia facial", desc: "Resultados instantáneos de efecto lifting.", price: "$10000" }
+        ]} />
+
+        <ServiceSection title="Belleza" services={[
+          { img: lifting, title: "Lifting de pestaña", price: "$10000" },
+          { img: depilacion, title: "Depilación facial", price: "$10000" },
+          { img: manicura, title: "Belleza de manos y pies", price: "$10000" }
+        ]} />
+
+        <ServiceSection title="Masajes" services={[
+          { img: antistress, title: "Anti-stress", price: "$10000" },
+          { img: descontracturante, title: "Descontracturantes", price: "$10000" },
+          { img: piedras, title: "Masajes con piedras calientes", price: "$10000" },
+          { img: circu, title: "Circulatorios", price: "$10000" }
+        ]} />
+
         <br />
-        <p className="servicio-title">Tratamientos Corporales</p>
-        <div className="servicio-grid">
-          <div className="servicio-card">
-            <img src={velaslim} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>VelaSlim</h1>
-              <p>Reducción de la circunferencia corporal y la celulitis.</p>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={dermohealth} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>DermoHealth</h1>
-              <p>
-                Moviliza los distintos tejidos de la piel y estimula la
-                microcirculación, generando un drenaje linfático.
-              </p>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={crio} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Criofrecuencia</h1>
-              <p>Produce un efecto de lifting instantáneo.</p>
-                <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={cavitacion} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Ultracavitación</h1>
-              <p>Técnica reductora.</p>
-                <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-        </div>
-        <hr style={{ width: "100%" }} />
-        <br />
-        <p className="servicio-title">Tratamientos Faciales</p>
-        <div className="servicio-grid">
-          <div className="servicio-card">
-            <img src={puntadiamante} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Punta de diamante</h1>
-              <p>Microexfoliación.</p>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={limpieza} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Limpieza profunda + Hidratación</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={criofacial} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Criofrecuencia facial</h1>
-              <p>Resultados instantáneos de
-              efecto lifting.</p>
-                <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-        </div>
-        <hr style={{ width: "100%" }} />
-        <br />
-        <p className="servicio-title">Belleza</p>
-        <div className="servicio-grid">
-          <div className="servicio-card">
-            <img src={lifting} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Lifting de pestaña</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={depilacion} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Depilación facial</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={manicura} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Belleza de manos y pies</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-        </div>
-        <hr style={{ width: "100%" }} />
-        <br />
-        <p className="servicio-title">Masajes</p>
-        <div className="servicio-grid">
-          <div className="servicio-card">
-            <img src={antistress} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Anti-stress</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={descontracturante} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Descontracturantes</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={piedras} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Masajes con piedras calientes.</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-          <div className="servicio-card">
-            <img src={circu} alt="" className="servicios-img" />
-            <div className="servicio-descripcion">
-              <h1>Circulatorios</h1>
-              <h1 className="precio">$10000</h1>
-            </div>
-          </div>
-        </div>
-        <br />
-        <br />
-        <p>Ya te decidiste?</p>
-        <br />
+        <p data-aos="fade-up">¿Ya te decidiste?</p>
         <Link to="/turnos">
-          <button className="vermas-btn">Agenda tu turno</button>
+          <button className="vermas-btn" data-aos="zoom-in">Agenda tu turno</button>
         </Link>
       </div>
-      <Footer></Footer>
+      <Footer />
     </>
   );
-}
+};
+
+const ServiceSection: React.FC<{ title: string; services: { img: string; title: string; desc?: string; price: string; }[] }> = ({ title, services }) => {
+  return (
+    <>
+      <p className="servicio-title" data-aos="fade-up">{title}</p>
+      <div className="servicio-grid">
+        {services.map((service, index) => (
+          <div className="servicio-card" key={index} data-aos="fade-up" data-aos-delay={index * 100}>
+            <img src={service.img} alt={service.title} className="servicios-img" />
+            <div className="servicio-descripcion">
+              <h2>{service.title}</h2>
+              {service.desc && <p>{service.desc}</p>}
+              <h1 className="precio">{service.price}</h1>
+            </div>
+          </div>
+        ))}
+      </div>
+      <hr data-aos="fade-up" />
+    </>
+  );
+};

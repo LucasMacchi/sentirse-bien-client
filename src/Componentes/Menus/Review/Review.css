@@ -1,0 +1,204 @@
+:root {
+    --color-rosa: #FFD1DC;
+    --color-verde-claro: #C1E1C1;
+    --color-blanco: #FFFFFF;
+    --color-texto: #4A4A4A;
+    --color-sombra: rgba(0, 0, 0, 0.1);
+    --color-estrella: #FFD700;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.review-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 209, 220, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+}
+
+.review-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.review-modal {
+    background-color: var(--color-blanco);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px var(--color-sombra);
+    width: 90%;
+    max-width: 500px;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.review-backdrop.active .review-modal {
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.review-logo {
+    width: 50px;
+    height: auto;
+    animation: pulse 2s infinite;
+}
+
+.review-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-texto);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.review-close-btn:hover {
+    color: var(--color-verde-claro);
+    transform: rotate(90deg);
+}
+
+.review-form h2 {
+    text-align: center;
+    color: var(--color-texto);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    animation: slideIn 0.5s ease-out 0.2s both;
+}
+
+.review-input-group {
+    margin-bottom: 1rem;
+    animation: slideIn 0.5s ease-out 0.4s both;
+}
+
+.review-input-group input,
+.review-input-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--color-rosa);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.review-input-group input:focus,
+.review-input-group textarea:focus {
+    outline: none;
+    border-color: var(--color-verde-claro);
+    box-shadow: 0 0 10px rgba(193, 225, 193, 0.5);
+}
+
+.review-rating {
+    margin-bottom: 1rem;
+    animation: slideIn 0.5s ease-out 0.6s both;
+    text-align: center;
+}
+
+.review-rating p {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.star-container {
+    display: inline-block;
+    direction: rtl;
+}
+
+.star {
+    font-size: 2.5rem; /* Estrellas más grandes */
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.star:hover,
+.star:hover ~ .star,
+.star-container:hover .star:not(:hover) ~ .star {
+    color: #ccc;
+}
+
+.star.filled,
+.star:hover,
+.star:hover ~ .star {
+    color: var(--color-estrella);
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.star.filled {
+    animation: starPulse 0.3s ease-out;
+}
+
+.review-submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-verde-claro);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    animation: slideIn 0.5s ease-out 0.8s both;
+}
+
+.review-submit-btn:hover {
+    background-color: var(--color-rosa);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 209, 220, 0.4);
+}
+
+.review-submit-btn:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .review-modal {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}

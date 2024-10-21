@@ -1,0 +1,134 @@
+:root {
+    --color-rosa: #FFD1DC;
+    --color-verde-claro: #C1E1C1;
+    --color-blanco: #FFFFFF;
+    --color-texto: #4A4A4A;
+    --color-sombra: rgba(0, 0, 0, 0.1);
+}
+
+.login-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 209, 220, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+}
+
+.login-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-modal {
+    background-color: var(--color-blanco);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px var(--color-sombra);
+    width: 100%;
+    max-width: 400px;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.login-backdrop.active .login-modal {
+    transform: translateY(0);
+}
+
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.login-logo {
+    width: 60px;
+    height: auto;
+}
+
+.login-close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-texto);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.login-close-btn:hover {
+    color: var(--color-rosa);
+}
+
+.login-form h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--color-texto);
+    font-size: 1.8rem;
+}
+
+.login-input-group {
+    margin-bottom: 1.5rem;
+}
+
+.login-input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--color-verde-claro);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.login-input-group input:focus {
+    outline: none;
+    border-color: var(--color-rosa);
+}
+
+.login-register-text {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--color-texto);
+}
+
+.login-register-text span {
+    color: var(--color-rosa);
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.login-register-text span:hover {
+    color: var(--color-verde-claro);
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--color-rosa);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-submit-btn:hover {
+    background-color: var(--color-verde-claro);
+    transform: translateY(-2px);
+}
+
+.login-submit-btn:disabled {
+    background-color: #E0E0E0;
+    cursor: not-allowed;
+    transform: none;
+}

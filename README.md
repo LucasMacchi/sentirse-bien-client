@@ -33,6 +33,11 @@ Ejecuta el proyecto.
 
 Compila y ejecuta una pagina estatica.
 
+# Usuarios precreados para testing
+- Email: lu@g.c | contraseña: 1 ---> Admin
+- Email: r@g.c | contraseña: 1 ---> Trabajador
+- Email: g@g.c | contraseña: 1 ---> Secretario
+- Email: galo@g.c | contraseña: 1 ----> cliente
 
 # Proyecto Hecho por Lucas Macchi
 

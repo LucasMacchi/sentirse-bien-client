@@ -1,0 +1,163 @@
+.pagos-page {
+  display: flex;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.pagos-container {
+  max-width: 1200px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+h1 {
+  color: #ff80ab;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filtros {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.filtro-fechas {
+  display: flex;
+  gap: 1rem;
+  flex: 2;
+}
+
+.filtro-texto {
+  flex: 1;
+}
+
+input[type="date"], .filtro-texto {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+input[type="date"]:focus, .filtro-texto:focus {
+  outline: none;
+  border-color: #ff80ab;
+  box-shadow: 0 0 0 3px rgba(255, 128, 171, 0.2);
+}
+
+.resumen-pagos {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.resumen-item {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.resumen-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.resumen-item h3 {
+  color: #ff80ab;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.resumen-item p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.tabla-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-pagos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-pagos th, .tabla-pagos td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-pagos th {
+  background-color: #ff80ab;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tabla-pagos tr:hover {
+  background-color: #f9f9f9;
+}
+
+.btn-imprimir {
+  background-color: #ff80ab;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-imprimir:hover {
+  background-color: #ff4081;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
+
+  .pagos-container {
+    padding: 1rem;
+  }
+
+  .filtros, .resumen-pagos {
+    flex-direction: column;
+  }
+
+  .filtro-fechas, .filtro-texto, .resumen-item {
+    width: 100%;
+  }
+
+  .btn-imprimir {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}

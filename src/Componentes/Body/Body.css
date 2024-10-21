@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import 'aos/dist/aos.css';
+
 /* Global Styles */
 body {
     margin: 0;
     padding: 0;
+    padding-top: 80px;
     height: 100%;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
@@ -45,20 +48,20 @@ p {
 /* Logo text styling */
 .logo-text {
     font-size: 1.5rem;
-    color: #8BB479;
+    color: #4caf50; /* Gris oscuro */
     font-weight: 200;
 }
 
 /* Title styling */
 .container-title {
-    margin-top: 2rem;
     font-family: 'Playfair Display', serif;
-    color: #8BB479;
+    color: #4A4A4A;
 }
 
 .welcome-text {
     font-size: 4rem;
     margin-bottom: 1rem;
+    color: #4caf50; /* Coral */
 }
 
 .welcome-text-span {
@@ -71,10 +74,11 @@ p {
     font-size: 1rem;
     padding: 20px 40px;
     color: white;
-    background-color: transparent;
-    border: 1px solid #738D68;
+    background-color: #4caf50; /* Coral */
+    border: none;
+    border-radius: 5px;
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
@@ -82,14 +86,12 @@ p {
 }
 
 .agenda-btn:hover {
-    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
-    transform: scale(1.05);
-    color: black;
+    background: #D84E4E; /* Rojo más oscuro */
 }
 
 /* Styles for "Conocenos" section */
 .section-bg {
-    background-color: #263F28;
+    background-color: #F5F5F5; /* Gris claro */
     height: auto;
     padding: 5rem 0;
     display: flex;
@@ -113,7 +115,7 @@ p {
     justify-content: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    color: #F8CCC3;
+    color: #333; /* Gris oscuro */
     text-align: center;
 }
 
@@ -121,8 +123,7 @@ p {
     font-size: 3rem;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
-
-    
+    color: #FF6F61; /* Coral */
 }
 
 .conocenos-left p {
@@ -148,27 +149,24 @@ p {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.img-2{
-    margin-left: 200px;
-}
-
 .conocenos-img:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
-.nuestros-servicios{
-    background: rgb(245,208,124);
-    background: linear-gradient(54deg, rgba(245,208,124,1) 29%, rgba(254,169,184,1) 69%);
+.nuestros-servicios {
+    background: #FFEBEE; /* Rosa pálido */
+    padding: 3rem 0;
 }
 
-.nuestros-servicios h1{
+.nuestros-servicios h1 {
     font-size: 3rem;
-    color: #263F28;
+    color: #4A4A4A; /* Gris oscuro */
     font-family: 'Playfair Display', serif;
+    text-align: center;
 }
 
-.servicios-grid{
+.servicios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
@@ -177,40 +175,49 @@ p {
     margin: 0 auto;
 }
 
-.servicio-img{
-    width: 300px;
+.servicio-img {
+    width: 250px;
     height: 200px;
     object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
-.servicios-card{
+.servicios-card {
+    background: #FFFFFF; /* Blanco */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: 0.4s ease-in-out;
 }
 
-.servicios-card:hover{
+.servicios-card:hover {
     transform: scale(1.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.servicios-card h1{
+.servicios-card h1 {
     font-size: 1.25rem;
     margin-bottom: 10px;
     font-family: 'Poppins', sans-serif;
+    color: #FF6F61; /* Coral */
 }
 
-.servicios-card p{
+.servicios-card p {
     font-size: 1rem;
     line-height: 1.5;
-    max-width: 250px;
     margin-top: 10px;
-    font-family: 'Poppins', sans-serif;
+    color: #4A4A4A; /* Gris oscuro */
 }
 
-.vermas-btn{
+.vermas-btn {
     padding: 20px;
-    background-color: transparent;
-    border: 1px solid #263F28;
+    background-color: #FF6F61; /* Coral */
+    border: none;
+    border-radius: 5px;
     font-size: 20px;
-    color: #263F28;
+    color: white;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
     cursor: pointer;
@@ -218,16 +225,14 @@ p {
     text-decoration: none;
 }
 
-.vermas-btn:hover{
-    background-color: #263F28;
-    color: white;
-    transform: scale(1.05);
+.vermas-btn:hover {
+    background-color: #D84E4E; /* Rojo más oscuro */
 }
 
-.gallery{
-    background-color:#263F28;
-    flex-direction: row;
-    color: #F8CCC3;
+.gallery {
+    background-color: #F5F5F5; /* Gris claro */
+    padding: 2rem 0;
+    color: #4A4A4A; /* Gris oscuro */
     text-align: center;
     font-size: 1.5em;
     font-family: 'Playfair Display', serif;
@@ -243,19 +248,14 @@ p {
         font-size: 3.5rem;
     }
 
-    .img-2{
-        margin-left: 0;
-        margin-bottom: 30px;
-    }
-
-    .servicios-grid{
+    .servicios-grid {
         max-width: 1000px;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .body-bg{
+    .body-bg {
         height: 500px;
     }
     .container {
@@ -284,28 +284,17 @@ p {
         font-size: 0.9rem;
     }
 
-    .conocenos-right{
+    .conocenos-right {
         flex-direction: row;
     }
 
     .conocenos-img {
         max-width: 300px;
     }
-
-    .img-2{
-        margin-left: 0;
-        margin-bottom: 30px;
-    }
-
-    .servicios-grid{
-        max-width: 500px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-
 }
 
 @media (max-width: 459px) {
-    .body-bg{
+    .body-bg {
         height: 500px;
     }
     .container {
@@ -320,22 +309,142 @@ p {
         padding: 8px 16px;
         font-size: 0.75rem;
     }
+}
 
-    .conocenos-right{
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .welcome-text {
+        font-size: 3.5rem;
+    }
+
+    .servicios-grid {
+        max-width: 1000px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .gallery img {
+        width: 100%; /* Asegúrate de que las imágenes se adapten */
+        height: auto; /* Mantén la relación de aspecto */
+    }
+}
+
+@media (max-width: 768px) {
+    .body-bg {
+        height: 500px;
+    }
+    .container {
+        padding: 1rem;
+    }
+
+    .welcome-text {
+        font-size: 2.5rem;
+    }
+
+    .agenda-btn {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+
+    .container-body {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .conocenos-left h1 {
+        font-size: 1.75rem;
+    }
+
+    .conocenos-left p {
+        font-size: 0.9rem;
+    }
+
+    .conocenos-right {
         flex-direction: row;
     }
 
     .conocenos-img {
-        max-width: 150px;
+        max-width: 300px;
     }
 
-    .img-2{
-        margin-left: 0;
-        margin-bottom: 30px;
+    body {
+        padding-top: 60px; /* Ajusta si el Header cambia de tamaño en móviles */
+    }
+}
+
+@media (max-width: 459px) {
+    .body-bg {
+        height: 400px;
+    }
+    .container {
+        padding: 0.5rem;
     }
 
-    .servicios-grid{
-        max-width: 400px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    .welcome-text {
+        font-size: 2rem;
     }
+
+    .agenda-btn {
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Aplicando animaciones a elementos específicos */
+.body-bg {
+  animation: fadeIn 1.5s ease-out;
+}
+
+.logo-text {
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.welcome-text {
+  animation: slideInFromRight 1s ease-out 0.5s;
+  animation-fill-mode: both;
+}
+
+.agenda-btn {
+  animation: scaleIn 0.5s ease-out 1s;
+  animation-fill-mode: both;
+}
+
+.conocenos-left {
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.conocenos-right {
+  animation: slideInFromRight 1s ease-out;
+}
+
+.servicios-card {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.gallery {
+  animation: fadeIn 1.5s ease-out;
 }

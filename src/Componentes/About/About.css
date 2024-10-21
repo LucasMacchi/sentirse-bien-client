@@ -1,53 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'aos/dist/aos.css';
 
-.about-container{
-    padding: 10em;
-    background-color: #263F28;
-    color: #F8CCC3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.about-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5em;
-    font-family: 'Poppins', sans-serif;
-    align-items: center;
-}
-
-.about-container h1{
-    font-size: 4em;
-    margin-bottom: 20px;
-    font-family: 'Playfair Display', serif;
-}
-
-.about-container p{
-    font-size: 1.3em;
-    line-height: 1.5;
-}
-
-.about-right{
+.about-container {
+    padding: 4em 2em;
+    background-color: #f4f9f4; /* Color suave para el fondo */
+    color: #333; /* Color de texto */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Centrar el contenido */
     justify-content: center;
 }
 
-.img{
-    width: 500px;
-    height: 300px;
-    object-fit: cover;
-    margin: 1em;
-    transition: 0.3s ease-in-out;
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em; /* Espaciado más pequeño */
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    width: 100%; /* Asegura que el grid ocupe todo el ancho */
+    max-width: 1200px; /* Limitar el ancho máximo del grid */
 }
 
-.img:hover{
+.about-container h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    color: #FF6F61; /* Color rosa para los títulos */
+    text-align: center; /* Centrar el título */
+}
+
+.about-container h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    font-weight: normal;
+    color: #FF6F61; /* Color rosa para subtítulos */
+    text-align: center; /* Centrar subtítulos */
+}
+
+.about-container p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin: 0; /* Elimina el margen para un mejor control del espacio */
+    text-align: center; /* Centrar el texto */
+}
+
+.about-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar las imágenes */
+    justify-content: center;
+}
+
+.img {
+    width: 100%; /* Ajuste a 100% para responsividad */
+    max-width: 400px; /* Limitar ancho máximo */
+    height: auto; /* Ajustar la altura automáticamente */
+    object-fit: cover;
+    margin: 1em 0; /* Espaciado vertical */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease-in-out;
+}
+
+.img:hover {
     transform: scale(1.05);
 }
 
-.vision{
-    background-color: #F8CCC3;
-    color: #263F28;
+.vision {
+    background-color: #ffe3e3; /* Color rosa suave para la sección de visión */
+    color: #333;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+    }
+
+    .about-container {
+        padding: 2em 1em; /* Espaciado reducido */
+    }
+
+    .about-container h1 {
+        font-size: 2.5em; /* Ajuste de tamaño de fuente en pantallas pequeñas */
+    }
+
+    .about-container h2 {
+        font-size: 1.8em;
+    }
+
+    .about-container p {
+        font-size: 1em; /* Tamaño de texto más pequeño */
+    }
 }
