@@ -150,5 +150,5 @@ export interface IGlobalContext {
     makePayment: (pago: IPago) => Promise<boolean>,
     setTurn: (turn: ITurno) => void,
     getClientes: () => void,
-    getPagos: (start?: Date, end?: Date) => void,
+    getPagos: () => void,
 };

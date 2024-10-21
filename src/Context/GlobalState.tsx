@@ -511,7 +511,7 @@ export default function GlobalState(props: IPropsChildren) {
                 })
             }
             else{
-                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/")).data.filter((u) => u.rol === 0)
+                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/", { headers: { Authorization: "Token " + localStorage.getItem('jwToken') } })).data.filter((u) => u.rol === 0)
                 console.log("Loading Clients")
                 dispatch({
                     type: actions.GET_CLIENTES,
