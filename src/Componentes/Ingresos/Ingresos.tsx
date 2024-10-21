@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
 import paymentsData from "../../Mocks/payments.json";
@@ -8,6 +8,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import logoSpa from '../../assets/logo.png';
 import { UserOptions } from 'jspdf-autotable';
+import { GlobalContext } from "../../Context/GlobalState";
+import { IPago } from '../../Interfaces/Interfaces';
 
 interface Pago {
   usuario: string;
@@ -33,6 +35,7 @@ interface IngresosPorUsuario {
 }
 
 const Ingresos: React.FC = () => {
+  const global = useContext(GlobalContext)
   const [ingresosPorUsuario, setIngresosPorUsuario] = useState<IngresosPorUsuario[]>([]);
   const [totalIngresos, setTotalIngresos] = useState(0);
   const [totalTurnos, setTotalTurnos] = useState(0);
@@ -42,11 +45,11 @@ const Ingresos: React.FC = () => {
   useEffect(() => {
     const calcularIngresos = () => {
       const usuarios = usersData.users as Usuario[];
-      const pagos = paymentsData.payments as Pago[];
+      const pagos = global?.pagosInforme ? global?.pagosInforme : [];
 
       const ingresosPorUsuario = usuarios.map(usuario => {
         const pagosPorUsuario = pagos.filter(pago => pago.usuario === usuario.id.toString());
-        const ingresos = pagosPorUsuario.reduce((total, pago) => total + pago.precio, 0);
+        const ingresos = pagosPorUsuario.reduce((total, pago) => total + pago.monto, 0);
         return {
           id: usuario.id,
           nombre: `${usuario.first_name} ${usuario.last_name}`,
