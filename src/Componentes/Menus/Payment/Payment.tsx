@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import PaidIcon from '@mui/icons-material/Paid';
-import { IFactura, IPago } from '../../../Interfaces/Interfaces';
+import { IFactura, IPago, ITurno } from '../../../Interfaces/Interfaces';
 import makeFactura from '../../../Utils/makeFactura';
 import { pdf } from '@react-pdf/renderer';
 import PlantillaPDF from '../../Factura/Factura';
@@ -115,8 +115,7 @@ export default function Payment() {
         const turn_id = await global?.makeTurno(global.turnToPay)
         const price: IPago = {
             monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            usuario: global?.user.id,
-            turno: turn_id
+            turno: turn_id?.id
         }
         const result = await global?.makePayment(price)
         if(result){
