@@ -491,7 +491,7 @@ export default function GlobalState(props: IPropsChildren) {
         if(use_mock === "1") return true
         else {
             try {
-                await axios.post(server_url + "/pagos/procesar/", pago, { headers: { Authorization: "Token " + token } })
+                await axios.post(server_url + "/pagos/procesar/", pago, { headers: { Authorization: "Token " + localStorage.getItem('jwToken') }  })
                 return true
             } catch (error) {
                 console.log(error)
