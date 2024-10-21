@@ -5,6 +5,7 @@ import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
 import reviews from "../Mocks/reviews.json";
+import payments from "../Mocks/payments.json"
 import turnosJSON from "../Mocks/turnos.json";
 import actions from "./Actions";
 import axios from "axios";
@@ -166,7 +167,7 @@ export default function GlobalState(props: IPropsChildren) {
             type: actions.LOGSTATUS_CHANGE
         })
         dispatch({
-            payload: { nombre: "", apellido: "", mail: "", rol: 2 },
+            payload: { nombre: "", apellido: "", mail: "", rol: 0 },
             type: actions.GET_USER_INFO
         })
         try {
@@ -204,7 +205,7 @@ export default function GlobalState(props: IPropsChildren) {
                 const userlog: IUser = {
                     first_name: user.first_name,
                     last_name: user.last_name,
-                    rol: 1,
+                    rol: 0,
                     email: user.email,
                     telefono: "0000000000",
                     id:"xd"
@@ -490,7 +491,7 @@ export default function GlobalState(props: IPropsChildren) {
         if(use_mock === "1") return true
         else {
             try {
-                await axios.post(server_url + "/usuario/payment/", pago, { headers: { Authorization: "Token " + token } })
+                await axios.post(server_url + "/usuarios/payment/", pago, { headers: { Authorization: "Token " + token } })
                 return true
             } catch (error) {
                 console.log(error)
@@ -524,8 +525,30 @@ export default function GlobalState(props: IPropsChildren) {
     
     
 
-    const getPagos = (start?: Date, end?: Date) => {
-
+    const getPagos = async (start?: Date, end?: Date) => {
+        try {
+            console.log("Loading Payments")
+            if(use_mock === "1"){
+                dispatch({
+                    type: actions.GET_PAGOS,
+                    payload: payments.payments
+                })
+                console.log(payments.payments)
+            }
+            else{
+                const dates = {
+                    start,
+                    end
+                }
+                const pagos: IPago[] = (await axios.get<IPago[]>(server_url+"/usuarios/payment/")).data
+                dispatch({
+                    type: actions.GET_PAGOS,
+                    payload: pagos
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
      
     //Estado Inicial
