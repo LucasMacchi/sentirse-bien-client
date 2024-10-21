@@ -48,6 +48,8 @@
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.2s;
+    text-decoration: none;
+    
 }
 
 .menu-item:hover {
@@ -71,4 +73,9 @@
 
 .abrir-boton:hover {
     background-color: #45a049; /* Verde más oscuro al pasar el mouse */
+}
+
+.remove-underline{
+    text-decoration: none;
+    color: black;
 }

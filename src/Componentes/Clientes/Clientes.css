@@ -1,0 +1,52 @@
+.clientes-container {
+    padding: 30px;
+    background-color: #f0f8f0; /* Fondo verde claro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #ff80ab; /* Rosa */
+    text-align: center;
+}
+
+.clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+}
+
+.clientes-table th,
+.clientes-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+.clientes-table th {
+    background-color: #ff80ab; /* Rosa */
+    color: white;
+}
+
+.cliente-row:hover {
+    background-color: #e0f7e0; /* Fondo verde claro al pasar el mouse */
+}
+
+.cliente-row:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo alternativo para filas */
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ff80ab; /* Rosa al enfocarse */
+}

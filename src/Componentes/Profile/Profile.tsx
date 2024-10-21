@@ -17,10 +17,11 @@ export function Profile() {
   useEffect(() => {
     if (global?.isLog === false) {
       navigate("/");
+    } else {
+      global?.getTurnosComplete();
+      if (global?.isLog && global.user.rol > 0) global.getClientes();
     }
-    else global?.getTurnosComplete()
-    if(global?.isLog && global.user.rol > 0) global.getClientes()
-  }, [global, navigate]);
+  }, []);
 
   if (global?.user.rol === 3) {
     return (
@@ -42,7 +43,7 @@ export function Profile() {
                 </div>
                 <div className="stat-card">
                   <h3>Consultas Pendientes</h3>
-                  <p>{global?.consults.filter(c => !c.cerrado).length}</p>
+                  <p>{global?.consults.filter((c) => !c.cerrado).length}</p>
                 </div>
                 <div className="stat-card">
                   <h3>Total de Clientes</h3>
@@ -60,7 +61,9 @@ export function Profile() {
         <section className="profile">
           <div className="container">
             <div className="profile-welcome">
-              <h1>Bienvenido, {global?.user.first_name} {global?.user.last_name}!</h1>
+              <h1>
+                Bienvenido, {global?.user.first_name} {global?.user.last_name}!
+              </h1>
             </div>
             <hr className="divider" />
             <h2>Mis Consultas</h2>
@@ -72,11 +75,19 @@ export function Profile() {
                 {global?.consults.map((consulta) => (
                   <div className="consulta-card" key={consulta.id}>
                     <div className="card-content">
-                      <p><strong>Descripción:</strong> {consulta.descripcion}</p>
-                      <p><strong>Respuesta:</strong> {consulta.respuesta || "No respondida"}</p>
-                      <p><strong>Cerrado:</strong> {consulta.cerrado ? "Sí" : "No"}</p>
+                      <p>
+                        <strong>Descripción:</strong> {consulta.descripcion}
+                      </p>
+                      <p>
+                        <strong>Respuesta:</strong>{" "}
+                        {consulta.respuesta || "No respondida"}
+                      </p>
+                      <p>
+                        <strong>Cerrado:</strong>{" "}
+                        {consulta.cerrado ? "Sí" : "No"}
+                      </p>
                     </div>
-                    {global?.user.rol != 0 && !consulta.cerrado && (
+                    {global?.user.rol !== 0 && !consulta.cerrado && (
                       <button
                         className="respond-button"
                         onClick={() => handleResponderConsultas(consulta.id)}
@@ -89,20 +100,24 @@ export function Profile() {
               </div>
             )}
             <h2>Mis Turnos</h2>
-              {global?.turnos.length === 0 ? (
-                <p>No tienes Turnos.</p>
-              ) : (
-                <div className="consults-grid">
-                  {global?.turnos.map((t) => (
-                    <div className="consulta-card" key={t.fecha+t.hora}>
-                      <div className="card-content">
-                        <p><strong>Fecha:</strong> {t.fecha}</p>
-                        <p><strong>Hora:</strong> {t.hora || "No respondida"}</p>
-                      </div>
+            {global?.turnos.length === 0 ? (
+              <p>No tienes Turnos.</p>
+            ) : (
+              <div className="consults-grid">
+                {global?.turnos.map((t) => (
+                  <div className="consulta-card" key={t.fecha + t.hora}>
+                    <div className="card-content">
+                      <p>
+                        <strong>Fecha:</strong> {t.fecha}
+                      </p>
+                      <p>
+                        <strong>Hora:</strong> {t.hora || "No respondida"}
+                      </p>
                     </div>
-                  ))}
-                </div>
-              )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
         <Footer />

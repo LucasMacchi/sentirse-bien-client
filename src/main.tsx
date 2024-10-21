@@ -22,36 +22,38 @@ import Response from "./Componentes/Menus/Consult/Respond.tsx";
 import Alerta from "./Componentes/Others/Alert.tsx";
 import Review from "./Componentes/Menus/Review/Review.tsx";
 import Payment from "./Componentes/Menus/Payment/Payment.tsx";
-
+import Clientes from "./Componentes/Clientes/Clientes.tsx";
+import Pagos from "./Componentes/Pagos/Pagos.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <CssBaseline>
-        <React.StrictMode>
-            <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <GlobalState>
-                        <Review />
-                        <Response />
-                        <Consult />
-                        <Login />
-                        <Register />
-                        <Payment/>
-                        <ScrollToTop></ScrollToTop>
-                        <Routes>
-                            <Route path="/" element={<App />}></Route>
-                            <Route path="/about" element={<About></About>}></Route>
-                            <Route path="/contact" element={<Contact></Contact>}></Route>
-                            <Route path="/services" element={<Servicios></Servicios>}></Route>
-                            <Route path="/profile" element={<Profile></Profile>}></Route>
-                            <Route path="/turnos" element={<Turnos></Turnos>}></Route>
-                            <Route path="/empleo" element={<Empleo></Empleo>}></Route>
-
-                        </Routes>
-                        <Alerta />
-                    </GlobalState>
-                </BrowserRouter>
-            </ThemeProvider>
-        </React.StrictMode>
-        ,
-    </CssBaseline>
+  <CssBaseline>
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <GlobalState>
+            <Review />
+            <Response />
+            <Consult />
+            <Login />
+            <Register />
+            <Payment />
+            <ScrollToTop></ScrollToTop>
+            <Routes>
+              <Route path="/" element={<App />}></Route>
+              <Route path="/about" element={<About></About>}></Route>
+              <Route path="/contact" element={<Contact></Contact>}></Route>
+              <Route path="/services" element={<Servicios></Servicios>}></Route>
+              <Route path="/profile" element={<Profile></Profile>}></Route>
+              <Route path="/turnos" element={<Turnos></Turnos>}></Route>
+              <Route path="/empleo" element={<Empleo></Empleo>}></Route>
+              <Route path="/clientes" element={<Clientes></Clientes>}></Route>
+              <Route path="/pagos" element={<Pagos></Pagos>}></Route>
+            </Routes>
+            <Alerta />
+          </GlobalState>
+        </BrowserRouter>
+      </ThemeProvider>
+    </React.StrictMode>
+    ,
+  </CssBaseline>
 );

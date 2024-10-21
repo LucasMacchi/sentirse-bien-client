@@ -54,6 +54,8 @@ const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext =
     }
 };
 
+
+
 //Estado Global
 export default function GlobalState(props: IPropsChildren) {
 
@@ -519,6 +521,8 @@ export default function GlobalState(props: IPropsChildren) {
             console.log(error)
         }
     }
+    
+    
 
     const getPagos = (start?: Date, end?: Date) => {
 
@@ -579,3 +583,4 @@ export default function GlobalState(props: IPropsChildren) {
         </GlobalContext.Provider>
     );
 }
+

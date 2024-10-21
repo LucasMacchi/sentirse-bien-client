@@ -95,7 +95,7 @@ h2 {
 
 .consults-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px; 
 }
 
@@ -105,6 +105,8 @@ h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
   padding: 20px;
   transition: transform 0.2s; 
+  width: 200px;
+  height: 200px;
 }
 
 .consulta-card:hover {
@@ -149,4 +151,20 @@ h2 {
   .consults-grid{
     grid-template-columns: repeat(1, 1fr); 
   }
+}
+
+.cancel-button {
+  background-color: #f44336; /* Color de fondo rojo para el botón de cancelar */
+  color: white; /* Color de texto */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transición suave */
+  margin-top: 10px;
+  width: 100%; /* Ancho completo */
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f; /* Color más oscuro al pasar el ratón */
 }
