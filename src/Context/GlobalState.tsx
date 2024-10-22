@@ -450,7 +450,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno): Promise<ITurno> => {
+    const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
         try {
             if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0}
             else {
@@ -458,8 +458,8 @@ export default function GlobalState(props: IPropsChildren) {
                     fecha: turno.fecha,
                     hora: turno.hora,
                     servicio: turno.servicio,
-                    pagado: true
-                }
+                    pagado: pagado
+                    }
                 const token = localStorage.getItem('jwToken')
                 const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
                 dispatch({

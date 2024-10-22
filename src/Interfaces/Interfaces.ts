@@ -32,7 +32,8 @@ export interface IPago {
     usuario?: number,
     turno?:number,
     monto: number,
-    fecha?: string
+    fecha?: string,
+    type: number // 0 efectivo, 1 debito 2 credito
 };
 
 export interface IReview {
@@ -145,7 +146,7 @@ export interface IGlobalContext {
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
     getTurnosComplete: (id: number) => Promise<void>,
-    makeTurno: (turno: ITurno) => Promise<ITurno>,
+    makeTurno: (turno: ITurno, pagado: boolean) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,

@@ -15,6 +15,8 @@ import { IFactura, IPago } from '../../../Interfaces/Interfaces';
 import makeFactura from '../../../Utils/makeFactura';
 import { pdf } from '@react-pdf/renderer';
 import PlantillaPDF from '../../Factura/Factura';
+import { Tab, Tabs } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function Payment() {
     const currentYear = new Date().getFullYear()
@@ -29,6 +31,7 @@ export default function Payment() {
         card_expiration_year: "",
         address: ""
     })
+    const [type, setType] = useState("0")
     const [cardNumberError, setNumberErr] = useState({
         status: false,
         msg: ""
@@ -84,6 +87,11 @@ export default function Payment() {
             setDisable(true)
         }
         else setDisable(false)
+        if(type === "0"){
+            setSecErr({status: false, msg: ""})
+            setNumberErr({status: false, msg: ""})
+            setExErr({status: false, msg: ""})
+        }
     }
 
     //Va añadiendo los datos al estado de paymentData
@@ -112,10 +120,11 @@ export default function Payment() {
             global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)
 
-        const turn_id = await global?.makeTurno(global.turnToPay)
+        const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
         const price: IPago = {
             monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            turno: turn_id?.id
+            turno: turn_id?.id,
+            type: parseInt(type)
         }
         const result = await global?.makePayment(price)
         if(result){
@@ -132,6 +141,10 @@ export default function Payment() {
         }
     }
 
+    const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+        setType(newValue);
+      }; 
+
     useEffect(errorCheck, [cardExError])
     useEffect(errorCheck, [cardNumberError])
     useEffect(errorCheck, [cardSecError])
@@ -146,25 +159,30 @@ export default function Payment() {
                     </Box>
                     <Divider />
                     <Box component="form" onSubmit={(e: FormEvent) => payTurn(e)} autoComplete='off'>
+                        <Tabs value={type} onChange={handleChange}>
+                            <Tab label="Credito" value={"2"}/>
+                            <Tab label="Debito" value={"1"}/>
+                            <Tab label="Efectivo" value={"0"}/>
+                        </Tabs>
                         <Box padding={0.3}>
-                            <TextField  fullWidth type="text" id='card_number' size="small" 
+                            <TextField disabled={type === "0"} fullWidth type="text" id='card_number' size="small" 
                             label="Numero de Tarjeta" value={paymentData.card_number} 
                             onChange={(e) => handlePayment("card_number", e.target.value)} required 
                             error={cardNumberError.status} 
                             />
                         </Box>
                         <Box padding={0.3}>
-                        <TextField sx={{width: 150}} type="text" id='card_sec' size="small" 
+                        <TextField sx={{width: 150}} disabled={type === "0"} type="text" id='card_sec' size="small" 
                             label="Cod. seguridad" value={paymentData.card_security_number} 
                             onChange={(e) => handlePayment("card_security_number", e.target.value)} required 
                             error={cardSecError.status} 
                             />
-                        <TextField 
+                        <TextField disabled={type === "0"}
                         type="text" id='name' size="small" 
                         label="Nombre del Titular" value={paymentData.fullname} 
                         onChange={(e) => handlePayment("fullname", e.target.value)} required 
                         />
-                        <TextField 
+                        <TextField disabled={type === "0"}
                         type="text" id='adress' size="small" 
                         label="Direccion de Facturacion" value={paymentData.address} fullWidth
                         onChange={(e) => handlePayment("address", e.target.value)} required 
@@ -174,19 +192,21 @@ export default function Payment() {
                         <Typography>Fecha de Vencimiento</Typography>
                         <Divider/>
                         <Box padding={0.3}>
-                        <TextField sx={{width: 100}} type="number" id='card_month' size="small" 
+                        <TextField sx={{width: 100}} type="number" disabled={type === "0"} id='card_month' size="small" 
                             label="Mes" value={paymentData.card_expiration_month} 
                             onChange={(e) => handlePayment("card_expiration_month", e.target.value)} required 
                             error={cardExError.status} />
                         <TextField sx={{width: 100}} type="number" id='card_month' size="small" 
-                            label="Año" value={paymentData.card_expiration_year} 
+                            label="Año" disabled={type === "0"} value={paymentData.card_expiration_year} 
                             onChange={(e) => handlePayment("card_expiration_year", e.target.value)} required 
                             error={cardExError.status} />
                         </Box>
                         <Typography>Precio de consulta: ${global?.turnToPay.price}</Typography>
+                        <Divider/>
+                        {type === "0" && (<Typography> <InfoIcon color='info'/> Recuerde que debe abonar en efectivo en la sucursal en un tiempo menor a las 48 horas de haber sacado el turno</Typography>)}
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"8px"}>
                             <Button disabled={disabledBtn} size="small" color='secondary' variant="contained" type="submit" startIcon={<PaidIcon />}>
-                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>PAGAR CONSULTA</Typography>
+                                <Typography sx={{ marginLeft: "20px" }} variant='body2'>{type === "0" ? "Sacar turno" : "Pagar Turno"}</Typography>
                             </Button>
                         </Box>
                     </Box>

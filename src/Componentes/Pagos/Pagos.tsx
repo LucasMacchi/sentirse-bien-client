@@ -31,7 +31,7 @@ export default function Pagos() {
     });
   };
 
-  const calcularTotal = () => {
+  const calcularTotal = ():number => {
     const pagos = filtrarPagos()
     if(pagos) {
       let total = 0
