@@ -4,7 +4,7 @@ export interface IUser {
     rol: number, //0 --> usuario | 1 --> staff | 2 --> secretaria | 3 --> admin 
     email: string,
     telefono: string,
-    id: string
+    id: number
 
 };
 
@@ -22,14 +22,15 @@ export interface ITurno {
     servicio: string,
     fecha: string,
     hora: string,
-    usuario?: string,
+    usuario?: number,
     pagado: boolean,
-    price?: number
+    price?: number,
+    id?: number
 };
 
 export interface IPago {
-    usuario?: string,
-    turno?:string,
+    usuario?: number,
+    turno?:number,
     monto: number,
     fecha?: string
 };
@@ -143,12 +144,12 @@ export interface IGlobalContext {
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
-    getTurnosComplete: () => Promise<void>,
-    makeTurno: (turno: ITurno) => Promise<string>,
+    getTurnosComplete: (id: number) => Promise<void>,
+    makeTurno: (turno: ITurno) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,
     setTurn: (turn: ITurno) => void,
     getClientes: () => void,
-    getPagos: (start?: Date, end?: Date) => void,
+    getPagos: () => void,
 };

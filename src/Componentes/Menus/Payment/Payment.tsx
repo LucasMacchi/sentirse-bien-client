@@ -44,7 +44,7 @@ export default function Payment() {
     const [disabledBtn, setDisable] = useState(false)
 
     const closeBtn = () => {
-        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0})
+        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0})
     }
 
     const errorCheck = () => {
@@ -115,8 +115,7 @@ export default function Payment() {
         const turn_id = await global?.makeTurno(global.turnToPay)
         const price: IPago = {
             monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            usuario: global?.user.id,
-            turno: turn_id
+            turno: turn_id?.id
         }
         const result = await global?.makePayment(price)
         if(result){

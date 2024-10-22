@@ -16,13 +16,12 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if(global?.isLog && global?.user.rol !== 0) navigate("/profile")
+        if(global?.isLog) navigate("/profile")
     },[global?.isLog])
 
     return (
         <>
             <Body></Body>
-
         </>
     );
 }

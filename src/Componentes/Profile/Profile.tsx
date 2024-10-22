@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import { GlobalContext } from "../../Context/GlobalState";
@@ -18,13 +18,16 @@ export function Profile() {
     if (global?.isLog === false) {
       navigate("/");
     } else {
-      global?.getTurnosComplete();
-      if (global?.isLog && global.user.rol > 0) global.getClientes();
+      global?.getTurnosComplete(global.user.id);
+      if (global?.isLog && global.user.rol > 0) {
+        global?.getPagos()
+        global.getClientes();
+      }
       
     }
   }, []);
 
-  if (global?.user.rol === 3) {
+  if (global?.user.rol !== 0) {
     return (
       <>
         <Header />
@@ -115,6 +118,14 @@ export function Profile() {
                       <p>
                         <strong>Hora:</strong> {t.hora || "No respondida"}
                       </p>
+                      {t.pagado == true ? 
+                      <p><strong>Pagado:</strong> Sí</p> 
+                      : 
+                      <p><strong>Pagado:</strong> No</p>}
+                      
+                      <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
+
+
                     </div>
                   </div>
                 ))}
