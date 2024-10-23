@@ -43,15 +43,15 @@ export function Profile() {
               <div className="stats">
                 <div className="stat-card">
                   <h3>Total de Consultas</h3>
-                  <p>{global?.consults.length + 1}</p>
+                  <p>{global?.consults.length ? global?.consults.length : 0}</p>
                 </div>
                 <div className="stat-card">
                   <h3>Consultas Pendientes</h3>
-                  <p>{global?.consults.filter((c) => !c.cerrado).length + 1}</p>
+                  <p>{global?.consults ? global?.consults.filter((c) => !c.cerrado).length + 1 : 0}</p>
                 </div>
                 <div className="stat-card">
                   <h3>Total de Clientes</h3>
-                  <p>{global?.clientes.length + 1}</p>
+                  <p>{ global?.clientes ? global?.clientes.length + 1 : 0}</p>
                 </div>
               </div>
             </div>
