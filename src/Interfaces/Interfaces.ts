@@ -24,7 +24,7 @@ export interface ITurno {
     hora: string,
     usuario?: number,
     pagado: boolean,
-    price?: number,
+    monto?: number,
     id?: number
 };
 
@@ -110,6 +110,11 @@ interface IItem {
     importe: number
 }
 
+export interface IPagoComplete extends IPago {
+    fullname?: string,
+    typeString?: string
+  }
+
 export interface IGlobalContext {
     user: IUser,
     alert: IAlert,
@@ -126,7 +131,7 @@ export interface IGlobalContext {
     reviews: IReview[],
     turnosOcupados: string[],
     turnos: ITurno[],
-    pagosInforme: IPago[],
+    pagosInforme: IPagoComplete[],
     clientes: IUser[],
     changeMenuLogin: (payload: boolean) => void,
     changeMenuRegister: (payload: boolean) => void,
@@ -153,4 +158,5 @@ export interface IGlobalContext {
     setTurn: (turn: ITurno) => void,
     getClientes: () => void,
     getPagos: () => void,
+    completePagos: (clientes: IUser[], pagos: IPagoComplete[]) => IPagoComplete[]
 };

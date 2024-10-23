@@ -71,7 +71,7 @@ const Turnos: React.FC = () => {
             fecha: date,
             hora: time,
             pagado: false,
-            price: selectedServices.length === 1 ? 10000 : 20000
+            monto: selectedServices.length === 1 ? 10000 : 20000
         }
         global?.changeMenuPayment(true, turno)
     };

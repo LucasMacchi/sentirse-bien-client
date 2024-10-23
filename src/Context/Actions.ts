@@ -15,5 +15,6 @@ export default {
     SET_TURN_TOPAY: "set_turn_topay",
     GET_CLIENTES: "get_clientes",
     GET_PAGOS: "get_pagos",
-    GET_TURNS_FULL: "get_turns_full"
+    GET_TURNS_FULL: "get_turns_full",
+    GET_PAGOS_COMPLETE: "get_pagos_complete"
 }
