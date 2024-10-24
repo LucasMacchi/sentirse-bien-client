@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./MenuLateral.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../Context/GlobalState";
 
 const MenuLateral: React.FC = () => {
@@ -9,6 +9,7 @@ const MenuLateral: React.FC = () => {
   const toggleMenu = () => {
     setVisible(!visible);
   };
+  const navigate = useNavigate();
 
   if (global?.user.rol == 3) {
     return (
@@ -38,13 +39,12 @@ const MenuLateral: React.FC = () => {
         )}
       </>
     );
-  } else if (global?.user.rol == 1){
+  } else if (global?.user.rol == 1) {
     return (
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
           <ul className="menu-lista">
             <li className="menu-item">Informe de Servicios</li>
-
           </ul>
           <button onClick={toggleMenu} className="toggle-boton">
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
@@ -57,7 +57,7 @@ const MenuLateral: React.FC = () => {
         )}
       </>
     );
-  } else if (global?.user.rol == 2){
+  } else if (global?.user.rol == 2) {
     return (
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
@@ -65,6 +65,26 @@ const MenuLateral: React.FC = () => {
             <Link to="/pagos" className="remove-underline">
               <li className="menu-item">Pagos</li>
             </Link>
+          </ul>
+          <button onClick={toggleMenu} className="toggle-boton">
+            {visible ? "Ocultar Menú" : "Mostrar Menú"}
+          </button>
+        </div>
+        {!visible && (
+          <button onClick={toggleMenu} className="abrir-boton">
+            Abrir Menú
+          </button>
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
+          <ul className="menu-lista">
+              <li className="menu-item" onClick={() => navigate("/turnos")}>Agendar un turno</li>
+              <li className="menu-item" onClick={() => global?.changeMenuConsult(true)} >Hacer una consulta</li>
+              <li className="menu-item" onClick={() => global?.changeMenuReview(true)}>Reseña</li>
           </ul>
           <button onClick={toggleMenu} className="toggle-boton">
             {visible ? "Ocultar Menú" : "Mostrar Menú"}

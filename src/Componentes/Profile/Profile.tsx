@@ -5,6 +5,7 @@ import { Header } from "../Header/Header";
 import { GlobalContext } from "../../Context/GlobalState";
 import "./Profile.css";
 import MenuLateral from "../MenuLateral/MenuLateral";
+import { motion } from "framer-motion";
 
 export function Profile() {
   const global = useContext(GlobalContext);
@@ -32,13 +33,28 @@ export function Profile() {
       <>
         <Header />
         <MenuLateral />
-        <section className="admin-profile">
+        <motion.section 
+          className="admin-profile"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="container">
-            <div className="welcome-message">
+            <motion.div 
+              className="welcome-message"
+              initial={{ y: -50 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
+            >
               <h1>Bienvenido, Administrador {global?.user?.first_name}!</h1>
               <p>Aquí puedes gestionar todas las operaciones.</p>
-            </div>
-            <div className="admin-dashboard">
+            </motion.div>
+            <motion.div 
+              className="admin-dashboard"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+            >
               <h2>Resumen de Actividades</h2>
               <div className="stats">
                 <div className="stat-card">
@@ -54,24 +70,42 @@ export function Profile() {
                   <p>{global?.clientes.length + 1}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       </>
     );
   } else {
     return (
       <>
         <Header />
-        <section className="profile">
+        <MenuLateral />
+        <motion.section 
+          className="profile"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="container">
-            <div className="profile-welcome">
+            <motion.div 
+              className="profile-welcome"
+              initial={{ y: -50 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
+            >
               <h1>
                 Bienvenido, {global?.user.first_name} {global?.user.last_name}!
               </h1>
-            </div>
+            </motion.div>
             <hr className="divider" />
-            <h2>Mis Consultas</h2>
+
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              Mis Consultas
+            </motion.h2>
 
             {global?.consults.length === 0 ? (
               <p>No tienes consultas.</p>
@@ -104,7 +138,14 @@ export function Profile() {
                 ))}
               </div>
             )}
-            <h2>Mis Turnos</h2>
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              Mis Turnos
+            </motion.h2>
+
             {global?.turnos.length === 0 ? (
               <p>No tienes Turnos.</p>
             ) : (
@@ -118,12 +159,9 @@ export function Profile() {
                       <p>
                         <strong>Hora:</strong> {t.hora || "No respondida"}
                       </p>
-                      {t.pagado == true ? 
-                      <p><strong>Pagado:</strong> Sí</p> 
-                      : 
-                      <p><strong>Pagado:</strong> No</p>}
-                      
-                      <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
+                      {!t.pagado && (
+                        <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
+                      )}                      
 
 
                     </div>
@@ -132,7 +170,7 @@ export function Profile() {
               </div>
             )}
           </div>
-        </section>
+        </motion.section>
         <Footer />
       </>
     );
