@@ -47,7 +47,7 @@ export default function Payment() {
     const [disabledBtn, setDisable] = useState(false)
 
     const closeBtn = () => {
-        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0})
+        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0})
     }
 
     const errorCheck = () => {
@@ -116,28 +116,45 @@ export default function Payment() {
         event.preventDefault()
         setDisable(true)
 
-        const factura = makeFactura(global?.turnToPay.servicio ? global?.turnToPay.servicio : "Servicio no especificado", global?.turnToPay.price ? global?.turnToPay.price : 0, 
+        const factura = makeFactura(global?.turnToPay.servicio ? global?.turnToPay.servicio : "Servicio no especificado", global?.turnToPay.monto ? global?.turnToPay.monto : 0, 
             global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)
 
-        const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
-        const price: IPago = {
-            monto: global?.turnToPay.price ? global?.turnToPay.price : 0,
-            turno: turn_id?.id,
-            type: parseInt(type)
-        }
-        const result = await global?.makePayment(price)
-        if(result){
-            global?.alertStatus(true, "success", "Gracias por sacar su turno!")
-            downloadPDF(factura)
-            setTimeout(() => {
+
+        if(type !== "0"){
+            const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
+            const price: IPago = {
+                monto: global?.turnToPay.monto ? global?.turnToPay.monto : 0,
+                turno: turn_id?.id,
+                type: parseInt(type)
+            }
+            const result = await global?.makePayment(price)
+            if(result){
+                global?.alertStatus(true, "success", "Gracias por sacar su turno!")
+                downloadPDF(factura)
+                setTimeout(() => {
+                    setDisable(false)
+                    window.location.reload()
+                }, 1500);
+            }
+            else{
+                global?.alertStatus(true, "error", "Error al pagar")
                 setDisable(false)
-                window.location.reload()
-            }, 1500);
+            }
         }
         else{
-            global?.alertStatus(true, "error", "Error al pagar")
-            setDisable(false)
+            const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
+            if(turn_id){
+                global?.alertStatus(true, "success", "Gracias por sacar su turno!") 
+                setTimeout(() => {
+                    setDisable(false)
+                    window.location.reload()
+                }, 1500);
+            } 
+            else {
+                global?.alertStatus(true, "error", "Error al sacar turno, intente mas tarde.")
+                setDisable(false)
+            }
         }
     }
 
@@ -164,14 +181,14 @@ export default function Payment() {
                             <Tab label="Debito" value={"1"}/>
                             <Tab label="Efectivo" value={"0"}/>
                         </Tabs>
-                        <Box padding={0.3}>
+                        <Box padding={0.3} display={type === "0" ? "none" : "block"}>
                             <TextField disabled={type === "0"} fullWidth type="text" id='card_number' size="small" 
                             label="Numero de Tarjeta" value={paymentData.card_number} 
                             onChange={(e) => handlePayment("card_number", e.target.value)} required 
                             error={cardNumberError.status} 
                             />
                         </Box>
-                        <Box padding={0.3}>
+                        <Box padding={0.3} display={type === "0" ? "none" : "block"}>
                         <TextField sx={{width: 150}} disabled={type === "0"} type="text" id='card_sec' size="small" 
                             label="Cod. seguridad" value={paymentData.card_security_number} 
                             onChange={(e) => handlePayment("card_security_number", e.target.value)} required 
@@ -189,9 +206,9 @@ export default function Payment() {
                         />
 
                         </Box>
-                        <Typography>Fecha de Vencimiento</Typography>
+                        <Typography display={type === "0" ? "none" : "block"}>Fecha de Vencimiento</Typography>
                         <Divider/>
-                        <Box padding={0.3}>
+                        <Box padding={0.3} display={type === "0" ? "none" : "block"}>
                         <TextField sx={{width: 100}} type="number" disabled={type === "0"} id='card_month' size="small" 
                             label="Mes" value={paymentData.card_expiration_month} 
                             onChange={(e) => handlePayment("card_expiration_month", e.target.value)} required 
@@ -201,7 +218,7 @@ export default function Payment() {
                             onChange={(e) => handlePayment("card_expiration_year", e.target.value)} required 
                             error={cardExError.status} />
                         </Box>
-                        <Typography>Precio de consulta: ${global?.turnToPay.price}</Typography>
+                        <Typography>Precio de consulta: ${global?.turnToPay.monto}</Typography>
                         <Divider/>
                         {type === "0" && (<Typography> <InfoIcon color='info'/> Recuerde que debe abonar en efectivo en la sucursal en un tiempo menor a las 48 horas de haber sacado el turno</Typography>)}
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"8px"}>

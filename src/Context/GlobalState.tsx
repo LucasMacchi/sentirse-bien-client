@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { createContext } from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno, IPago } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno, IPago, IPagoComplete } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
@@ -452,13 +452,14 @@ export default function GlobalState(props: IPropsChildren) {
 
     const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0}
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
                     hora: turno.hora,
                     servicio: turno.servicio,
-                    pagado: pagado
+                    pagado: pagado,
+                    monto: turno.monto
                     }
                 const token = localStorage.getItem('jwToken')
                 const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
@@ -470,7 +471,7 @@ export default function GlobalState(props: IPropsChildren) {
             }
         } catch (error) {
             console.log(error)
-            return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0}
+            return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
         }
     }
 
@@ -554,6 +555,18 @@ export default function GlobalState(props: IPropsChildren) {
             console.log(error)
         }
     }
+
+    const completePagos = (clientes: IUser[], pagos: IPagoComplete[]): IPagoComplete[] => {
+        return pagos.map(p => {
+            clientes.forEach(c => {
+                if(c.id === p.usuario) p.fullname = c.first_name + " " + c.last_name
+            });
+            if(p.type === 0) p.typeString = "Efectivo"
+            else if(p.type === 1) p.typeString = "Debito"
+            else p.typeString = "Credito"
+            return p
+        })
+    }
      
     //Estado Inicial
     const initialState: IGlobalContext = {
@@ -563,7 +576,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRegister: false,
         isLog: false,
         idConsult: "",
-        turnToPay: {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, price: 0},
+        turnToPay: {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0},
         MConsult: false,
         MReview: false,
         MResponse: false,
@@ -598,7 +611,8 @@ export default function GlobalState(props: IPropsChildren) {
         makePayment,
         setTurn,
         getPagos,
-        getClientes
+        getClientes,
+        completePagos
     };
 
     //uso del Reducer

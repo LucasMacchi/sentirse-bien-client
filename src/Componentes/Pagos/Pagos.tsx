@@ -1,61 +1,74 @@
 import{ useState, useEffect, useContext } from "react";
 import { Header } from "../Header/Header";
 import MenuLateral from "../MenuLateral/MenuLateral";
-import paymentsData from "../../Mocks/payments.json";
-import usersData from "../../Mocks/users.json";
 import "./Pagos.css";
 import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png';
 import { GlobalContext } from "../../Context/GlobalState";
-import { IPago } from "../../Interfaces/Interfaces";
+import { IPago, IPagoComplete } from "../../Interfaces/Interfaces";
+
 
 
 export default function Pagos() {
-  const [pagos, setPagos] = useState<Pago[]>([]);
+  const [pagos, setPagos] = useState<IPagoComplete[]>([])
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [filtro, setFiltro] = useState("");
   const global = useContext(GlobalContext);
 
   useEffect(() => {
-    const usuariosMap = new Map(usersData.users.map(user => [user.id.toString(), `${user.first_name} ${user.last_name}`]));
-    
-    const pagosConFechasYNombres = paymentsData.payments.map((pago, index) => ({
-      ...pago,
-      id: `PAY-${index + 1000}`,
-      fecha: new Date(2023, 0, index + 1).toISOString().split('T')[0],
-      usuario: usuariosMap.get(pago.usuario) || pago.usuario
-    }));
-    
-    setPagos(pagosConFechasYNombres);
+    const complete = global?.completePagos(global.clientes, global.pagosInforme)
+    setPagos(complete ? complete : [] )
   }, []);
 
-  const filtrarPagos = () => {
-    return global?.pagosInforme.filter((pago) => {
-      const usuario = pago.usuario ? pago.usuario : "NaN";
-      const fechaPago = pago.fecha ? new Date(pago.fecha) : new Date;
-      const inicio = fechaInicio ? new Date(fechaInicio) : new Date(0);
-      const fin = fechaFin ? new Date(fechaFin) : new Date();
-      const cumpleFiltroFecha = fechaPago >= inicio && fechaPago <= fin;
-      const cumpleFiltroTexto = usuario
-      return cumpleFiltroFecha && cumpleFiltroTexto;
-    });
+  
+  useEffect(() => {
+    const filtrado = filtrarPagos()
+    setPagos(filtrado ? filtrado : pagos)
+  },[fechaFin, fechaInicio, filtro])
+
+  const filtrarPagos = (): IPagoComplete[] | undefined => {
+    const complete = global?.completePagos(global.clientes, global.pagosInforme)
+    if(complete){
+      if(fechaInicio || fechaFin || filtro){
+        const filtered = complete.filter((p) => {
+          if(p.fecha){
+            const pagoFecha = new Date(p.fecha)
+            const fechaStart = fechaInicio ? new Date(fechaInicio) : new Date(0)
+            const fechaEnd = fechaFin ? new Date(fechaFin) : new Date("01-01-2050")
+            if(pagoFecha <= fechaEnd && pagoFecha >= fechaStart){
+              if(filtro){
+                if(p.fullname?.toLocaleLowerCase()?.includes(filtro.toLocaleLowerCase()) ||
+                    p.typeString?.toLocaleLowerCase()?.includes(filtro.toLocaleLowerCase())) {
+                  console.log("Searching ",filtro)
+                  return p
+                }
+              }
+              else return p
+            }
+          }
+        })
+        return filtered
+      }
+      else {
+        return complete
+      }
+    }
+    else {
+      return complete
+    } 
   };
 
   const calcularTotal = ():number => {
-    const pagos = filtrarPagos()
     if(pagos) {
       let total = 0
       pagos.forEach(p => {
         total = p.monto + total
       });
-      console.log("TOTAL "+total)
       return total
     }
     else return 0
   };
-
-  const pagosFiltrados = filtrarPagos();
 
   const generarReciboPDF = (pago: IPago) => {
     const doc = new jsPDF();
@@ -111,6 +124,42 @@ export default function Pagos() {
     doc.save(`recibo.pdf`);
   };
 
+
+  const showTabla = () => {
+    if(pagos){
+      return(
+        <table className="tabla-pagos">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Turno</th>
+            <th>Precio</th>
+            <th>Forma de Pago</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pagos?.map((pago) => (
+            <tr key={pago.fecha}>
+              <td>{pago.fecha}</td>
+              <td>{pago.fullname}</td>
+              <td>{pago.turno}</td>
+              <td>${pago.monto}</td>
+              <td>{pago.typeString}</td>
+              <td>
+                <button onClick={() => generarReciboPDF(pago)} className="btn-imprimir">
+                  Descargar PDF
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      )
+    }
+  }
+
   return (
     <div className="pagos-page">
       <Header />
@@ -137,14 +186,14 @@ export default function Pagos() {
               type="text"
               value={filtro}
               onChange={(e) => setFiltro(e.target.value)}
-              placeholder="Buscar por usuario, turno o ID"
+              placeholder="Buscar por usuario o tipo de pago."
               className="filtro-texto"
             />
           </div>
           <div className="resumen-pagos">
             <div className="resumen-item">
               <h3>Total de Pagos</h3>
-              <p>{pagosFiltrados?.length}</p>
+              <p>{pagos?.length ? pagos?.length : 0}</p>
             </div>
             <div className="resumen-item">
               <h3>Monto Total</h3>
@@ -152,36 +201,11 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${pagosFiltrados ? (calcularTotal() / pagosFiltrados.length || 0) : 0}</p>
+              <p>${pagos ? (calcularTotal() / pagos.length || 0) : 0}</p>
             </div>
           </div>
           <div className="tabla-container">
-            <table className="tabla-pagos">
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Usuario</th>
-                  <th>Turno</th>
-                  <th>Precio</th>
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pagosFiltrados?.map((pago) => (
-                  <tr key={pago.fecha}>
-                    <td>{pago.fecha}</td>
-                    <td>{pago.usuario}</td>
-                    <td>{pago.turno}</td>
-                    <td>${pago.monto}</td>
-                    <td>
-                      <button onClick={() => generarReciboPDF(pago)} className="btn-imprimir">
-                        Descargar PDF
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {showTabla()}
           </div>
         </div>
       </div>
