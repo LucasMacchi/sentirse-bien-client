@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { createContext } from "react";
-import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno, IPago, IPagoComplete } from "../Interfaces/Interfaces";
+import { IAction, IGlobalContext, IPropsChildren, IUser, IToken, IAlert, IUserToResgister, IConsulta, IReview, ITurno, IPago, IPagoComplete, IProfessionals } from "../Interfaces/Interfaces";
 import usersMock from "../Mocks/users.json";
 import token from "../Mocks/token.json";
 import consults from "../Mocks/consults.json"
@@ -419,6 +419,9 @@ export default function GlobalState(props: IPropsChildren) {
         try {
             if (use_mock === "1") {
                 const array = turnosJSON.fecha
+                array.forEach(t => {
+                    t.servicio = t.servicio.replace(" - $10000", " ")
+                });
                 dispatch({
                     type: actions.GET_TURNS_FULL,
                     payload: array
@@ -432,6 +435,9 @@ export default function GlobalState(props: IPropsChildren) {
                 console.log("Turnos del usuario = ",turns)
                 if(state.user.rol === 0){
                     const array = turns.filter(t => t.usuario === id)
+                    array.forEach(t => {
+                        t.servicio.replace("$10000", "")
+                    });
                     dispatch({
                         type: actions.GET_TURNS_FULL,
                         payload: array
@@ -541,7 +547,6 @@ export default function GlobalState(props: IPropsChildren) {
                     type: actions.GET_PAGOS,
                     payload: payments.payments
                 })
-                console.log(payments.payments)
             }
             else{
                 const token = localStorage.getItem('jwToken')
@@ -561,10 +566,20 @@ export default function GlobalState(props: IPropsChildren) {
             clientes.forEach(c => {
                 if(c.id === p.usuario) p.fullname = c.first_name + " " + c.last_name
             });
-            if(p.type === 0) p.typeString = "Efectivo"
-            else if(p.type === 1) p.typeString = "Debito"
+            if(p.tipo === 0) p.typeString = "Efectivo"
+            else if(p.tipo === 1) p.typeString = "Debito"
             else p.typeString = "Credito"
             return p
+        })
+    }
+
+    const completeServicesProfessional = (usuarios: IUser[], turnos: IProfessionals[]): IProfessionals[] => {
+        return turnos.map((t) => {
+            usuarios.forEach(c => {
+                if(c.id === t.profesional) t.professinalName = c.first_name + " " +  c.last_name
+            })
+            t.servicio = t.servicio.replace(" - $10000", " ")
+            return t
         })
     }
      
@@ -612,7 +627,8 @@ export default function GlobalState(props: IPropsChildren) {
         setTurn,
         getPagos,
         getClientes,
-        completePagos
+        completePagos,
+        completeServicesProfessional
     };
 
     //uso del Reducer
