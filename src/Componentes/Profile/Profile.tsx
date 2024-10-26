@@ -160,12 +160,6 @@ export function Profile() {
                       <p>
                         <strong>Hora:</strong> {t.hora || "No respondida"}
                       </p>
-                      {t.pagado ? 
-                      <p><strong>Pagado:</strong> Sí</p> 
-                      : 
-                      <p><strong>Pagado:</strong> No</p>}
-                      
-                      <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
                       {!t.pagado && (
                         <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
                       )}                      

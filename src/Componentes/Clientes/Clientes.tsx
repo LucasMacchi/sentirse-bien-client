@@ -5,10 +5,10 @@ import { GlobalContext } from "../../Context/GlobalState";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import "../Clientes/Clientes.css";
-import logoImg from '../../assets/logo.png'; // Asegúrate de que esta ruta sea correcta
+import logoImg from '../../assets/logo.png'; 
 
 interface User {
-    id: number; // Cambiado a string
+    id: number; 
     first_name: string;
     last_name: string;
     email: string;
@@ -23,6 +23,7 @@ export default function Clientes() {
 
     useEffect(() => {
         global?.getClientes();
+        
     }, []);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {

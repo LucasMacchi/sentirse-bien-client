@@ -16,6 +16,9 @@ const MenuLateral: React.FC = () => {
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
           <ul className="menu-lista">
+            <Link to="/turnos-dia" className="remove-underline">
+              <li className="menu-item">Turnos</li>
+            </Link>
             <Link to="/clientes" className="remove-underline">
               <li className="menu-item">Clientes</li>
             </Link>
@@ -23,7 +26,6 @@ const MenuLateral: React.FC = () => {
               <li className="menu-item">Informe de Ingresos</li>
             </Link>
 
-            <li className="menu-item">Informe de Servicios</li>
             <Link to="/pagos" className="remove-underline">
               <li className="menu-item">Pagos</li>
             </Link>
@@ -43,9 +45,9 @@ const MenuLateral: React.FC = () => {
     return (
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
-          <ul className="menu-lista">
-            <li className="menu-item">Informe de Servicios</li>
-          </ul>
+          <Link to="/turnos-dia" className="remove-underline">
+            <li className="menu-item">Turnos</li>
+          </Link>
           <button onClick={toggleMenu} className="toggle-boton">
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
           </button>
@@ -82,9 +84,21 @@ const MenuLateral: React.FC = () => {
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
           <ul className="menu-lista">
-              <li className="menu-item" onClick={() => navigate("/turnos")}>Agendar un turno</li>
-              <li className="menu-item" onClick={() => global?.changeMenuConsult(true)} >Hacer una consulta</li>
-              <li className="menu-item" onClick={() => global?.changeMenuReview(true)}>Reseña</li>
+            <li className="menu-item" onClick={() => navigate("/turnos")}>
+              Agendar un turno
+            </li>
+            <li
+              className="menu-item"
+              onClick={() => global?.changeMenuConsult(true)}
+            >
+              Hacer una consulta
+            </li>
+            <li
+              className="menu-item"
+              onClick={() => global?.changeMenuReview(true)}
+            >
+              Reseña
+            </li>
           </ul>
           <button onClick={toggleMenu} className="toggle-boton">
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
