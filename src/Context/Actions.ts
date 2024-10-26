@@ -16,5 +16,6 @@ export default {
     GET_CLIENTES: "get_clientes",
     GET_PAGOS: "get_pagos",
     GET_TURNS_FULL: "get_turns_full",
-    GET_PAGOS_COMPLETE: "get_pagos_complete"
+    GET_PAGOS_COMPLETE: "get_pagos_complete",
+    GET_ALLUSERS: "get_allusers"
 }

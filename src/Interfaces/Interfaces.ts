@@ -118,7 +118,8 @@ export interface IPagoComplete extends IPago {
 }
 
 export interface IProfessionals extends ITurno {
-    professinalName?: string
+    professinalName?: string,
+    userFullname?: string
 }
 
 export interface IGlobalContext {
@@ -139,6 +140,7 @@ export interface IGlobalContext {
     turnos: ITurno[],
     pagosInforme: IPagoComplete[],
     clientes: IUser[],
+    allUsers: IUser[],
     changeMenuLogin: (payload: boolean) => void,
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,

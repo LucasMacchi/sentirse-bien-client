@@ -18,6 +18,8 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.GET_ALLUSERS:
+            return {...state, allUsers: payload}
         case actions.GET_TURNS_FULL: 
             return {...state, turnos: payload}
         case actions.GET_PAGOS:
@@ -517,19 +519,29 @@ export default function GlobalState(props: IPropsChildren) {
         try {
             if(use_mock === "1"){
                 const clients = usersMock.users.filter((u) => u.rol === 0)
+                const users = usersMock
                 console.log("Loading Clients Mock")
                 dispatch({
                     type: actions.GET_CLIENTES,
                     payload: clients
                 })
+                dispatch({
+                    type: actions.GET_ALLUSERS,
+                    payload: users.users
+                })
             }
             else{
                 const token = localStorage.getItem('jwToken')
-                const clients: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/", { headers: { Authorization: "Token " + token } })).data.filter((u) => u.rol === 0)
+                const users: IUser[] = (await axios.get<IUser[]>(server_url+"/usuarios/listar_usuarios/", { headers: { Authorization: "Token " + token } })).data
+                const clients = users.filter(u => u.rol === 0)
                 console.log("Loading Clients")
                 dispatch({
                     type: actions.GET_CLIENTES,
                     payload: clients
+                })
+                dispatch({
+                    type: actions.GET_ALLUSERS,
+                    payload: users
                 })
             }
         } catch (error) {
@@ -577,7 +589,8 @@ export default function GlobalState(props: IPropsChildren) {
         return turnos.map((t) => {
             usuarios.forEach(c => {
                 if(c.id === t.profesional) t.professinalName = c.first_name + " " +  c.last_name
-            })
+                if(c.id === t.usuario) t.userFullname = c.first_name + " " +  c.last_name
+            });
             t.servicio = t.servicio.replace(" - $10000", " ")
             return t
         })
@@ -602,6 +615,7 @@ export default function GlobalState(props: IPropsChildren) {
         turnos: [],
         pagosInforme: [],
         clientes: [],
+        allUsers: [],
         getTurnosComplete,
         changeMenuLogin,
         changeMenuRegister,
