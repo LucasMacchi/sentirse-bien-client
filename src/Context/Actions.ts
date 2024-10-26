@@ -17,5 +17,6 @@ export default {
     GET_PAGOS: "get_pagos",
     GET_TURNS_FULL: "get_turns_full",
     GET_PAGOS_COMPLETE: "get_pagos_complete",
-    GET_ALLUSERS: "get_allusers"
+    GET_ALLUSERS: "get_allusers",
+    UPDATE_USER_ROLE: "UPDATE_USER_ROLE"
 }

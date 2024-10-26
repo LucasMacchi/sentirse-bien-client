@@ -595,6 +595,25 @@ export default function GlobalState(props: IPropsChildren) {
             return t
         })
     }
+
+    const getServicesByProfessional = async (startDate: string, endDate: string): Promise<IProfessionals[]> => {
+        try {
+            if (use_mock === "1") {
+                // Implementar lógica mock si es necesario
+                return [];
+            } else {
+                const token = localStorage.getItem('jwToken');
+                const response = await axios.get(`${server_url}/turnos/servicios_por_profesional/`, {
+                    headers: { Authorization: `Token ${token}` },
+                    params: { fecha_inicio: startDate, fecha_fin: endDate }
+                });
+                return response.data;
+            }
+        } catch (error) {
+            console.error("Error al obtener servicios por profesional:", error);
+            return [];
+        }
+    };
      
     //Estado Inicial
     const initialState: IGlobalContext = {
@@ -642,7 +661,8 @@ export default function GlobalState(props: IPropsChildren) {
         getPagos,
         getClientes,
         completePagos,
-        completeServicesProfessional
+        completeServicesProfessional,
+        getServicesByProfessional
     };
 
     //uso del Reducer

@@ -168,4 +168,6 @@ export interface IGlobalContext {
     getPagos: () => void,
     completePagos: (clientes: IUser[], pagos: IPagoComplete[]) => IPagoComplete[]
     completeServicesProfessional: (usuarios: IUser[], turnos: ITurno[]) => IProfessionals[]
-};
+    getServicesByProfessional: (startDate: string, endDate: string) => Promise<IProfessionals[]>;
+    
+}

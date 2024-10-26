@@ -3,63 +3,95 @@ import MenuLateral from "../MenuLateral/MenuLateral";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../Context/GlobalState";
 import { IProfessionals } from "../../Interfaces/Interfaces";
-import{ useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
+import "./TurnosDia.css";
 
 export default function TurnosDia(){
-
-    const [turnos, setTurnos] = useState<IProfessionals[]>([])
-    const [fechaInicio, setFechaInicio] = useState("");
-    const [fechaFin, setFechaFin] = useState("");
-    const [filtro, setFiltro] = useState("");
+    const [turnos, setTurnos] = useState<IProfessionals[]>([]);
+    const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0]);
+    const [filtroProfesional, setFiltroProfesional] = useState("");
     const global = useContext(GlobalContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const complete = global?.completeServicesProfessional(global.allUsers, global.turnos)
-        setTurnos(complete ? complete : [] )
-    },[])
+        const token = localStorage.getItem('jwToken');
+        if(!token) navigate("/");
+        cargarTurnos();
+    }, [fecha, filtroProfesional]);
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwToken')
-        if(!token) navigate("/")
-        const filtrado = filtrarTurnos()
-        filtrado?.sort(compareHours)
-        setTurnos(filtrado ? filtrado : turnos)
-        console.log("Filtrado ", filtrado)
-    },[fechaFin, fechaInicio, filtro])
+    const cargarTurnos = () => {
+        const turnosFiltrados = global?.turnos.filter(turno => {
+            const turnoFecha = new Date(turno.fecha).toISOString().split('T')[0];
+            return turnoFecha === fecha &&
+            (!filtroProfesional || String(turno.profesional).toLowerCase().includes(filtroProfesional.toLowerCase()));
+        });
+        
+        const turnosCompletos = global?.completeServicesProfessional(global.allUsers, turnosFiltrados || []);
+        setTurnos(turnosCompletos?.sort(compareHours) || []);
+    };
 
     const compareHours = (a: IProfessionals, b: IProfessionals): number => {
-        if(parseInt(a.hora) < parseInt(b.hora)) return -1
-        if(parseInt(a.hora) > parseInt(b.hora)) return 1
-        return 0
-    }
+        return parseInt(a.hora) - parseInt(b.hora);
+    };
 
-    const filtrarTurnos = (): IProfessionals[] | undefined => {
-        const complete = global?.completeServicesProfessional(global.allUsers, global.turnos)
-        if(complete) {
-            if(fechaInicio || fechaFin || filtro){
-                const filtered = complete.filter((t) => {
-                    const pagoFecha = new Date(t.fecha)
-                    const fechaStart = fechaInicio ? new Date(fechaInicio) : new Date(0)
-                    const fechaEnd = fechaFin ? new Date(fechaFin) : new Date("01-01-2050")
-                    if(pagoFecha <= fechaEnd && pagoFecha >= fechaStart) {
-                        if(filtro){
-                            if(t.professinalName?.toLocaleLowerCase().includes(filtro.toLocaleLowerCase())) return t
-                            
-                        }
-                        else return t
-                    }
-                })
-                return filtered
-            } else return complete
-            
-        }
-        else return complete
-    }
+    return (
+        <>
+        <div className="turnos-dia-page">
+            <Header />
+            <MenuLateral />
+            <div className="content-wrapper">
+                <div className="turnos-dia-container">
+                    <h1>Listado de Clientes del Día</h1>
+                    <div className="filtros">
+                        <div className="filtro-fecha">
+                            <input 
+                                type="date" 
+                                value={fecha} 
+                                onChange={(e) => setFecha(e.target.value)}
+                            />
+                        </div>
+                        <input 
+                            type="text" 
+                            className="filtro-texto" 
+                            placeholder="Filtrar por profesional" 
+                            value={filtroProfesional} 
+                            onChange={(e) => setFiltroProfesional(e.target.value)}
+                        />
+                    </div>
+                    {turnos.length > 0 ? (
+                        <div className="tabla-container">
+                            <table className="tabla-turnos">
+                                <thead>
+                                    <tr>
+                                        <th>Profesional</th>
+                                        <th>Cliente</th>
+                                        <th>Servicio</th>
+                                        <th>Horario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {turnos.map((turno, index) => (
+                                        <tr key={index}>
+                                            <td>{turno.professinalName}</td>
+                                            <td>{turno.userFullname}</td>
+                                            <td>{turno.servicio}</td>
+                                            <td>{turno.hora}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="no-turnos-mensaje">
+                            No hay turnos para el día seleccionado.
+                        </div>
+                    )}
+                    <button className="btn-informe" onClick={() => navigate("/informe-servicios")}>Ver Informe</button>
 
-
-    return (<>
-    <Header />
-    <MenuLateral />
-    </>)
+                </div>
+            </div>
+        </div>
+        </>
+        
+    );
 }
