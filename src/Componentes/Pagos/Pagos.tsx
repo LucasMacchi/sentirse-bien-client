@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png';
 import { GlobalContext } from "../../Context/GlobalState";
 import { IPago, IPagoComplete } from "../../Interfaces/Interfaces";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,6 +16,7 @@ export default function Pagos() {
   const [fechaFin, setFechaFin] = useState("");
   const [filtro, setFiltro] = useState("");
   const global = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const complete = global?.completePagos(global.clientes, global.pagosInforme)
@@ -23,6 +25,8 @@ export default function Pagos() {
 
   
   useEffect(() => {
+    const token = localStorage.getItem('jwToken')
+    if(!token) navigate("/")
     const filtrado = filtrarPagos()
     setPagos(filtrado ? filtrado : pagos)
   },[fechaFin, fechaInicio, filtro])

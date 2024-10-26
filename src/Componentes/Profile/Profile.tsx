@@ -16,9 +16,10 @@ export function Profile() {
   };
 
   useEffect(() => {
-    if (global?.isLog === false) {
+    if (!global?.isLog) {
       navigate("/");
     } else {
+      global.session()
       global?.getTurnosComplete(global.user.id);
       if (global?.isLog && global.user.rol > 0) {
         global?.getPagos()
@@ -159,6 +160,12 @@ export function Profile() {
                       <p>
                         <strong>Hora:</strong> {t.hora || "No respondida"}
                       </p>
+                      {t.pagado ? 
+                      <p><strong>Pagado:</strong> Sí</p> 
+                      : 
+                      <p><strong>Pagado:</strong> No</p>}
+                      
+                      <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
                       {!t.pagado && (
                         <button className="respond-button" onClick={() => global.changeMenuPayment(true, t)}>Pagar</button>
                       )}                      

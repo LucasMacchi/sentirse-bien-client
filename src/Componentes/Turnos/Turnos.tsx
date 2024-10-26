@@ -56,12 +56,12 @@ const Turnos: React.FC = () => {
 
 
     useEffect(() => {
-
-        if (global?.isLog === false) {
+        const token = localStorage.getItem('jwToken')
+        if (!token) {
             navigate("/");
-            global.changeMenuLogin(true);
+            global?.changeMenuLogin(true);
         }
-    }, [navigate, global]);
+    }, []);
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {

@@ -25,7 +25,8 @@ export interface ITurno {
     usuario?: number,
     pagado: boolean,
     monto?: number,
-    id?: number
+    id?: number,
+    profesional?: number
 };
 
 export interface IPago {
@@ -33,7 +34,8 @@ export interface IPago {
     turno?:number,
     monto: number,
     fecha?: string,
-    type: number // 0 efectivo, 1 debito 2 credito
+    tipo: number, // 0 efectivo, 1 debito 2 credito
+    nroPago?: string
 };
 
 export interface IReview {
@@ -113,7 +115,11 @@ interface IItem {
 export interface IPagoComplete extends IPago {
     fullname?: string,
     typeString?: string
-  }
+}
+
+export interface IProfessionals extends ITurno {
+    professinalName?: string
+}
 
 export interface IGlobalContext {
     user: IUser,
@@ -159,4 +165,5 @@ export interface IGlobalContext {
     getClientes: () => void,
     getPagos: () => void,
     completePagos: (clientes: IUser[], pagos: IPagoComplete[]) => IPagoComplete[]
+    completeServicesProfessional: (usuarios: IUser[], turnos: ITurno[]) => IProfessionals[]
 };
