@@ -21,7 +21,7 @@ export function Profile() {
       navigate("/");
     } else {
       global?.session();
-      global?.getTurnosComplete(global.user.id);
+      global?.getTurnosComplete();
       if (global?.isLog && global.user.rol > 0) {
         global?.getPagos();
         global.getClientes();
