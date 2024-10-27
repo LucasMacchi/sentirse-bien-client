@@ -5,21 +5,22 @@ import { GlobalContext } from "../../Context/GlobalState";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import "../Clientes/Clientes.css";
-import logoImg from '../../assets/logo.png'; // Asegúrate de que esta ruta sea correcta
+import logoImg from '../../assets/logo.png'; 
 
 interface User {
-    id: number; // Cambiado a string
+    id: number; 
     first_name: string;
     last_name: string;
     email: string;
     telefono: string;
+    rol: number;
 }
 
 export default function Clientes() {
     const global = useContext(GlobalContext);
     const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const clientes = global?.clientes || [];
+    const usuarios = global?.allUsers || [];
 
     useEffect(() => {
         global?.getClientes();
@@ -29,9 +30,19 @@ export default function Clientes() {
         setSearchTerm(event.target.value);
     };
 
-    const filteredClientes = clientes.filter((user: User) =>
+    const filteredUsuarios = usuarios.filter((user: User) =>
         `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const getRolString = (rol: number): string => {
+        switch(rol) {
+            case 0: return "Usuario";
+            case 1: return "Trabajador";
+            case 2: return "Secretaria";
+            case 3: return "Administrador";
+            default: return "Desconocido";
+        }
+    };
 
     const handleDownloadPDF = () => {
         try {
@@ -57,10 +68,10 @@ export default function Clientes() {
             doc.text('Lista de Clientes', 14, 70);
             
             const headers = [["Nombre", "Email", "Teléfono"]];
-            const data = filteredClientes.map((cliente: User) => [
-                `${cliente.first_name} ${cliente.last_name}`,
-                cliente.email,
-                cliente.telefono,
+            const data = filteredUsuarios.map((user: User) => [
+                `${user.first_name} ${user.last_name}`,
+                user.email,
+                user.telefono,
             ]);
 
             autoTable(doc, {
@@ -73,7 +84,6 @@ export default function Clientes() {
                 alternateRowStyles: { fillColor: [245, 245, 245] },
             });
 
-            // Agregar pie de página
             const pageCount = doc.internal.pages.length - 1;
             for(let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
@@ -82,7 +92,6 @@ export default function Clientes() {
                 doc.text(`Página ${i} de ${pageCount}`, doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
             }
 
-            // Guardar el PDF
             doc.save('lista_clientes_spa_sentirse_bien.pdf');
         } catch (error) {
             console.error('Error al generar el PDF:', error);
@@ -95,11 +104,11 @@ export default function Clientes() {
             <Header />
             <MenuLateral />
             <div className="clientes-container">
-                <h2>Lista de Clientes</h2>
+                <h2>Lista de Usuarios</h2>
                 <div className="actions-container">
                     <input
                         type="text"
-                        placeholder="Buscar cliente..."
+                        placeholder="Buscar usuario..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="search-input"
@@ -114,20 +123,28 @@ export default function Clientes() {
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Teléfono</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredClientes.length > 0 ? (
-                            filteredClientes.map((user: User) => (
+                        {filteredUsuarios.length > 0 ? (
+                            filteredUsuarios.map((user: User) => (
                                 <tr key={user.id} className="cliente-row">
                                     <td>{user.first_name} {user.last_name}</td>
                                     <td>{user.email}</td>
                                     <td>{user.telefono}</td>
+                                    <td>{getRolString(user.rol)}</td>
+                                    <td>
+                                        <button className="asignar-rol-btn">
+                                            Asignar Rol
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={3}>No se encontraron clientes.</td>
+                                <td colSpan={5}>No se encontraron usuarios.</td>
                             </tr>
                         )}
                     </tbody>

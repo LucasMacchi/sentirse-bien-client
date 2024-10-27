@@ -105,8 +105,8 @@ h2 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
   padding: 20px;
   transition: transform 0.2s; 
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
 }
 
 .consulta-card:hover {

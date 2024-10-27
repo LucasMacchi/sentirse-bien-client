@@ -69,7 +69,7 @@ function ShowMenu(){
     }
   }
 }
-if(global?.isLog){
+/*if(global?.isLog){
   if(global?.user.rol != 3){
     return (
     <>
@@ -102,7 +102,7 @@ if(global?.isLog){
       </>
     )
 
-  } else {
+  } else {*/
     return(
       <>
       <header>
@@ -120,7 +120,7 @@ if(global?.isLog){
       </>
     )
   }
-} else {
+/*} else {
   return (
     <>
      <header>
@@ -151,5 +151,5 @@ if(global?.isLog){
       </header>
     </>
   )
-}
-}
+}*/
+

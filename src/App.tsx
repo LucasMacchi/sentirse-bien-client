@@ -16,13 +16,13 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if(global?.isLog && global?.user.rol !== 0) navigate("/profile")
+        const token = localStorage.getItem('jwToken')
+        if(token) navigate("/profile")
     },[global?.isLog])
 
     return (
         <>
             <Body></Body>
-
         </>
     );
 }

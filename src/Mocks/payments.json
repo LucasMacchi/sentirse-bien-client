@@ -1,52 +1,60 @@
 {
     "payments":[
         {
-            "usuario":"7",
-            "turno":"Turno 1",
+            "usuario":7,
+            "turno":1,
             "monto": 10000,
-            "fecha": "8-10-2024"
+            "fecha": "8-10-2024",
+            "type": 0
         },
         {
-            "usuario":"7",
-            "turno":"Turno 2",
+            "usuario":7,
+            "turno":2,
             "monto": 10000,
-            "fecha": "8-15-2024"
+            "fecha": "8-15-2024",
+            "type": 0
         },
         {
-            "usuario":"7",
-            "turno":"Turno 3",
+            "usuario":7,
+            "turno":3,
             "monto": 10000,
-            "fecha": "8-20-2024"
+            "fecha": "8-20-2024",
+            "type": 0
         },
         {
-            "usuario":"7",
-            "turno":"Turno 4",
+            "usuario":7,
+            "turno":4,
             "monto": 10000,
-            "fecha": "8-25-2024"
+            "fecha": "8-25-2024",
+            "type": 1
         },
         {
-            "usuario":"2",
-            "turno":"Turno 5",
+            "usuario":2,
+            "turno":5,
             "monto": 10000,
-            "fecha": "8-30-2024"
+            "fecha": "8-30-2024",
+            "type": 1
         },
         {
-            "usuario":"2",
-            "turno":"Turno 6",
+            "usuario":2,
+            "turno":6,
             "monto": 10000,
-            "fecha": "10-05-2024"
+            "fecha": "10-05-2024",
+            "type": 1
         },
         {
-            "usuario":"2",
-            "turno":"Turno 7",
+            "usuario":2,
+            "turno":7,
             "monto": 10000,
-            "fecha": "10-10-2024"
+            "fecha": "10-10-2024",
+            "type": 2
         },
         {
-            "usuario":"2",
-            "turno":"Turno 8",
+            "usuario":2,
+            "turno":8,
             "monto": 10000,
-            "fecha": "10-15-2024"
+            "fecha": "10-15-2024",
+            "type": 2
         }
     ]
 }

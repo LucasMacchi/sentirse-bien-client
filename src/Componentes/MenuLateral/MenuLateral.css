@@ -20,16 +20,16 @@
 }
 
 .toggle-boton {
-    padding: 15px; /* Mayor tamaño del botón */
-    background-color: #ff80ab; /* Rosa fuerte */
+    padding: 15px;
+    background-color: #ff80ab;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px; /* Espacio superior */
+    margin-top: 20px; 
     transition: background-color 0.2s;
     width: 100%;
-    font-size: 1.1em; /* Tamaño de fuente mayor */
+    font-size: 1.1em; 
 }
 
 .toggle-boton:hover {
@@ -79,6 +79,7 @@
 .remove-underline{
     text-decoration: none;
     color: black;
+    list-style: none;
 }
 
 @media (max-width: 768px) {
