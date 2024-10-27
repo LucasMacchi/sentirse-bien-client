@@ -15,10 +15,12 @@ export function Profile() {
   };
 
   useEffect(() => {
-    if (!global?.isLog) {
+    const token = localStorage.getItem('jwToken');
+
+    if (!token) {
       navigate("/");
     } else {
-      global.session();
+      global?.session();
       global?.getTurnosComplete(global.user.id);
       if (global?.isLog && global.user.rol > 0) {
         global?.getPagos();

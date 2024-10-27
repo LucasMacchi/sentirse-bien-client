@@ -1,6 +1,8 @@
-//import { FormEvent, useContext, useState } from 'react';
-//import { GlobalContext } from '../../../Context/GlobalState';
+/*
+import { FormEvent, useContext, useState } from 'react';
+import { GlobalContext } from '../../../Context/GlobalState';
 
-//export default function RolChanger() {
+export default function RolChanger() {
     
-//}
+}
+*/
