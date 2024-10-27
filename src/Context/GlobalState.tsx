@@ -18,6 +18,8 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.CHANGE_MENU_ROLE:
+            return {...state, MRol: payload}
         case actions.GET_ALLUSERS:
             return {...state, allUsers: payload}
         case actions.GET_TURNS_FULL: 
@@ -613,6 +615,30 @@ export default function GlobalState(props: IPropsChildren) {
             return [];
         }
     };
+
+    const changeMenuRol = (payload: boolean, user: number) => {
+        dispatch({
+            type: actions.USER_ROL_ID,
+            payload: user
+        })
+        dispatch({
+            type: actions.CHANGE_MENU_ROLE,
+            payload: payload
+        })
+    }
+
+    const changeUserRol = async (user: number): Promise<boolean> => {
+        try {
+            if(use_mock === "1") return true
+            else{
+                console.log(user)
+                return true
+            }
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }   
      
     //Estado Inicial
     const initialState: IGlobalContext = {
@@ -634,6 +660,8 @@ export default function GlobalState(props: IPropsChildren) {
         pagosInforme: [],
         clientes: [],
         allUsers: [],
+        MRol: false,
+        userToChange: null,
         getTurnosComplete,
         changeMenuLogin,
         changeMenuRegister,
@@ -641,6 +669,7 @@ export default function GlobalState(props: IPropsChildren) {
         changeMenuReview,
         changeMenuResponse,
         changeMenuPayment,
+        changeMenuRol,
         getUserInfo,
         login,
         logout,
@@ -661,7 +690,8 @@ export default function GlobalState(props: IPropsChildren) {
         getClientes,
         completePagos,
         completeServicesProfessional,
-        getServicesByProfessional
+        getServicesByProfessional,
+        changeUserRol
     };
 
     //uso del Reducer
