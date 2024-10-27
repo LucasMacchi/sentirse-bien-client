@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import "./Body.css";
 import foto1 from "../../assets/foto1.png";
 import foto2 from "../../assets/foto2.png";
@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import AOS from 'aos';
+import { GlobalContext } from '../../Context/GlobalState';
 
 interface ItemData {
   img: string;
@@ -31,15 +32,22 @@ const itemData: ItemData[] = [
 ];
 
 export function Body() {
+  const global = useContext(GlobalContext);
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
     });
+    if (localStorage.getItem('jwToken')){
+      global?.changeMenuLogin(false);
+    } else {
+      global?.changeMenuLogin(true);
+    }
   }, []);
 
   return (
     <>
+  
       <Header></Header>
       <div className="body-bg">
         <div className="container">

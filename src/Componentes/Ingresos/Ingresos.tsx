@@ -10,7 +10,7 @@ import { GlobalContext } from "../../Context/GlobalState";
 
 
 interface IngresosPorUsuario {
-  id: string;
+  id: number;
   nombre: string;
   rol: string;
   email: string;

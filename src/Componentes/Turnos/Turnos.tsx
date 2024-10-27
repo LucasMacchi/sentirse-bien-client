@@ -56,12 +56,12 @@ const Turnos: React.FC = () => {
 
 
     useEffect(() => {
-
-        if (global?.isLog === false) {
+        const token = localStorage.getItem('jwToken')
+        if (!token) {
             navigate("/");
-            global.changeMenuLogin(true);
+            global?.changeMenuLogin(true);
         }
-    }, [navigate, global]);
+    }, []);
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -71,7 +71,7 @@ const Turnos: React.FC = () => {
             fecha: date,
             hora: time,
             pagado: false,
-            price: selectedServices.length === 1 ? 10000 : 20000
+            monto: selectedServices.length === 1 ? 10000 : 20000
         }
         global?.changeMenuPayment(true, turno)
     };
