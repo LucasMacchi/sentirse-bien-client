@@ -67,7 +67,8 @@ export default function Pagos() {
     if(pagos) {
       let total = 0
       pagos.forEach(p => {
-        total = p.monto + total
+        if(typeof p.monto === "string" ) total = parseInt(p.monto) + total
+        else total = p.monto + total
       });
       return total
     }
