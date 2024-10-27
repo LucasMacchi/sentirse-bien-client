@@ -16,23 +16,36 @@ export default function TurnosDia(){
     useEffect(() => {
         const token = localStorage.getItem('jwToken');
         if(!token) navigate("/");
-        cargarTurnos();
+        const turnosFiltered = cargarTurnos()
+        setTurnos(turnosFiltered ? turnosFiltered : turnos)
+        turnos.sort(compareHours)
+    },[])
+
+    useEffect(() => {
+        const turnosFiltered = cargarTurnos()
+        setTurnos(turnosFiltered ? turnosFiltered : turnos)
+        turnos.sort(compareHours)
+
     }, [fecha, filtroProfesional]);
 
-    const cargarTurnos = async () => {
-        if (!global) return;
-
-        try {
-            const turnosDelDia = global.completeServicesProfessional(global.allUsers, global.turnos);
-            
-            const turnosFiltrados = turnosDelDia.filter(turno => 
-                turno.fecha === fecha &&
-                (!filtroProfesional || turno.professinalName?.toLowerCase().includes(filtroProfesional.toLowerCase()))
-            );
-            
-            setTurnos(turnosFiltrados.sort(compareHours));
-        } catch (error) {
-            console.error("Error al cargar turnos:", error);
+    const cargarTurnos = (): IProfessionals[] | undefined => {
+        const turnosDelDia = global?.completeServicesProfessional(global.allUsers, global.turnos);
+        if(turnosDelDia){
+            if(fecha || filtroProfesional){
+                const filtered = turnosDelDia.filter((t) => {
+                    if(t.fecha == fecha){
+                        if(filtroProfesional) {
+                            if(t.professinalName?.toLocaleLowerCase().includes(filtroProfesional.toLocaleLowerCase()) ) {
+                                console.log("aca ",t.professinalName)
+                                return t
+                            }
+                        }
+                        else return t
+                    }
+                })
+                return filtered
+            }
+            else return turnosDelDia
         }
     };
 

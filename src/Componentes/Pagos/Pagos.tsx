@@ -36,8 +36,8 @@ export default function Pagos() {
     if(complete){
       if(fechaInicio || fechaFin || filtro){
         const filtered = complete.filter((p) => {
-          if(p.fecha){
-            const pagoFecha = new Date(p.fecha)
+          if(p.fecha_pago){
+            const pagoFecha = new Date(p.fecha_pago)
             const fechaStart = fechaInicio ? new Date(fechaInicio) : new Date(0)
             const fechaEnd = fechaFin ? new Date(fechaFin) : new Date("01-01-2050")
             if(pagoFecha <= fechaEnd && pagoFecha >= fechaStart){
@@ -105,7 +105,7 @@ export default function Pagos() {
     doc.setFontSize(12);
     doc.setTextColor(colorSecundario);
     const detalles = [
-      `Fecha: ${pago.fecha}`,
+      `Fecha: ${pago.fecha_pago}`,
       `Usuario: ${pago.usuario}`,
       `Turno: ${pago.turno}`,
       `Monto: $${pago.monto}`
@@ -145,8 +145,8 @@ export default function Pagos() {
         </thead>
         <tbody>
           {pagos?.map((pago) => (
-            <tr key={pago.fecha}>
-              <td>{pago.fecha}</td>
+            <tr key={pago.fecha_pago}>
+              <td>{pago.fecha_pago}</td>
               <td>{pago.fullname}</td>
               <td>{pago.turno}</td>
               <td>${pago.monto}</td>

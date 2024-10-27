@@ -439,22 +439,13 @@ export default function GlobalState(props: IPropsChildren) {
                 const token = localStorage.getItem('jwToken')
                 const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 console.log("Turnos del usuario = ",turns)
-                if(state.user.rol === 0){
-                    const array = turns.filter(t => t.cliente === id)
-                    array.forEach(t => {
-                        t.servicio.replace("$10000", "")
-                    });
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: array
-                    })
-                }
-                else{
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: turns
-                    }) 
-                }
+                turns.forEach(t => {
+                    t.servicio.replace("$10000", "")
+                });
+                dispatch({
+                    type: actions.GET_TURNS_FULL,
+                    payload: turns
+                })
             }
 
         } catch (error) {

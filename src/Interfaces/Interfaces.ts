@@ -33,7 +33,7 @@ export interface IPago {
     usuario?: number,
     turno?:number,
     monto: number,
-    fecha?: string,
+    fecha_pago?: string,
     tipo: number, // 0 efectivo, 1 debito 2 credito
     nroPago?: string
 };
