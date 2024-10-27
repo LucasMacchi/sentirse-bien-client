@@ -18,6 +18,8 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.USER_ROL_ID:
+            return {...state, userToChange: payload}
         case actions.CHANGE_MENU_ROLE:
             return {...state, MRol: payload}
         case actions.GET_ALLUSERS:
@@ -627,11 +629,15 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
 
-    const changeUserRol = async (user: number): Promise<boolean> => {
+    const changeUserRol = async (user: number, rol: number): Promise<boolean> => {
         try {
             if(use_mock === "1") return true
             else{
-                console.log(user)
+                const data = {
+                    rol: rol
+                }
+                const token = localStorage.getItem('jwToken');
+                await axios.patch(server_url+"/usuarios/"+user+"/rol/", data, { headers: { Authorization: "Token " + token } } )
                 return true
             }
         } catch (error) {
