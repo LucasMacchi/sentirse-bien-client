@@ -139,3 +139,21 @@ h2 {
         width: 100%;
     }
 }
+
+.asignar-rol-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.asignar-rol-btn:hover {
+    background-color: #45a049;
+}
