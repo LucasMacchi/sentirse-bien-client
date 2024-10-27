@@ -599,7 +599,6 @@ export default function GlobalState(props: IPropsChildren) {
     const getServicesByProfessional = async (startDate: string, endDate: string): Promise<IProfessionals[]> => {
         try {
             if (use_mock === "1") {
-                // Implementar lógica mock si es necesario
                 return [];
             } else {
                 const token = localStorage.getItem('jwToken');

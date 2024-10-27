@@ -19,15 +19,21 @@ export default function TurnosDia(){
         cargarTurnos();
     }, [fecha, filtroProfesional]);
 
-    const cargarTurnos = () => {
-        const turnosFiltrados = global?.turnos.filter(turno => {
-            const turnoFecha = new Date(turno.fecha).toISOString().split('T')[0];
-            return turnoFecha === fecha &&
-            (!filtroProfesional || String(turno.profesional).toLowerCase().includes(filtroProfesional.toLowerCase()));
-        });
-        
-        const turnosCompletos = global?.completeServicesProfessional(global.allUsers, turnosFiltrados || []);
-        setTurnos(turnosCompletos?.sort(compareHours) || []);
+    const cargarTurnos = async () => {
+        if (!global) return;
+
+        try {
+            const turnosDelDia = global.completeServicesProfessional(global.allUsers, global.turnos);
+            
+            const turnosFiltrados = turnosDelDia.filter(turno => 
+                turno.fecha === fecha &&
+                (!filtroProfesional || turno.professinalName?.toLowerCase().includes(filtroProfesional.toLowerCase()))
+            );
+            
+            setTurnos(turnosFiltrados.sort(compareHours));
+        } catch (error) {
+            console.error("Error al cargar turnos:", error);
+        }
     };
 
     const compareHours = (a: IProfessionals, b: IProfessionals): number => {

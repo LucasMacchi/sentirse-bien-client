@@ -25,8 +25,8 @@ import Payment from "./Componentes/Menus/Payment/Payment.tsx";
 import Clientes from "./Componentes/Clientes/Clientes.tsx";
 import Pagos from "./Componentes/Pagos/Pagos.tsx";
 import Ingresos from "./Componentes/Ingresos/Ingresos.tsx";
-import TurnosDia from "./Componentes/TurnosDia/TurnosDia.tsx";
 import InformeServicios from "./Componentes/InformeServicios/InformeServicios.tsx";
+import TurnosDia from "./Componentes/TurnosDia/TurnosDia.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <CssBaseline>
@@ -54,7 +54,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/ingresos" element={<Ingresos></Ingresos>}></Route>
               <Route path="/turnos-dia" element={<TurnosDia></TurnosDia>}></Route>
               <Route path="/informe-servicios" element={<InformeServicios></InformeServicios>}></Route>
-
             </Routes>
             <Alerta />
           </GlobalState>

@@ -11,6 +11,14 @@ const MenuLateral: React.FC = () => {
   };
   const navigate = useNavigate();
 
+  // Componente común para el botón de abrir menú
+  const AbrirMenuBoton = () =>
+    !visible && (
+      <button onClick={toggleMenu} className="abrir-boton">
+        Abrir Menú
+      </button>
+    );
+
   if (global?.user.rol == 3) {
     return (
       <>
@@ -30,11 +38,7 @@ const MenuLateral: React.FC = () => {
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
           </button>
         </div>
-        {!visible && (
-          <button onClick={toggleMenu} className="abrir-boton">
-            Abrir Menú
-          </button>
-        )}
+        <AbrirMenuBoton />
       </>
     );
   } else if (global?.user.rol == 1) {
@@ -48,31 +52,21 @@ const MenuLateral: React.FC = () => {
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
           </button>
         </div>
-        {!visible && (
-          <button onClick={toggleMenu} className="abrir-boton">
-            Abrir Menú
-          </button>
-        )}
+        <AbrirMenuBoton />
       </>
     );
   } else if (global?.user.rol == 2) {
     return (
       <>
         <div className={`menu-lateral ${visible ? "" : "oculto"}`}>
-          <ul className="menu-lista">
-            <Link to="/pagos" className="remove-underline">
-              <li className="menu-item">Pagos</li>
-            </Link>
-          </ul>
+          <Link to="/pagos" className="remove-underline">
+            <li className="menu-item">Pagos</li>
+          </Link>
           <button onClick={toggleMenu} className="toggle-boton">
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
           </button>
         </div>
-        {!visible && (
-          <button onClick={toggleMenu} className="abrir-boton">
-            Abrir Menú
-          </button>
-        )}
+        <AbrirMenuBoton />
       </>
     );
   } else {
@@ -100,11 +94,7 @@ const MenuLateral: React.FC = () => {
             {visible ? "Ocultar Menú" : "Mostrar Menú"}
           </button>
         </div>
-        {!visible && (
-          <button onClick={toggleMenu} className="abrir-boton">
-            Abrir Menú
-          </button>
-        )}
+        <AbrirMenuBoton />
       </>
     );
   }
