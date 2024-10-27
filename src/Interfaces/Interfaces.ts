@@ -162,7 +162,7 @@ export interface IGlobalContext {
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
-    getTurnosComplete: (id: number) => Promise<void>,
+    getTurnosComplete: () => Promise<void>,
     makeTurno: (turno: ITurno, pagado: boolean) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,

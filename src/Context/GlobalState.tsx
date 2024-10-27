@@ -420,7 +420,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const getTurnosComplete = async (id: number): Promise<void> => {
+    const getTurnosComplete = async (): Promise<void> => {
         console.log("Complete Turns requested...")
         try {
             if (use_mock === "1") {
