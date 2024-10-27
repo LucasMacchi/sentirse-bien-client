@@ -440,7 +440,7 @@ export default function GlobalState(props: IPropsChildren) {
                 const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 console.log("Turnos del usuario = ",turns)
                 if(state.user.rol === 0){
-                    const array = turns.filter(t => t.usuario === id)
+                    const array = turns.filter(t => t.cliente === id)
                     array.forEach(t => {
                         t.servicio.replace("$10000", "")
                     });
@@ -464,7 +464,7 @@ export default function GlobalState(props: IPropsChildren) {
 
     const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
@@ -483,7 +483,7 @@ export default function GlobalState(props: IPropsChildren) {
             }
         } catch (error) {
             console.log(error)
-            return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
+            return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
         }
     }
 
@@ -593,7 +593,7 @@ export default function GlobalState(props: IPropsChildren) {
         return turnos.map((t) => {
             usuarios.forEach(c => {
                 if(c.id === t.profesional) t.professinalName = c.first_name + " " +  c.last_name
-                if(c.id === t.usuario) t.userFullname = c.first_name + " " +  c.last_name
+                if(c.id === t.cliente) t.userFullname = c.first_name + " " +  c.last_name
             });
             t.servicio = t.servicio.replace(" - $10000", " ")
             return t
@@ -654,7 +654,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRegister: false,
         isLog: false,
         idConsult: "",
-        turnToPay: {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0},
+        turnToPay: {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0},
         MConsult: false,
         MReview: false,
         MResponse: false,
