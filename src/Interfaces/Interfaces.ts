@@ -22,7 +22,7 @@ export interface ITurno {
     servicio: string,
     fecha: string,
     hora: string,
-    usuario?: number,
+    cliente?: number,
     pagado: boolean,
     monto?: number,
     id?: number,
