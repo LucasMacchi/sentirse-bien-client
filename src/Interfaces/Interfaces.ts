@@ -151,7 +151,7 @@ export interface IGlobalContext {
     changeMenuResponse: (payload: boolean, consult_id: string) => void,
     changeMenuPayment: (payload: boolean, turn: ITurno) => void,
     getUserInfo: () => void,
-    changeUserRol: (user: number) => Promise<boolean>,
+    changeUserRol: (user: number, rol: number) => Promise<boolean>,
     login: (email: string, password: string) => Promise<boolean>,
     logout: () => void,
     register: (user: IUserToResgister) => Promise<boolean>,
