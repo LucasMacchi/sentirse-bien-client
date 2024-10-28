@@ -349,7 +349,7 @@ export default function GlobalState(props: IPropsChildren) {
     const makeReview = async (comment: string, rating: number, name: string): Promise<boolean> => {
         try {
             const review = {
-                nombre: name,
+                nombre: name ? name : "Anonimo",
                 descripcion: comment,
                 puntaje: rating
             }
