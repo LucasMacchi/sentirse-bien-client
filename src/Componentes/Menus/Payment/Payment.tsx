@@ -115,7 +115,6 @@ export default function Payment() {
     const payTurn = async (event: FormEvent) => {
         event.preventDefault()
         setDisable(true)
-
         const factura = makeFactura(global?.turnToPay.servicio ? global?.turnToPay.servicio : "Servicio no especificado", global?.turnToPay.monto ? global?.turnToPay.monto : 0, 
             global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)

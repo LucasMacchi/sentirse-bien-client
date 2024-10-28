@@ -20,6 +20,7 @@ export default function Pagos() {
 
   useEffect(() => {
     const complete = global?.completePagos(global.clientes, global.pagosInforme)
+    console.log(complete)
     setPagos(complete ? complete : [] )
   }, []);
 
@@ -206,7 +207,7 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${pagos ? (calcularTotal() / pagos.length || 0) : 0}</p>
+              <p>${pagos ? Math.floor((calcularTotal() / pagos.length || 0)) : 0}</p>
             </div>
           </div>
           <div className="tabla-container">
