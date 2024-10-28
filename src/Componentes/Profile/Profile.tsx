@@ -34,9 +34,10 @@ export function Profile() {
     }
   },[global?.user.rol])
 
-  const payTurn = (id: number | undefined, price: number | undefined) => {
-    if(id && price) {
-      const turn: ITurno = {id: id, servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: price}
+  const payTurn = (id: number | undefined) => {
+    if(id) {
+      const monto = 20000
+      const turn: ITurno = {id: id, servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: monto}
       global?.changeMenuPayment(true, turn)
     }
 
@@ -177,7 +178,7 @@ export function Profile() {
                       {!t.pagado && (
                         <button
                           className="respond-button"
-                          onClick={() => payTurn(t.id, t.monto)}
+                          onClick={() => payTurn(t.id)}
                         >
                           Pagar
                         </button>
