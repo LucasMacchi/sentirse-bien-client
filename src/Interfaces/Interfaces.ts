@@ -147,7 +147,7 @@ export interface IGlobalContext {
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
     changeMenuReview: (payload: boolean) => void,
-    changeMenuRol: (payload: boolean, user: number) => void,
+    changeMenuRol: (payload: boolean, user: number | null) => void,
     changeMenuResponse: (payload: boolean, consult_id: string) => void,
     changeMenuPayment: (payload: boolean, turn: ITurno) => void,
     getUserInfo: () => void,

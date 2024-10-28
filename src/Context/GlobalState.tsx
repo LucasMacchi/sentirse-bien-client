@@ -613,7 +613,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     };
 
-    const changeMenuRol = (payload: boolean, user: number) => {
+    const changeMenuRol = (payload: boolean, user: number | null) => {
         dispatch({
             type: actions.USER_ROL_ID,
             payload: user

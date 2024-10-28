@@ -5,56 +5,56 @@
             "turno":1,
             "monto": 10000,
             "fecha_pago": "8-10-2024",
-            "type": 0
+            "tipo": 0
         },
         {
             "usuario":7,
             "turno":2,
             "monto": 10000,
             "fecha_pago": "8-15-2024",
-            "type": 0
+            "tipo": 0
         },
         {
             "usuario":7,
             "turno":3,
             "monto": 10000,
             "fecha_pago": "8-20-2024",
-            "type": 0
+            "tipo": 0
         },
         {
             "usuario":7,
             "turno":4,
             "monto": 10000,
             "fecha_pago": "8-25-2024",
-            "type": 1
+            "tipo": 1
         },
         {
             "usuario":2,
             "turno":5,
             "monto": 10000,
             "fecha_pago": "8-30-2024",
-            "type": 1
+            "tipo": 1
         },
         {
             "usuario":2,
             "turno":6,
             "monto": 10000,
             "fecha_pago": "10-05-2024",
-            "type": 1
+            "tipo": 1
         },
         {
             "usuario":2,
             "turno":7,
             "monto": 10000,
             "fecha_pago": "10-10-2024",
-            "type": 2
+            "tipo": 2
         },
         {
             "usuario":2,
             "turno":8,
             "monto": 10000,
             "fecha_pago": "10-15-2024",
-            "type": 2
+            "tipo": 2
         }
     ]
 }

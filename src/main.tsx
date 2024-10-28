@@ -27,6 +27,7 @@ import Pagos from "./Componentes/Pagos/Pagos.tsx";
 import Ingresos from "./Componentes/Ingresos/Ingresos.tsx";
 import InformeServicios from "./Componentes/InformeServicios/InformeServicios.tsx";
 import TurnosDia from "./Componentes/TurnosDia/TurnosDia.tsx";
+import RolChanger from "./Componentes/Menus/Rol/Rol.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <CssBaseline>
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Login />
             <Register />
             <Payment />
+            <RolChanger />
             <ScrollToTop></ScrollToTop>
             <Routes>
               <Route path="/" element={<App />}></Route>
