@@ -78,7 +78,7 @@ const Turnos: React.FC = () => {
         if(turn){
             global?.alertStatus(true, "success", "Gracias por sacar su turno!")
             setTimeout(() => {
-                global?.changeMenuPayment(true, turn)
+                global?.changeMenuPayment(true, {...turn, monto: turno.monto})
             }, 1500);
         }
         else{

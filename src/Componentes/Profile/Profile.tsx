@@ -23,7 +23,7 @@ export function Profile() {
     } else {
       global?.session();
       global?.getTurnosComplete();
-
+      global?.getConsult()
     }
   }, []);
 
