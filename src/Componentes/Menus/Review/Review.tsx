@@ -1,11 +1,11 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 import logo from "../../../assets/logo.png";
 import './Review.css';
 
 export default function Review() {
     const global = useContext(GlobalContext);
-
+    const [name, setName] = useState("")
     const [review, setReview] = useState({
         name: "",
         rating: 0,
@@ -23,10 +23,14 @@ export default function Review() {
         }, 500);
     };
 
+    useEffect(() => {
+        if(global?.user) setName(global.user.first_name + ' ' + global.user.last_name)
+    },[global?.isLog])
+
     const postReview = async (event: FormEvent) => {
         event.preventDefault();
         setBtn(true);
-        if (global?.isLog) setReview({ ...review, name: global.user.first_name + ' ' + global.user.last_name });
+        if (global?.isLog) setReview({ ...review, name: name });
         const result = await global?.makeReview(review.comment, review.rating, review.name);
         if (result) {
             global?.alertStatus(true, "success", "Gracias por dejar tu reseña!");
