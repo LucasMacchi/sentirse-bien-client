@@ -29,8 +29,9 @@ export default function Review() {
 
     const postReview = async (event: FormEvent) => {
         event.preventDefault();
+        setName(global?.user.first_name + ' ' + global?.user.last_name)
         setBtn(true);
-        if (global?.isLog) setReview({ ...review, name: name });
+        if (global?.isLog) setReview({ ...review, name: name ? name : "Anonimo" });
         const result = await global?.makeReview(review.comment, review.rating, review.name);
         if (result) {
             global?.alertStatus(true, "success", "Gracias por dejar tu reseña!");
