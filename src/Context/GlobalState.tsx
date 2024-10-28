@@ -307,6 +307,12 @@ export default function GlobalState(props: IPropsChildren) {
             console.log("Error: ", error)
         }
     }
+    const setTurn = (id: number, price: number) => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {id: id, servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: price}
+        })
+    }
     //Responde consultas
     const respondConsult = async (response: string, consult_id: string) => {
         try {
@@ -332,14 +338,6 @@ export default function GlobalState(props: IPropsChildren) {
             payload: id
         })
     }
-
-    const setTurn = (turn: ITurno) => {
-        dispatch({
-            type: actions.SET_TURN_TOPAY,
-            payload: turn
-        })
-    }
-
 
     const changeMenuReview = (payload: boolean) => {
         dispatch({
@@ -453,29 +451,32 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
+    const makeTurno = async (turno: ITurno): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 555555}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
                     hora: turno.hora,
                     servicio: turno.servicio,
-                    pagado: pagado,
+                    pagado: false,
                     monto: turno.monto
                     }
                 const token = localStorage.getItem('jwToken')
                 const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
-                dispatch({
-                    type: actions.SET_TURN_TOPAY,
-                    payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
-                })
                 return turno_id
             }
         } catch (error) {
             console.log(error)
             return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
         }
+    }
+
+    const emptyTurnToPay = () => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
+        })
     }
 
     //Abre o cierra el respuesta
@@ -488,7 +489,10 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Abre o cierrra pagar
     const changeMenuPayment = (payload: boolean, turn: ITurno ) => {
-        setTurn(turn)
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: turn
+        })
         dispatch({
             type: actions.CHANGE_MENU_PAYMENT,
             payload: payload
@@ -660,6 +664,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRol: false,
         userToChange: null,
         getTurnosComplete,
+        setTurn,
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
@@ -677,12 +682,12 @@ export default function GlobalState(props: IPropsChildren) {
         getConsult,
         respondConsult,
         makeReview,
+        emptyTurnToPay,
         getReviews,
         getTurnos,
         makeTurno,
         getIdConsult,
         makePayment,
-        setTurn,
         getPagos,
         getClientes,
         completePagos,

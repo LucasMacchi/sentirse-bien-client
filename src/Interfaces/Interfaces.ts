@@ -163,15 +163,16 @@ export interface IGlobalContext {
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
     getTurnosComplete: () => Promise<void>,
-    makeTurno: (turno: ITurno, pagado: boolean) => Promise<ITurno>,
+    makeTurno: (turno: ITurno) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,
-    setTurn: (turn: ITurno) => void,
     getClientes: () => void,
     getPagos: () => void,
     completePagos: (clientes: IUser[], pagos: IPagoComplete[]) => IPagoComplete[]
     completeServicesProfessional: (usuarios: IUser[], turnos: ITurno[]) => IProfessionals[]
     getServicesByProfessional: (startDate: string, endDate: string) => Promise<IProfessionals[]>;
-    
+    emptyTurnToPay: () => void,
+    setTurn: (id: number, price: number) => void
+
 }
