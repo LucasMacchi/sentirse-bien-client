@@ -120,7 +120,6 @@ export default function Payment() {
             global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)
 
-        if(type !== "0"){
             const price: IPago = {
                 monto: global?.turnToPay.monto ? global?.turnToPay.monto : 0,
                 turno: global?.turnToPay.id,
@@ -130,7 +129,7 @@ export default function Payment() {
             const result = await global?.makePayment(price)
             if(result){
                 global?.alertStatus(true, "success", "Gracias por pagar!")
-                downloadPDF(factura)
+                if(type !== "0") downloadPDF(factura)
                 setTimeout(() => {
                     setDisable(false)
                     window.location.reload()
@@ -140,22 +139,6 @@ export default function Payment() {
                 global?.alertStatus(true, "error", "Error al pagar")
                 setDisable(false)
             }
-        }
-        else{
-            if(global?.turnToPay.id){
-                global?.alertStatus(true, "success", "Gracias por reservar su turno!") 
-                global?.emptyTurnToPay()
-                setTimeout(() => {
-                    setDisable(false)
-                    window.location.reload()
-                }, 1500);
-            } 
-            else {
-                global?.alertStatus(true, "error", "Error al sacar turno, intente mas tarde.")
-                global?.emptyTurnToPay()
-                setDisable(false)
-            }
-        }
     }
 
     const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
