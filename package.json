@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.4",
@@ -28,6 +30,7 @@
     "swiper": "^11.1.14"
   },
   "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
     "@types/aos": "^3.0.7",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
