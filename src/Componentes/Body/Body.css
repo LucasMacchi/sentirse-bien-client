@@ -20,7 +20,6 @@ p {
     margin: 0;
 }
 
-/* Background for main section */
 .body-bg {
     background-image: url(../../assets/body-bienvenidos.png);
     background-repeat: no-repeat;
@@ -33,7 +32,6 @@ p {
     justify-content: center;
 }
 
-/* Container styling */
 .container {
     display: flex;
     flex-direction: column;
@@ -142,7 +140,7 @@ p {
 
 .conocenos-img {
     width: 100%;
-    max-width: 400px;
+    max-width: 200px;
     height: auto;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -250,80 +248,7 @@ p {
 
     .servicios-grid {
         max-width: 1000px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .body-bg {
-        height: 500px;
-    }
-    .container {
-        padding: 1rem;
-    }
-
-    .welcome-text {
-        font-size: 2.5rem;
-    }
-
-    .agenda-btn {
-        padding: 10px 20px;
-        font-size: 0.875rem;
-    }
-
-    .container-body {
-        padding: 1rem;
-        grid-template-columns: 1fr;
-    }
-
-    .conocenos-left h1 {
-        font-size: 1.75rem;
-    }
-
-    .conocenos-left p {
-        font-size: 0.9rem;
-    }
-
-    .conocenos-right {
-        flex-direction: row;
-    }
-
-    .conocenos-img {
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 459px) {
-    .body-bg {
-        height: 500px;
-    }
-    .container {
-        padding: 0.5rem;
-    }
-
-    .welcome-text {
-        font-size: 2rem;
-    }
-
-    .agenda-btn {
-        padding: 8px 16px;
-        font-size: 0.75rem;
-    }
-}
-
-/* Responsive styles */
-@media (max-width: 1024px) {
-    .container {
-        padding: 1.5rem;
-    }
-
-    .welcome-text {
-        font-size: 3.5rem;
-    }
-
-    .servicios-grid {
-        max-width: 1000px;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: 300px;
     }
 
     .gallery img {
@@ -363,7 +288,7 @@ p {
     }
 
     .conocenos-right {
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .conocenos-img {
@@ -377,7 +302,7 @@ p {
 
 @media (max-width: 459px) {
     .body-bg {
-        height: 400px;
+        height: 500px;
     }
     .container {
         padding: 0.5rem;

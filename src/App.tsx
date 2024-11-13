@@ -15,12 +15,6 @@ function App() {
         
     }, [])
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwToken')
-        if(token) navigate("/profile")
-        else global?.changeMenuLogin(true)
-    },[])
-
     return (
         <div className="appHome">
             <Login></Login>

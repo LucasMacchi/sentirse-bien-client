@@ -8,7 +8,6 @@ import belleza from "../../assets/belleza.jpg";
 import masajes from "../../assets/masajes.png";
 import { ImageList, ImageListItem } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Footer } from "../Footer/Footer";
 import { Header } from "../Header/Header";
 import AOS from 'aos';
 import { GlobalContext } from '../../Context/GlobalState';
@@ -47,7 +46,6 @@ export function Body() {
 
   return (
     <>
-  
       <Header></Header>
       <div className="body-bg">
         <div className="container">
@@ -78,7 +76,7 @@ export function Body() {
             <Link to='/about' className="agenda-btn" data-aos="zoom-in">Conocenos</Link>
           </div>
           <div className="conocenos-right" data-aos="fade-left">
-            <img src={foto1} alt="" className="conocenos-img img-2" />
+            <img src={foto1} alt="" className="conocenos-img" />
             <img src={foto2} alt="" className="conocenos-img" />
           </div>
         </div>
@@ -139,7 +137,6 @@ export function Body() {
           </ImageList>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 }

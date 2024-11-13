@@ -4,13 +4,14 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  height: 80px; /* Altura fija para el header */
+  height: 80px; 
   background-color: #f8f9fa;
-  z-index: 1001; /* Asegúrate de que esté por encima del menú lateral */
+  z-index: 1001; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -22,6 +23,7 @@ header {
 .navbar-left {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
@@ -39,16 +41,16 @@ header {
 .navbar-right {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten */
+  justify-items: center;
 }
 
 .navbar-links {
   margin: 0 1em;
-  padding: 0.5em 1em; /* Espaciado interno */
-  color: #4caf50; /* Color verde */
+  padding: 0.5em 1em; 
+  color: #4caf50; 
   transition: 0.2s ease-in-out;
   text-decoration: none;
-  border-radius: 5px; /* Bordes redondeados */
+  border-radius: 5px;
 }
 
 .navbar-links:hover {
@@ -63,25 +65,58 @@ header {
   margin-left: 10px; /* Espaciado entre avatar y otros enlaces */
 }
 
-/* Media Queries para Responsividad */
+.hamburger {
+  display: none; 
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: #4caf50; /* Color del icono */
+  margin: 4px 0;
+}
+
+.navbar.active .navbar-right {
+  display: flex;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(248, 249, 250, 0.95);
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  align-items: center;
+  z-index: 1000;
+}
+
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-    align-items: flex-start; /* Alinea los elementos a la izquierda */
-    padding: 1em; /* Ajusta el espaciado */
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 1em; 
   }
 
   .navbar-right {
-    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-    align-items: flex-start; /* Alinea a la izquierda */
+    display: none; 
+  }
+
+  .navbar.active .navbar-right {
+    display: flex; 
+  }
+
+  .hamburger {
+    display: flex; 
   }
 
   header {
-    height: 60px; /* Altura reducida para móviles si es necesario */
-}
+    height: 60px; 
+  }
 
-.navbar {
+  .navbar {
     padding: 0 1em;
-}
-
+  }
 }
