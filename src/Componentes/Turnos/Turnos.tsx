@@ -70,7 +70,6 @@ const Turnos: React.FC = () => {
       monto: selectedServices.length === 1 ? 10000 : 20000,
     };
     const turn = await global?.makeTurno(turno);
-    console.log(turn);
     if (turn) {
       global?.alertStatus(true, "success", "Gracias por sacar su turno!");
       setTimeout(() => {
@@ -108,6 +107,10 @@ const Turnos: React.FC = () => {
       setSelectedServices(newValue);
     }
   };
+
+  const handleTimeChange = (value: string) => {
+    setTime(value)
+  }
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -156,7 +159,7 @@ const Turnos: React.FC = () => {
               select
               InputLabelProps={{ shrink: true }}
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              onChange={(e) => handleTimeChange(e.target.value)}
               helperText="Selecciona una hora"
               sx={{ marginBottom: 2 }}
             >

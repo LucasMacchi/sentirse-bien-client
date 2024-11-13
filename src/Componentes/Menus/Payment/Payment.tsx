@@ -18,6 +18,8 @@ import PlantillaPDF from '../../Factura/Factura';
 import { Tab, Tabs } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+
 
 export default function Payment() {
     const navigate = useNavigate()
@@ -104,14 +106,33 @@ export default function Payment() {
         });
     };
 
+    const blobToBase64 = (blob: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            const base64data = reader.result as string;
+            resolve(base64data.split(',')[1]); // Remueve el encabezado
+          };
+          reader.onerror = (error) => reject(error);
+        });
+    }
+
     //descargar PDF
     const downloadPDF = async (factura: IFactura) => {
 
-        const blob = await pdf(<PlantillaPDF data={factura} />).toBlob();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'documento.pdf';
-        link.click();
+        const blob = await pdf(<PlantillaPDF data={factura} />).toBlob()
+
+        const data64 = await blobToBase64(blob)
+        const parseData64 = ('data:application/pdf;base64,'+data64)
+        console.log(parseData64)
+
+        await Filesystem.writeFile({
+            path: "factura.pdf",
+            data: parseData64,
+            directory: Directory.Documents
+        })
+
     }
 
     const payTurn = async (event: FormEvent) => {
