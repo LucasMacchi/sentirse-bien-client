@@ -1,6 +1,5 @@
 import{ useState, useEffect, useContext } from "react";
 import { Header } from "../Header/Header";
-import MenuLateral from "../MenuLateral/MenuLateral";
 import "./Pagos.css";
 import jsPDF from 'jspdf';
 import logoSpa from '../../assets/logo.png';
@@ -20,7 +19,6 @@ export default function Pagos() {
 
   useEffect(() => {
     const complete = global?.completePagos(global.clientes, global.pagosInforme)
-    console.log(complete)
     setPagos(complete ? complete : [] )
   }, []);
 
@@ -37,8 +35,8 @@ export default function Pagos() {
     if(complete){
       if(fechaInicio || fechaFin || filtro){
         const filtered = complete.filter((p) => {
-          if(p.fecha_pago){
-            const pagoFecha = new Date(p.fecha_pago)
+          if(p.fecha){
+            const pagoFecha = new Date(p.fecha)
             const fechaStart = fechaInicio ? new Date(fechaInicio) : new Date(0)
             const fechaEnd = fechaFin ? new Date(fechaFin) : new Date("01-01-2050")
             if(pagoFecha <= fechaEnd && pagoFecha >= fechaStart){
@@ -68,8 +66,7 @@ export default function Pagos() {
     if(pagos) {
       let total = 0
       pagos.forEach(p => {
-        if(typeof p.monto === "string" ) total = parseInt(p.monto) + total
-        else total = p.monto + total
+        total = p.monto + total
       });
       return total
     }
@@ -107,7 +104,6 @@ export default function Pagos() {
     doc.setFontSize(12);
     doc.setTextColor(colorSecundario);
     const detalles = [
-      `Fecha: ${pago.fecha_pago}`,
       `Usuario: ${pago.usuario}`,
       `Turno: ${pago.turno}`,
       `Monto: $${pago.monto}`
@@ -147,8 +143,8 @@ export default function Pagos() {
         </thead>
         <tbody>
           {pagos?.map((pago) => (
-            <tr key={pago.fecha_pago}>
-              <td>{pago.fecha_pago}</td>
+            <tr key={pago.fecha}>
+              <td>{pago.fecha}</td>
               <td>{pago.fullname}</td>
               <td>{pago.turno}</td>
               <td>${pago.monto}</td>
@@ -169,7 +165,6 @@ export default function Pagos() {
   return (
     <div className="pagos-page">
       <Header />
-      <MenuLateral />
       <div className="content-wrapper">
         <div className="pagos-container">
           <h1>Informe de Pagos</h1>
@@ -207,7 +202,7 @@ export default function Pagos() {
             </div>
             <div className="resumen-item">
               <h3>Promedio por Pago</h3>
-              <p>${pagos ? Math.floor((calcularTotal() / pagos.length || 0)) : 0}</p>
+              <p>${pagos ? (calcularTotal() / pagos.length || 0) : 0}</p>
             </div>
           </div>
           <div className="tabla-container">
