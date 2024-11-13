@@ -18,7 +18,7 @@ function App() {
     useEffect(() => {
         const token = localStorage.getItem('jwToken')
         if(token) navigate("/profile")
-    },[global?.isLog])
+    },[])
 
     return (
         <>
