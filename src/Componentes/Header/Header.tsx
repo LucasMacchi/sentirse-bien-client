@@ -1,94 +1,86 @@
 import "./Header.css";
 import logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
-import avatar from "../../assets/avatar.svg";
+import MenuLateral from "../MenuLateral/MenuLateral";
+import { Avatar } from "@mui/material";
 
 export function Header() {
   const global = useContext(GlobalContext);
-  const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const openLog = () => {
-    global?.changeMenuLogin(true);
-  };
-
-  function LogoutNavigate() {
-    navigate("/");
-  }
-
-  function changeMenuLogin() {
-    if (!global?.isLog) {
-      return (
-        <>
-          <Link
-            to="/"
-            className="navbar-links"
-            onClick={() => {
-              openLog();
-            }}
-          >
-            Log In
-          </Link>
-        </>
-      );
-    } else {
-      return <></>;
-    }
-  }
-
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  return (
-    <>
-      <header>
-        <nav className={`navbar ${isMenuOpen ? "active" : ""}`}>
-          <div className="navbar-left">
-            <Link to={"/"}>
-              <img src={logo} alt="" />
-            </Link>
-            <div className="hamburger" onClick={toggleMenu}>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-          <div className="navbar-right">
-            <Link to="/about" className="navbar-links">
-              Quienes Somos
-            </Link>
-            <Link to="/contact" className="navbar-links">
-              Contacto
-            </Link>
-            <Link to="/services" className="navbar-links">
-              Servicios
-            </Link>
-            <Link to="/empleo" className="navbar-links">
-              Empleo
-            </Link>
-            <Link
-              to="/"
-              onClick={() => {
-                global?.logout();
-                LogoutNavigate();
-              }}
-              className="navbar-links"
-            >
-              Log Out
-            </Link>
-            <div>
-              <Link to="/profile">
-                <img src={avatar} alt="" className="navbar-links avatar-img" />
+  function ShowMenu() {
+    const location = useLocation();
+    if (global?.user.rol === 3) {
+      if (location.pathname === "/") {
+        return null;
+      } else {
+        return <></>;
+      }
+    }
+  }
+
+  if (global?.isLog) {
+    return (
+      <>
+        <header>
+          <nav className={`navbar ${isMenuOpen ? "active" : ""}`}>
+            {ShowMenu()}
+            <div className="navbar-left">
+              <Link
+                to={"/profile"}
+                onClick={() => {
+                  global?.changeMenuConsult(false);
+                  global?.changeMenuReview(false);
+                }}
+              >
+                <Avatar src="/broken-image.jpg" sx={{ mt: 2 }} />
+              </Link>
+              <Link
+                to={"/profile"}
+                onClick={() => {
+                  global?.changeMenuConsult(false);
+                  global?.changeMenuReview(false);
+                }}
+                className="user-navbar"
+              >
+                <p>
+                  {global?.user.first_name} {global?.user.last_name}
+                </p>
               </Link>
             </div>
-            {changeMenuLogin()}
-          </div>
-        </nav>
-      </header>
-    </>
-  );
+            <div className="navbar-right">
+              <div className="hamburger" onClick={toggleMenu}>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </nav>
+        </header>
+        <MenuLateral isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <header>
+          <nav className={`navbar ${isMenuOpen ? "active" : ""}`}>
+            {ShowMenu()}
+            <div className="navbar-left">
+              <Link to={"/profile"}>
+                <img src={logo} alt="Logo" className="logo-img" />
+              </Link>
+            </div>
+          </nav>
+        </header>
+        <MenuLateral isOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      </>
+    );
+  }
 }

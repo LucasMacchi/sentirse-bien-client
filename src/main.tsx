@@ -15,7 +15,6 @@ import theme from "./Theme/theme.ts";
 import { Profile } from "./Componentes/Profile/Profile.tsx";
 import Turnos from "./Componentes/Turnos/Turnos.tsx";
 import Empleo from "./Componentes/Empleo/Empleo.tsx";
-import Login from "./Componentes/Menus/Login/Login.tsx";
 import Register from "./Componentes/Menus/Register/Register.tsx";
 import Consult from "./Componentes/Menus/Consult/Consult.tsx";
 import Response from "./Componentes/Menus/Consult/Respond.tsx";
@@ -55,6 +54,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/ingresos" element={<Ingresos></Ingresos>}></Route>
               <Route path="/turnos-dia" element={<TurnosDia></TurnosDia>}></Route>
               <Route path="/informe-servicios" element={<InformeServicios></InformeServicios>}></Route>
+              <Route path="/turnos-dia" element={<TurnosDia></TurnosDia>}></Route>
+
             </Routes>
             <Alerta />
           </GlobalState>

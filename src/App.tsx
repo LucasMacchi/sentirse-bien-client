@@ -1,5 +1,4 @@
 import "./App.css";
-import { Body } from "./Componentes/Body/Body";
 import { useContext, useEffect } from 'react';
 import { GlobalContext } from "./Context/GlobalState";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +13,14 @@ function App() {
         global?.getTurnos()
         
     }, [])
+
+    useEffect(() => {
+        const token = localStorage.getItem('jwToken')
+        if(token){
+            navigate("/profile")
+        } else {global?.changeMenuLogin(true)}
+       
+    },[])
 
     return (
         <div className="appHome">
