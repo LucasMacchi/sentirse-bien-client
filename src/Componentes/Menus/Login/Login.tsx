@@ -8,9 +8,6 @@ export default function Login() {
     const [userLogin, setUserLogin] = useState({ username: "", password: "" });
     const [btn, setbtn] = useState(false);
 
-    const closeBtn = () => {
-        global?.changeMenuLogin(!global.Mlogin);
-    };
 
     const login = async (event: FormEvent) => {
         setbtn(true);
@@ -41,7 +38,6 @@ export default function Login() {
             <div className="login-modal">
                 <div className="login-header">
                     <img src={logo} alt="Logo" className="login-logo" />
-                    <button onClick={closeBtn} className="login-close-btn">&times;</button>
                 </div>
                 <form onSubmit={login} className="login-form">
                     <h2>Ingresar</h2>

@@ -120,7 +120,7 @@ export default function Payment() {
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)
 
             const price: IPago = {
-                monto: global?.turnToPay.monto ? global?.turnToPay.monto : 0,
+                monto: global?.turnToPay.monto ? (global?.turnToPay.monto * 0.90) : 0,
                 turno: global?.turnToPay.id,
                 tipo: parseInt(type)
             }
@@ -200,7 +200,9 @@ export default function Payment() {
                             onChange={(e) => handlePayment("card_expiration_year", e.target.value)} required 
                             error={cardExError.status} />
                         </Box>
-                        <Typography>Precio de consulta: ${global?.turnToPay.monto}</Typography>
+                        <Typography >Precio de consulta: 
+                            <Typography sx={{textDecoration: "line-through"}} > ${global?.turnToPay.monto}</Typography> -10%
+                         ${global?.turnToPay.monto ? global?.turnToPay.monto * 0.90 : 0}</Typography>
                         <Divider/>
                         {type === "0" && (<Typography> <InfoIcon color='info'/> Recuerde que debe abonar en efectivo en la sucursal en un tiempo menor a las 48 horas de haber sacado el turno</Typography>)}
                         <Box display={"flex"} justifyContent={"flex-end"} marginTop={"8px"}>

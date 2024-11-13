@@ -43,6 +43,7 @@ export default function Register() {
 
     const closeBtn = () => {
         global?.changeMenuRegister(!global.MRegister);
+        global?.changeMenuLogin(true)
     };
 
     const register = async (event: FormEvent) => {

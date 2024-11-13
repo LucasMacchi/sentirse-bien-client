@@ -37,8 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <GlobalState>
             <Review />
             <Response />
-            <Consult />
-            <Login />
+            <Consult />  
             <Register />
             <Payment />
             <RolChanger />
@@ -62,6 +61,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </BrowserRouter>
       </ThemeProvider>
     </React.StrictMode>
-    ,
   </CssBaseline>
 );

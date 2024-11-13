@@ -29,8 +29,7 @@ export function Profile() {
 
   useEffect(() => {
     if (global?.isLog && global.user.rol > 0) {
-      global?.getPagos();
-      global.getClientes();
+      global.logout()
     }
   },[global?.user.rol])
 

@@ -12,6 +12,7 @@ import {
     InputLabel,
     FormControl,
     SelectChangeEvent,
+    Box,
 } from "@mui/material";
 import { Header } from "../Header/Header";
 import { Footer } from "../Footer/Footer";
@@ -119,65 +120,59 @@ const Turnos: React.FC = () => {
     return (
         <>
             <Header />
-            <div className="turnos-container">
+            <Box>
                 <Container component="main" maxWidth="xs">
                     <Typography
                         component="h1"
                         variant="h5"
                         align="center"
-                        sx={{ padding: "2rem" }}
                     >
                         Reserva de Turno
                     </Typography>
                     <form onSubmit={handleSubmit}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    label="Nombre"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    label="Fecha"
-                                    type="date"
-                                    InputLabelProps={{ shrink: true }}
-                                    value={date}
-                                    onChange={handleDateChange}
-                                    inputProps={{ min: today }} // Bloquear fechas anteriores a hoy
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    label="Hora"
-                                    select
-                                    InputLabelProps={{ shrink: true }}
-                                    value={time}
-                                    onChange={(e) => setTime(e.target.value)}
-                                    helperText="Selecciona una hora"
+                    <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        label="Nombre"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        sx={{marginBottom: 2}}
+                        />
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            label="Fecha"
+                            type="date"
+                            InputLabelProps={{ shrink: true }}
+                            value={date}
+                            onChange={handleDateChange}
+                            inputProps={{ min: today }} // Bloquear fechas anteriores a hoy
+                            sx={{marginBottom: 2}}
+                            />
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                label="Hora"
+                                select
+                                InputLabelProps={{ shrink: true }}
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                helperText="Selecciona una hora"
+                                sx={{marginBottom: 2}}
                                 >
-                                    {timeSlots.map((slot, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={slot}
-                                            disabled={occupiedTimes.has(slot)}
-                                        >
-                                            {parseInt(slot) >= 13 ? slot + ":00 PM" : slot + ":00 AM"} {occupiedTimes.has(slot) ? "(Ocupado)" : ""}
-                                        </MenuItem>
-                                    ))}
+                                {timeSlots.map((slot, index) => (
+                                    <MenuItem
+                                        key={index}
+                                        value={slot}
+                                        disabled={occupiedTimes.has(slot)}
+                                    >
+                                        {parseInt(slot) >= 13 ? slot + ":00 PM" : slot + ":00 AM"} {occupiedTimes.has(slot) ? "(Ocupado)" : ""}
+                                    </MenuItem>
+                                ))}
                                 </TextField>
-                            </Grid>
-                            <Grid item xs={12}>
                                 <FormControl fullWidth>
                                     <InputLabel>Servicios</InputLabel>
                                     <Select
@@ -200,8 +195,6 @@ const Turnos: React.FC = () => {
                                     </Select>
                                     <Typography variant="body1">Seleccione hasta dos servicios</Typography>
                                 </FormControl>
-                            </Grid>
-                        </Grid>
                         <Button
                             type="submit"
                             fullWidth
@@ -213,8 +206,7 @@ const Turnos: React.FC = () => {
                         </Button>
                     </form>
                 </Container>
-            </div>
-            <Footer />
+            </Box>
         </>
     );
 };

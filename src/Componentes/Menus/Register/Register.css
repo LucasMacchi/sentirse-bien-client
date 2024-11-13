@@ -82,12 +82,12 @@
 }
 
 .register-input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .register-input-group input {
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.3rem;
     border: 2px solid var(--color-rosa);
     border-radius: 10px;
     font-size: 1rem;
