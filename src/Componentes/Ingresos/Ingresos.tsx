@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Header } from "../Header/Header";
-import MenuLateral from "../MenuLateral/MenuLateral";
 import "./Ingresos.css";
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -157,7 +156,6 @@ const Ingresos: React.FC = () => {
   return (
     <>
       <Header />
-      <MenuLateral />
       <div className="ingresos-container">
         <h1>Informe Detallado de Ingresos</h1>
         <button onClick={generarInformePDF} className="btn-imprimir">Descargar PDF</button>

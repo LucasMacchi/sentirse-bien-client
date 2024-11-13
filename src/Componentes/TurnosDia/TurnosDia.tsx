@@ -1,5 +1,4 @@
 import { Header } from "../Header/Header";
-import MenuLateral from "../MenuLateral/MenuLateral";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../Context/GlobalState";
 import { IProfessionals } from "../../Interfaces/Interfaces";
@@ -62,7 +61,6 @@ export default function TurnosDia(){
         <>
         <div className="turnos-dia-page">
             <Header />
-            <MenuLateral />
             <div className="content-wrapper">
                 <div className="turnos-dia-container">
                     <h1>Listado de Clientes del Día</h1>

@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { Header } from "../Header/Header";
-import MenuLateral from "../MenuLateral/MenuLateral";
 import { GlobalContext } from "../../Context/GlobalState";
 import { IProfessionals } from "../../Interfaces/Interfaces";
 import { useNavigate } from "react-router-dom";
@@ -103,7 +102,6 @@ export default function InformeServicios() {
         <>
         <div className="informe-servicios-page">
             <Header />
-            <MenuLateral />
             <div className="content-wrapper">
                 <div className="informe-servicios-container">
                     <h1>Informe de Servicios por Profesional</h1>

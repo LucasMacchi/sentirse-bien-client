@@ -17,8 +17,10 @@ import { pdf } from '@react-pdf/renderer';
 import PlantillaPDF from '../../Factura/Factura';
 import { Tab, Tabs } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 export default function Payment() {
+    const navigate = useNavigate()
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     const regex_number = /^[0-9]+$/;
@@ -131,7 +133,8 @@ export default function Payment() {
                 if(type !== "0") downloadPDF(factura)
                 setTimeout(() => {
                     setDisable(false)
-                    window.location.reload()
+                    global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0})
+                    navigate("/Profile")
                 }, 1500);
             }
             else{
@@ -151,7 +154,7 @@ export default function Payment() {
     return(
         <Backdrop open={global ? global.MPayment : false} sx={{ zIndex: 10 }}>
             <Paper>
-                <Box width={420} padding={0.3}>
+                <Box width={370} padding={0.3}>
                     <Box display={"flex"} justifyContent={"space-between"}>
                         <img src={logo} width="40px" />
                         <IconButton onClick={() => closeBtn()} aria-label='close'><CloseIcon color='primary' /></IconButton>

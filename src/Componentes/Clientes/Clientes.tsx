@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Header } from "../Header/Header";
-import MenuLateral from "../MenuLateral/MenuLateral";
 import { GlobalContext } from "../../Context/GlobalState";
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -102,7 +101,6 @@ export default function Clientes() {
     return (
         <>
             <Header />
-            <MenuLateral />
             <div className="clientes-container">
                 <h2>Lista de Usuarios</h2>
                 <div className="actions-container">
