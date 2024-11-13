@@ -1,7 +1,7 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { IFactura } from '../../Interfaces/Interfaces';
-import logo from "../../assets/logo.jpg"
+import logo from "../../assets/logo.png"
 
 const titulo = 16;
 const subtitulo = 16;
