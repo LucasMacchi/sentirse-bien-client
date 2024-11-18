@@ -63,6 +63,23 @@ header {
   margin-left: 10px; /* Espaciado entre avatar y otros enlaces */
 }
 
+.hamburger {
+  display: none; /* Ocultar por defecto */
+  font-size: 2rem; /* Tamaño del icono */
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor */
+}
+
+.dropdown-menu {
+  display: flex; /* Mostrar menú desplegable */
+  flex-direction: column; /* Colocar elementos en columna */
+  position: absolute; /* Posicionamiento absoluto */
+  background-color: #f8f9fa; /* Color de fondo */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+  z-index: 1000; /* Asegúrate de que esté por encima */
+}
+
 /* Media Queries para Responsividad */
 @media (max-width: 768px) {
   .navbar {
@@ -77,11 +94,26 @@ header {
   }
 
   header {
-    height: 60px; /* Altura reducida para móviles si es necesario */
-}
+    height: 70px; /* Altura reducida para móviles si es necesario */
+  }
 
-.navbar {
+  .navbar {
     padding: 0 1em;
-}
+  }
 
+  .hamburger {
+    display: block; /* Mostrar botón hamburguesa en pantallas pequeñas */
+  }
+
+  .navbar-right {
+    display: none; /* Ocultar enlaces en pantallas pequeñas */
+  }
+
+  .navbar-right.active {
+    display: flex; /* Mostrar enlaces cuando el menú está abierto */
+  }
+
+  .header-logo-text{
+    display: none;
+  }
 }

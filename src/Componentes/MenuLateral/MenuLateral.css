@@ -69,7 +69,10 @@
     font-size: 1.1em; 
     position: absolute;
     margin-top: 1em;
-    left: 3em;
+    left: 80%;
+    top: 0em;
+
+    z-index: 10001;
 }
 
 .abrir-boton:hover {
@@ -90,8 +93,8 @@
     }
 
     .abrir-boton {
-        top: 70px; /* Ajusta para que esté justo debajo del Header en móviles */
-        left: 10px;
+        top:0; /* Ajusta para que esté justo debajo del Header en móviles */
+        left: 65%;
         z-index: 1001;
     }
 }
