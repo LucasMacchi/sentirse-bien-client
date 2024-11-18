@@ -1,16 +1,12 @@
 import { FormEvent, useContext, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
-import logo from "../../../assets/logo.png";
 import './Login.css'; // Asegúrate de crear este archivo CSS
+import { Header } from '../../Header/Header';
 
 export default function Login() {
     const global = useContext(GlobalContext);
     const [userLogin, setUserLogin] = useState({ username: "", password: "" });
     const [btn, setbtn] = useState(false);
-
-    const closeBtn = () => {
-        global?.changeMenuLogin(!global.Mlogin);
-    };
 
     const login = async (event: FormEvent) => {
         setbtn(true);
@@ -37,12 +33,10 @@ export default function Login() {
     };
 
     return (
-        <div className={`login-backdrop ${global?.Mlogin ? 'active' : ''}`}>
+        <>
+        <Header></Header>
+            <div className={`login-backdrop ${global?.Mlogin ? 'active' : ''}`}>
             <div className="login-modal">
-                <div className="login-header">
-                    <img src={logo} alt="Logo" className="login-logo" />
-                    <button onClick={closeBtn} className="login-close-btn">&times;</button>
-                </div>
                 <form onSubmit={login} className="login-form">
                     <h2>Ingresar</h2>
                     <div className="login-input-group">
@@ -74,5 +68,7 @@ export default function Login() {
                 </form>
             </div>
         </div>
+        </>
+        
     );
 }

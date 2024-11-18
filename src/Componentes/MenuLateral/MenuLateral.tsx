@@ -10,6 +10,9 @@ const MenuLateral: React.FC = () => {
     setVisible(!visible);
   };
   const navigate = useNavigate();
+  function LogoutNavigate() {
+    navigate("/");
+  }
 
   // Componente común para el botón de abrir menú
   const AbrirMenuBoton = () =>
@@ -88,6 +91,15 @@ const MenuLateral: React.FC = () => {
               onClick={() => global?.changeMenuReview(true)}
             >
               Reseña
+            </li>
+            <li
+              className="menu-item"
+              onClick={() => {
+                global?.logout()
+                LogoutNavigate()
+              }}
+            >
+              Cerrar Sesión
             </li>
           </ul>
           <button onClick={toggleMenu} className="toggle-boton">
