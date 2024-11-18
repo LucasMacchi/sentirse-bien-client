@@ -16,6 +16,8 @@ export function Profile() {
   useEffect(() => {
     if (!global?.isLog) {
       navigate("/");
+    }else{
+      global?.getTurnosComplete()
     }
   }, []);
 
