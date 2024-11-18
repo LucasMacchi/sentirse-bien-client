@@ -1,0 +1,8 @@
+{
+	"appId": "com.sentirsebien.app",
+	"appName": "sentirse-bien-client",
+	"webDir": "dist",
+	"server": {
+		"hostname": "sentirse-bien-client.app.com"
+	}
+}

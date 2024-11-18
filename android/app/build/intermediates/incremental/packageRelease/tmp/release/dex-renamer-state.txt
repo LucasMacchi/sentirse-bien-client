@@ -1,0 +1,7 @@
+#Wed Nov 13 19:46:57 ART 2024
+base.0=/home/maki/Documentos/Programacion/sentirse-bien-client/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+base.1=/home/maki/Documentos/Programacion/sentirse-bien-client/android/app/build/intermediates/global_synthetics_dex/release/classes.dex
+path.0=classes.dex
+path.1=classes.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex

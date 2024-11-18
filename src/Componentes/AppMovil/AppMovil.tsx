@@ -7,7 +7,7 @@ export default function AppMovil(){
                 <p className="descarga">
                 Descarga nuestra app móvil y obtené 10% de descuento al pedir un turno!
                 </p>
-            <a href="/src/assets/app-debug.apk" className="descarga-btn" download>
+            <a href="/src/assets/sba-1-0.apk" className="descarga-btn" download>
                 Descargar
             </a>
             </div>
