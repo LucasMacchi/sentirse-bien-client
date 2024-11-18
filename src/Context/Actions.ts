@@ -1,6 +1,7 @@
 export default {
     GET_USER_INFO: "get_user_info",
     CHANGE_MENU_LOGIN: "change_menu_login",
+    CHANGE_MENU_ROLE: "change_menu_role",
     CHANGE_MENU_REGISTER: "change_menu_register",
     CHANGE_MENU_CONSULT: "change_menu_consult",
     CHANGE_MENU_REVIEW: "change_menu_review",
@@ -18,5 +19,6 @@ export default {
     GET_TURNS_FULL: "get_turns_full",
     GET_PAGOS_COMPLETE: "get_pagos_complete",
     GET_ALLUSERS: "get_allusers",
-    UPDATE_USER_ROLE: "UPDATE_USER_ROLE"
+    UPDATE_USER_ROLE: "UPDATE_USER_ROLE",
+    USER_ROL_ID: "user_rol_id"
 }

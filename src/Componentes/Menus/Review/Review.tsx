@@ -1,13 +1,13 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../../Context/GlobalState';
 import logo from "../../../assets/logo.png";
 import './Review.css';
 
 export default function Review() {
     const global = useContext(GlobalContext);
-
+    const [name, setName] = useState("")
     const [review, setReview] = useState({
-        name: "",
+        nombre: "",
         rating: 0,
         comment: ""
     });
@@ -23,11 +23,16 @@ export default function Review() {
         }, 500);
     };
 
+    useEffect(() => {
+        if(global?.user) setName(global.user.first_name + ' ' + global.user.last_name)
+    },[global?.isLog])
+
     const postReview = async (event: FormEvent) => {
         event.preventDefault();
+        setName(global?.user.first_name + ' ' + global?.user.last_name)
         setBtn(true);
-        if (global?.isLog) setReview({ ...review, name: global.user.first_name + ' ' + global.user.last_name });
-        const result = await global?.makeReview(review.comment, review.rating, review.name);
+        if (global?.isLog) setReview({ ...review, nombre: name ? name : "Anonimo" });
+        const result = await global?.makeReview(review.comment, review.rating, review.nombre);
         if (result) {
             global?.alertStatus(true, "success", "Gracias por dejar tu reseña!");
             setTimeout(() => {
@@ -48,7 +53,7 @@ export default function Review() {
     };
 
     const handleReviewName = (name: string) => {
-        setReview({ ...review, name });
+        setReview({ ...review, nombre: name });
     };
 
     return (
@@ -65,7 +70,7 @@ export default function Review() {
                             <input
                                 type="text"
                                 placeholder="Nombre"
-                                value={review.name}
+                                value={review.nombre}
                                 onChange={(e) => handleReviewName(e.target.value)}
                                 required
                             />

@@ -47,7 +47,7 @@ export default function Payment() {
     const [disabledBtn, setDisable] = useState(false)
 
     const closeBtn = () => {
-        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0})
+        global?.changeMenuPayment(!global.MPayment, {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0})
     }
 
     const errorCheck = () => {
@@ -115,23 +115,22 @@ export default function Payment() {
     const payTurn = async (event: FormEvent) => {
         event.preventDefault()
         setDisable(true)
-
         const factura = makeFactura(global?.turnToPay.servicio ? global?.turnToPay.servicio : "Servicio no especificado", global?.turnToPay.monto ? global?.turnToPay.monto : 0, 
             global?.turnToPay.fecha ? global?.turnToPay.fecha : "01-01-2020", global?.user.first_name ? global?.user.first_name : "No especificado", 
             global?.user.last_name ? global?.user.last_name : "", paymentData.address)
 
-
-        if(type !== "0"){
-            const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
             const price: IPago = {
                 monto: global?.turnToPay.monto ? global?.turnToPay.monto : 0,
-                turno: turn_id?.id,
+
+                turno: global?.turnToPay.id,
+
                 tipo: parseInt(type)
             }
+            global?.emptyTurnToPay()
             const result = await global?.makePayment(price)
             if(result){
-                global?.alertStatus(true, "success", "Gracias por sacar su turno!")
-                downloadPDF(factura)
+                global?.alertStatus(true, "success", "Gracias por pagar!")
+                if(type !== "0") downloadPDF(factura)
                 setTimeout(() => {
                     setDisable(false)
                     window.location.reload()
@@ -141,21 +140,6 @@ export default function Payment() {
                 global?.alertStatus(true, "error", "Error al pagar")
                 setDisable(false)
             }
-        }
-        else{
-            const turn_id = await global?.makeTurno(global.turnToPay, type === "0" ? false : true)
-            if(turn_id){
-                global?.alertStatus(true, "success", "Gracias por sacar su turno!") 
-                setTimeout(() => {
-                    setDisable(false)
-                    window.location.reload()
-                }, 1500);
-            } 
-            else {
-                global?.alertStatus(true, "error", "Error al sacar turno, intente mas tarde.")
-                setDisable(false)
-            }
-        }
     }
 
     const handleChange = (_event: React.SyntheticEvent, newValue: string) => {

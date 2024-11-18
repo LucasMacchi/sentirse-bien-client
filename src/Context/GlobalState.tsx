@@ -18,6 +18,10 @@ const server_url = import.meta.env.VITE_SERVER_URL
 const globalReducer = (state: IGlobalContext, action: IAction): IGlobalContext => {
     const { payload, type } = action
     switch (type) {
+        case actions.USER_ROL_ID:
+            return {...state, userToChange: payload}
+        case actions.CHANGE_MENU_ROLE:
+            return {...state, MRol: payload}
         case actions.GET_ALLUSERS:
             return {...state, allUsers: payload}
         case actions.GET_TURNS_FULL: 
@@ -303,6 +307,12 @@ export default function GlobalState(props: IPropsChildren) {
             console.log("Error: ", error)
         }
     }
+    const setTurn = (id: number, price: number) => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {id: id, servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: price}
+        })
+    }
     //Responde consultas
     const respondConsult = async (response: string, consult_id: string) => {
         try {
@@ -329,14 +339,6 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
 
-    const setTurn = (turn: ITurno) => {
-        dispatch({
-            type: actions.SET_TURN_TOPAY,
-            payload: turn
-        })
-    }
-
-
     const changeMenuReview = (payload: boolean) => {
         dispatch({
             type: actions.CHANGE_MENU_REVIEW,
@@ -347,7 +349,7 @@ export default function GlobalState(props: IPropsChildren) {
     const makeReview = async (comment: string, rating: number, name: string): Promise<boolean> => {
         try {
             const review = {
-                nombre: name,
+                nombre: name ? name : "Anonimo",
                 descripcion: comment,
                 puntaje: rating
             }
@@ -416,7 +418,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const getTurnosComplete = async (id: number): Promise<void> => {
+    const getTurnosComplete = async (): Promise<void> => {
         console.log("Complete Turns requested...")
         try {
             if (use_mock === "1") {
@@ -435,22 +437,13 @@ export default function GlobalState(props: IPropsChildren) {
                 const token = localStorage.getItem('jwToken')
                 const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 console.log("Turnos del usuario = ",turns)
-                if(state.user.rol === 0){
-                    const array = turns.filter(t => t.usuario === id)
-                    array.forEach(t => {
-                        t.servicio.replace("$10000", "")
-                    });
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: array
-                    })
-                }
-                else{
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: turns
-                    }) 
-                }
+                turns.forEach(t => {
+                    t.servicio.replace("$10000", "")
+                });
+                dispatch({
+                    type: actions.GET_TURNS_FULL,
+                    payload: turns
+                })
             }
 
         } catch (error) {
@@ -458,29 +451,32 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
+    const makeTurno = async (turno: ITurno): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 555555}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
                     hora: turno.hora,
                     servicio: turno.servicio,
-                    pagado: pagado,
+                    pagado: false,
                     monto: turno.monto
                     }
                 const token = localStorage.getItem('jwToken')
                 const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
-                dispatch({
-                    type: actions.SET_TURN_TOPAY,
-                    payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
-                })
                 return turno_id
             }
         } catch (error) {
             console.log(error)
-            return {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0}
+            return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
         }
+    }
+
+    const emptyTurnToPay = () => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
+        })
     }
 
     //Abre o cierra el respuesta
@@ -493,7 +489,10 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Abre o cierrra pagar
     const changeMenuPayment = (payload: boolean, turn: ITurno ) => {
-        setTurn(turn)
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: turn
+        })
         dispatch({
             type: actions.CHANGE_MENU_PAYMENT,
             payload: payload
@@ -589,7 +588,7 @@ export default function GlobalState(props: IPropsChildren) {
         return turnos.map((t) => {
             usuarios.forEach(c => {
                 if(c.id === t.profesional) t.professinalName = c.first_name + " " +  c.last_name
-                if(c.id === t.usuario) t.userFullname = c.first_name + " " +  c.last_name
+                if(c.id === t.cliente) t.userFullname = c.first_name + " " +  c.last_name
             });
             t.servicio = t.servicio.replace(" - $10000", " ")
             return t
@@ -613,6 +612,34 @@ export default function GlobalState(props: IPropsChildren) {
             return [];
         }
     };
+
+    const changeMenuRol = (payload: boolean, user: number | null) => {
+        dispatch({
+            type: actions.USER_ROL_ID,
+            payload: user
+        })
+        dispatch({
+            type: actions.CHANGE_MENU_ROLE,
+            payload: payload
+        })
+    }
+
+    const changeUserRol = async (user: number, rol: number): Promise<boolean> => {
+        try {
+            if(use_mock === "1") return true
+            else{
+                const data = {
+                    rol: rol
+                }
+                const token = localStorage.getItem('jwToken');
+                await axios.patch(server_url+"/usuarios/"+user+"/rol/", data, { headers: { Authorization: "Token " + token } } )
+                return true
+            }
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }   
      
     //Estado Inicial
     const initialState: IGlobalContext = {
@@ -622,7 +649,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRegister: false,
         isLog: false,
         idConsult: "",
-        turnToPay: {servicio: "", fecha: "", hora: "", usuario: 0, pagado: false, monto: 0},
+        turnToPay: {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0},
         MConsult: false,
         MReview: false,
         MResponse: false,
@@ -634,13 +661,17 @@ export default function GlobalState(props: IPropsChildren) {
         pagosInforme: [],
         clientes: [],
         allUsers: [],
+        MRol: false,
+        userToChange: null,
         getTurnosComplete,
+        setTurn,
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
         changeMenuReview,
         changeMenuResponse,
         changeMenuPayment,
+        changeMenuRol,
         getUserInfo,
         login,
         logout,
@@ -651,17 +682,18 @@ export default function GlobalState(props: IPropsChildren) {
         getConsult,
         respondConsult,
         makeReview,
+        emptyTurnToPay,
         getReviews,
         getTurnos,
         makeTurno,
         getIdConsult,
         makePayment,
-        setTurn,
         getPagos,
         getClientes,
         completePagos,
         completeServicesProfessional,
-        getServicesByProfessional
+        getServicesByProfessional,
+        changeUserRol
     };
 
     //uso del Reducer
