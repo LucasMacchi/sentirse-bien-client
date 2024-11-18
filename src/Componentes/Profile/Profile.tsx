@@ -5,6 +5,7 @@ import { Header } from "../Header/Header";
 import { GlobalContext } from "../../Context/GlobalState";
 import "./Profile.css";
 import MenuLateral from "../MenuLateral/MenuLateral";
+import { ITurno } from "../../Interfaces/Interfaces";
 
 export function Profile() {
   const global = useContext(GlobalContext);
@@ -21,13 +22,26 @@ export function Profile() {
       navigate("/");
     } else {
       global?.session();
-      global?.getTurnosComplete(global.user.id);
-      if (global?.isLog && global.user.rol > 0) {
-        global?.getPagos();
-        global.getClientes();
-      }
+      global?.getTurnosComplete();
+      global?.getConsult()
     }
   }, []);
+
+  useEffect(() => {
+    if (global?.isLog && global.user.rol > 0) {
+      global?.getPagos();
+      global.getClientes();
+    }
+  },[global?.user.rol])
+
+  const payTurn = (id: number | undefined) => {
+    if(id) {
+      const monto = 20000
+      const turn: ITurno = {id: id, servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: monto}
+      global?.changeMenuPayment(true, turn)
+    }
+
+  }
 
   if (global?.user.rol !== 0) {
     return (
@@ -164,7 +178,7 @@ export function Profile() {
                       {!t.pagado && (
                         <button
                           className="respond-button"
-                          onClick={() => global.changeMenuPayment(true, t)}
+                          onClick={() => payTurn(t.id)}
                         >
                           Pagar
                         </button>

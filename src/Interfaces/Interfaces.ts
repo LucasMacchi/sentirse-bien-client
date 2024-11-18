@@ -33,7 +33,7 @@ export interface IPago {
     usuario?: number,
     turno?:number,
     monto: number,
-    fecha?: string,
+    fecha_pago?: string,
     tipo: number, // 0 efectivo, 1 debito 2 credito
     nroPago?: string
 };
@@ -147,7 +147,7 @@ export interface IGlobalContext {
     changeMenuRegister: (payload: boolean) => void,
     changeMenuConsult: (payload: boolean) => void,
     changeMenuReview: (payload: boolean) => void,
-    changeMenuRol: (payload: boolean, user: number) => void,
+    changeMenuRol: (payload: boolean, user: number | null) => void,
     changeMenuResponse: (payload: boolean, consult_id: string) => void,
     changeMenuPayment: (payload: boolean, turn: ITurno) => void,
     getUserInfo: () => void,
@@ -162,16 +162,17 @@ export interface IGlobalContext {
     getReviews: () => void,
     respondConsult: (response: string, consult_id: string) => void,
     getTurnos: () => Promise<void>,
-    getTurnosComplete: (id: number) => Promise<void>,
-    makeTurno: (turno: ITurno, pagado: boolean) => Promise<ITurno>,
+    getTurnosComplete: () => Promise<void>,
+    makeTurno: (turno: ITurno) => Promise<ITurno>,
     alertStatus: (status: boolean, type: "success" | "info" | "warning" | "error", msg: string) => void,
     getIdConsult: (id: string) => void,
     makePayment: (pago: IPago) => Promise<boolean>,
-    setTurn: (turn: ITurno) => void,
     getClientes: () => void,
     getPagos: () => void,
     completePagos: (clientes: IUser[], pagos: IPagoComplete[]) => IPagoComplete[]
     completeServicesProfessional: (usuarios: IUser[], turnos: ITurno[]) => IProfessionals[]
     getServicesByProfessional: (startDate: string, endDate: string) => Promise<IProfessionals[]>;
-    
+    emptyTurnToPay: () => void,
+    setTurn: (id: number, price: number) => void
+
 }

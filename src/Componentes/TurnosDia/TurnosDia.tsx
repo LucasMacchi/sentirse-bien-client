@@ -8,6 +8,7 @@ import "./TurnosDia.css";
 
 export default function TurnosDia(){
     const [turnos, setTurnos] = useState<IProfessionals[]>([]);
+    const [loadedTurnos, setLoaded] = useState<IProfessionals[]>([]);
     const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0]);
     const [filtroProfesional, setFiltroProfesional] = useState("");
     const global = useContext(GlobalContext);
@@ -16,28 +17,45 @@ export default function TurnosDia(){
     useEffect(() => {
         const token = localStorage.getItem('jwToken');
         if(!token) navigate("/");
-        cargarTurnos();
+        const load = global?.completeServicesProfessional(global.allUsers, global.turnos);
+        setLoaded(load ? load : [])
+        const turnosFiltered = cargarTurnos()
+        turnosFiltered?.sort(compareHours)
+        setTurnos(turnosFiltered ? turnosFiltered : turnos)
+    },[])
+
+    useEffect(() => {
+        const turnosFiltered = cargarTurnos()
+        turnosFiltered?.sort(compareHours)
+        setTurnos(turnosFiltered ? turnosFiltered : turnos)
+
     }, [fecha, filtroProfesional]);
 
-    const cargarTurnos = async () => {
-        if (!global) return;
-
-        try {
-            const turnosDelDia = global.completeServicesProfessional(global.allUsers, global.turnos);
-            
-            const turnosFiltrados = turnosDelDia.filter(turno => 
-                turno.fecha === fecha &&
-                (!filtroProfesional || turno.professinalName?.toLowerCase().includes(filtroProfesional.toLowerCase()))
-            );
-            
-            setTurnos(turnosFiltrados.sort(compareHours));
-        } catch (error) {
-            console.error("Error al cargar turnos:", error);
+    const cargarTurnos = (): IProfessionals[] | undefined => {
+        const turnosDelDia = loadedTurnos
+        if(turnosDelDia){
+            if(fecha || filtroProfesional){
+                const filtered = turnosDelDia.filter((t) => {
+                    if(t.fecha == fecha){
+                        if(filtroProfesional) {
+                            if(t.professinalName?.toLocaleLowerCase().includes(filtroProfesional.toLocaleLowerCase()) ) {
+                                console.log("aca ",t.professinalName)
+                                return t
+                            }
+                        }
+                        else return t
+                    }
+                })
+                return filtered
+            }
+            else return turnosDelDia
         }
     };
 
     const compareHours = (a: IProfessionals, b: IProfessionals): number => {
-        return parseInt(a.hora) - parseInt(b.hora);
+        if(parseInt(a.hora) < parseInt(b.hora)) return -1
+        if(parseInt(a.hora) > parseInt(b.hora)) return 1
+        return 0
     };
 
     return (

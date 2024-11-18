@@ -64,7 +64,7 @@ const Turnos: React.FC = () => {
     }, []);
 
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
         const turno: ITurno = {
             servicio: selectedServices[0] + ", " + selectedServices[1],
@@ -73,7 +73,17 @@ const Turnos: React.FC = () => {
             pagado: false,
             monto: selectedServices.length === 1 ? 10000 : 20000
         }
-        global?.changeMenuPayment(true, turno)
+        const turn = await global?.makeTurno(turno)
+        console.log(turn)
+        if(turn){
+            global?.alertStatus(true, "success", "Gracias por sacar su turno!")
+            setTimeout(() => {
+                global?.changeMenuPayment(true, {...turn, monto: turno.monto})
+            }, 1500);
+        }
+        else{
+            global?.alertStatus(true, "error", "Error al crear turno")
+        }
     };
 
     const handleDateChange = (

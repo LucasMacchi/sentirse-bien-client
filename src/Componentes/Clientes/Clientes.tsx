@@ -136,7 +136,7 @@ export default function Clientes() {
                                     <td>{user.telefono}</td>
                                     <td>{getRolString(user.rol)}</td>
                                     <td>
-                                        <button className="asignar-rol-btn">
+                                        <button className="asignar-rol-btn" onClick={() => global?.changeMenuRol(true, user.id)}>
                                             Asignar Rol
                                         </button>
                                     </td>

@@ -307,6 +307,12 @@ export default function GlobalState(props: IPropsChildren) {
             console.log("Error: ", error)
         }
     }
+    const setTurn = (id: number, price: number) => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {id: id, servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: price}
+        })
+    }
     //Responde consultas
     const respondConsult = async (response: string, consult_id: string) => {
         try {
@@ -333,14 +339,6 @@ export default function GlobalState(props: IPropsChildren) {
         })
     }
 
-    const setTurn = (turn: ITurno) => {
-        dispatch({
-            type: actions.SET_TURN_TOPAY,
-            payload: turn
-        })
-    }
-
-
     const changeMenuReview = (payload: boolean) => {
         dispatch({
             type: actions.CHANGE_MENU_REVIEW,
@@ -351,7 +349,7 @@ export default function GlobalState(props: IPropsChildren) {
     const makeReview = async (comment: string, rating: number, name: string): Promise<boolean> => {
         try {
             const review = {
-                nombre: name,
+                nombre: name ? name : "Anonimo",
                 descripcion: comment,
                 puntaje: rating
             }
@@ -420,7 +418,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const getTurnosComplete = async (id: number): Promise<void> => {
+    const getTurnosComplete = async (): Promise<void> => {
         console.log("Complete Turns requested...")
         try {
             if (use_mock === "1") {
@@ -439,22 +437,13 @@ export default function GlobalState(props: IPropsChildren) {
                 const token = localStorage.getItem('jwToken')
                 const turns: ITurno[] = await (await axios.get(server_url + "/turnos/obtener_turnos/", { headers: { Authorization: "Token " + token } })).data
                 console.log("Turnos del usuario = ",turns)
-                if(state.user.rol === 0){
-                    const array = turns.filter(t => t.cliente === id)
-                    array.forEach(t => {
-                        t.servicio.replace("$10000", "")
-                    });
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: array
-                    })
-                }
-                else{
-                    dispatch({
-                        type: actions.GET_TURNS_FULL,
-                        payload: turns
-                    }) 
-                }
+                turns.forEach(t => {
+                    t.servicio.replace("$10000", "")
+                });
+                dispatch({
+                    type: actions.GET_TURNS_FULL,
+                    payload: turns
+                })
             }
 
         } catch (error) {
@@ -462,29 +451,32 @@ export default function GlobalState(props: IPropsChildren) {
         }
     }
 
-    const makeTurno = async (turno: ITurno, pagado: boolean): Promise<ITurno> => {
+    const makeTurno = async (turno: ITurno): Promise<ITurno> => {
         try {
-            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
+            if (use_mock === "1") return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 555555}
             else {
                 const data: ITurno = {
                     fecha: turno.fecha,
                     hora: turno.hora,
                     servicio: turno.servicio,
-                    pagado: pagado,
+                    pagado: false,
                     monto: turno.monto
                     }
                 const token = localStorage.getItem('jwToken')
                 const turno_id: Promise<ITurno> = await (await axios.post(server_url + "/turnos/elegir_turno/", data, { headers: { Authorization: "Token " + token } })).data
-                dispatch({
-                    type: actions.SET_TURN_TOPAY,
-                    payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
-                })
                 return turno_id
             }
         } catch (error) {
             console.log(error)
             return {servicio: "", fecha: "", hora: "", cliente: 0, pagado: false, monto: 0}
         }
+    }
+
+    const emptyTurnToPay = () => {
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: {servicio: "", fecha: "", hora: "", usuario: "", pagado: false, price: 0}
+        })
     }
 
     //Abre o cierra el respuesta
@@ -497,7 +489,10 @@ export default function GlobalState(props: IPropsChildren) {
     }
     //Abre o cierrra pagar
     const changeMenuPayment = (payload: boolean, turn: ITurno ) => {
-        setTurn(turn)
+        dispatch({
+            type: actions.SET_TURN_TOPAY,
+            payload: turn
+        })
         dispatch({
             type: actions.CHANGE_MENU_PAYMENT,
             payload: payload
@@ -618,7 +613,7 @@ export default function GlobalState(props: IPropsChildren) {
         }
     };
 
-    const changeMenuRol = (payload: boolean, user: number) => {
+    const changeMenuRol = (payload: boolean, user: number | null) => {
         dispatch({
             type: actions.USER_ROL_ID,
             payload: user
@@ -669,6 +664,7 @@ export default function GlobalState(props: IPropsChildren) {
         MRol: false,
         userToChange: null,
         getTurnosComplete,
+        setTurn,
         changeMenuLogin,
         changeMenuRegister,
         changeMenuConsult,
@@ -686,12 +682,12 @@ export default function GlobalState(props: IPropsChildren) {
         getConsult,
         respondConsult,
         makeReview,
+        emptyTurnToPay,
         getReviews,
         getTurnos,
         makeTurno,
         getIdConsult,
         makePayment,
-        setTurn,
         getPagos,
         getClientes,
         completePagos,

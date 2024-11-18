@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalState";
 import avatar from "../../assets/avatar.svg";
+import AppMovil from "../AppMovil/AppMovil";
 
 export function Header() {
   const global = useContext(GlobalContext);
@@ -69,8 +70,10 @@ function ShowMenu(){
     }
   }
 }
-/*if(global?.isLog){
-  if(global?.user.rol != 3){
+
+
+if(global?.isLog){
+  if(global?.user.rol == 0){
     return (
     <>
       <header>
@@ -83,26 +86,16 @@ function ShowMenu(){
             </Link>
           </div>
           <div className="navbar-right">
-            <Link to="/about" className="navbar-links">
-              Quienes Somos
-            </Link>
-            <Link to="/contact" className="navbar-links">
-              Contacto
-            </Link>
-            <Link to="/services" className="navbar-links">
-              Servicios
-            </Link>
-            <Link to="/empleo" className="navbar-links">
-              Empleo
-            </Link>
             {changeMenuLogin()}
+  
           </div>
         </nav>
       </header>
+      <AppMovil></AppMovil>
       </>
     )
 
-  } else {*/
+  } else {
     return(
       <>
       <header>
@@ -115,12 +108,15 @@ function ShowMenu(){
             </Link>
           </div>
             {changeMenuLogin()}
+            <a href="/ruta/a/tu/apk.apk" className="navbar-links" download>
+              Descargar APK
+            </a>
         </nav>
       </header>
       </>
     )
   }
-/*} else {
+} else {
   return (
     <>
      <header>
@@ -132,24 +128,9 @@ function ShowMenu(){
               Sentirse Bien
             </Link>
           </div>
-          <div className="navbar-right">
-            <Link to="/about" className="navbar-links">
-              Quienes Somos
-            </Link>
-            <Link to="/contact" className="navbar-links">
-              Contacto
-            </Link>
-            <Link to="/services" className="navbar-links">
-              Servicios
-            </Link>
-            <Link to="/empleo" className="navbar-links">
-              Empleo
-            </Link>
-            {changeMenuLogin()}
-          </div>
         </nav>
       </header>
     </>
   )
-}*/
-
+}
+}
