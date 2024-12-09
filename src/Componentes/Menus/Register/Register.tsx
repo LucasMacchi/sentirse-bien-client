@@ -3,8 +3,6 @@ import { GlobalContext } from '../../../Context/GlobalState';
 import logo from "../../../assets/logo.png";
 import './Register.css';
 
-const cod_reg = import.meta.env.VITE_REGISTRO
-
 export default function Register() {
     const global = useContext(GlobalContext);
 
@@ -17,7 +15,6 @@ export default function Register() {
         username: "",
         telefono: "",
     });
-    const [registerCode, setCode] = useState("");
     const [btn, setBtn] = useState(false);
     const [password_err_con, setPasswordError] = useState({
         status: false,
@@ -32,14 +29,9 @@ export default function Register() {
             setPasswordError({ status: false, error: "" });
             setBtn(false);
         }
-        if (registerCode !== cod_reg) {
-            setBtn(true);
-        } else {
-            setBtn(false);
-        }
     };
 
-    useEffect(errorCheck, [userToRegister.password, userToRegister.password_con, registerCode]);
+    useEffect(errorCheck, [userToRegister.password, userToRegister.password_con]);
 
     const closeBtn = () => {
         global?.changeMenuRegister(!global.MRegister);
@@ -130,15 +122,6 @@ export default function Register() {
                             required 
                         />
                         {password_err_con.status && <p className="register-error">{password_err_con.error}</p>}
-                    </div>
-                    <div className="register-input-group">
-                        <input 
-                            type="text" 
-                            placeholder="Código de Registro"
-                            value={registerCode} 
-                            onChange={(e) => setCode(e.target.value)} 
-                            required 
-                        />
                     </div>
                     <div className="register-checkbox">
                         <input 
