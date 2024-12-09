@@ -1,10 +1,13 @@
 # ¿Que es este proyecto?
 
---Descripcion--.
-Galo
+Este proyecto tiene como objetivo crear una aplicacion web para tanto usuarios como los trabajadores de un SPA ficticio, donde se puedan administrar turnos, pagos, servicios y visualizar los mismos.
 
 ## Caracteristicas del Proyecto
-- Caracteristicas
+- Login
+- Crear, Pagar y Eliminar turnos
+- Crear y Responder Consultas
+- Crear Reseñas
+- Visualizar por rangos de fechas los turnos filtrado por tipo de servicios y fechas.
 
 ## ¿Que Tecnologias usa?
 
